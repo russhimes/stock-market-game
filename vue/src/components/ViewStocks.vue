@@ -1,6 +1,6 @@
 <template>
   <h2>View our Stock List</h2>
-<!--  Displaying stock ticker, name, price
+<!--  Displaying stock ticker, name, price (maybe day change?)
   <ul>
     <li v-for="stock in stockList"> 
         {{stock.ticker}}

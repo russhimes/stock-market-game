@@ -2,6 +2,8 @@ BEGIN TRANSACTION;
 
 DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS seq_user_id;
+DROP TABLE IF EXISTS games;
+DROP TABLE IF EXISTS game_players;
 
 CREATE SEQUENCE seq_user_id
   INCREMENT BY 1
@@ -21,5 +23,24 @@ CREATE TABLE users (
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 
+CREATE TABLE games (
+        id serial PRIMARY KEY,
+        name varchar(50) NOT NULL,
+        organizer_id int NOT NULL,
+        end_date date NOT NULL,
+        end_time time NOT NULL,
+        
+        CONSTRAINT FK_games_users FOREIGN KEY(organizer_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE game_players (
+        id serial PRIMARY KEY,
+        user_id int NOT NULL,
+        game_id int NOT NULL,
+        available_funds decimal(15, 2) NOT NULL,
+        
+        CONSTRAINT FK_game_players_users FOREIGN KEY(user_id) REFERENCES users(user_id),
+        CONSTRAINT FK_game_players_games FOREIGN KEY(game_id) REFERENCES games(id)
+);
 
 COMMIT TRANSACTION;

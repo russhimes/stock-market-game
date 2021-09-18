@@ -1,8 +1,8 @@
 <template>
   <h2>Leader Board!</h2>
 
-  <!-- <div class='playerCard' v-for='player in playerList' v-bind:key='player.id'>
-    {{ player }}
+  <!-- <div class='playerCard' v-for='player in playerList'>
+    {{ player.name }}
   </div> -->
 
 </template>

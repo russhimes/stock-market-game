@@ -54,7 +54,7 @@ public class JdbcPlayerDao implements PlayerDao {
     public Player getPlayerById(int id) {
         String sql = "SELECT id, user_id, game_id, available_funds " +
                 "FROM game_players " +
-                "WHERE player_id = ?";
+                "WHERE user_id = ?";
 
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, id);
         Player player = null;
@@ -68,7 +68,7 @@ public class JdbcPlayerDao implements PlayerDao {
 
     @Override
     public void createPlayer(Player player) {
-        String sql = "INSERT INTO players (user_id, game_id, available_funds) " +
+        String sql = "INSERT INTO game_players (user_id, game_id, available_funds) " +
                 "VALUES (?, ?, ?)";
 
         jdbcTemplate.update(sql, player.getUser_id(), player.getGame_id(), player.getAvailableFunds());
@@ -76,7 +76,7 @@ public class JdbcPlayerDao implements PlayerDao {
 
     @Override
     public void updatePlayer(Player player) {
-        String sql = "UPDATE players " +
+        String sql = "UPDATE game_players " +
                 "SET available_funds = ? " +
                 "WHERE id = ?";
 
@@ -86,7 +86,7 @@ public class JdbcPlayerDao implements PlayerDao {
 
     @Override
     public void deletePlayer(int id) {
-        String sql = "DELETE FROM players " +
+        String sql = "DELETE FROM game_players " +
                 "WHERE id = ?";
 
         jdbcTemplate.update(sql, id);

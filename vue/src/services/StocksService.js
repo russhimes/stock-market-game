@@ -5,7 +5,7 @@ export default {
     getAllStocks(){
         return axios.get()
     },
-    get(abbreviation) {
+    get(ticker) {
         return axios.get();
       }
     }

@@ -1,7 +1,9 @@
 <template>
   <div class="home">
-    <h1>Home</h1>
-    <p>You must be authenticated to see this</p>
+    <p v-if="!$store.state.user.username">You must be authenticated to see this</p>
+    <div v-else>
+      
+    </div>
   </div>
 </template>
 

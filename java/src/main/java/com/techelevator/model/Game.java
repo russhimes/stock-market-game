@@ -1,6 +1,7 @@
 package com.techelevator.model;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Time;
 
 public class Game {
 
@@ -8,9 +9,9 @@ public class Game {
     private String name;
     private int organizer_id;
     private Date end_date;
-    private Date end_time;
+    private Time end_time;
 
-    public Game(int id, String name, int organizer_id, Date end_date, Date end_time) {
+    public Game(int id, String name, int organizer_id, Date end_date, Time end_time) {
         this.id = id;
         this.name = name;
         this.organizer_id = organizer_id;
@@ -50,11 +51,11 @@ public class Game {
         this.end_date = end_date;
     }
 
-    public Date getEnd_time() {
+    public Time getEnd_time() {
         return end_time;
     }
 
-    public void setEnd_time(Date end_time) {
+    public void setEnd_time(Time end_time) {
         this.end_time = end_time;
     }
 }

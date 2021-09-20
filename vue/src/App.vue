@@ -15,5 +15,5 @@ export default {
 </script>
 
 <style>
-
+* {font-family: sans-serif}
 </style>

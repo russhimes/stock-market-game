@@ -10,18 +10,47 @@
       <!--Pending Games-->
       <h2>Rejected Games</h2>
       <!--RejectedGames-->
+      <h2>Create Game</h2>
+      <form id="createGame" @submit.prevent="createGame">
+        <p>Name: </p>
+        <input type="text" id="gameName" v-model="game.name"/>
+        <p>Date: </p>
+        <input type="date" id="endDate" v-model="game.end_date"/>
+        <p>Time: </p>
+        <input type="time" id="endTime" v-model="game.end_time"/>
+        <button type="submit"></button>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
 import GameCard from '../components/GameCard.vue';
+import playerGamesService from '../services/PlayerGamesService.js'
 export default {
   components: { GameCard },
   name: "home",
   created() {
     if (!this.$store.state.loaded) {
       this.$store.commit("GET_GAMES", 0);
+    }
+  },
+  data() {
+    return {
+      game: {
+        organizer_id: "1",
+        name: "",
+        end_date: '',
+        end_time: ''
+      }
+    }
+  },
+  methods: {
+    createGame() {
+      console.log(this.game.end_date);
+      console.log(this.game.end_time);
+      playerGamesService.createGame(this.game);
+      playerGamesService.getGames(0);
     }
   }
 };

@@ -6,9 +6,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 
 @Component
@@ -88,8 +88,8 @@ public class JdbcGameDao implements GameDao {
         int id = result.getInt("id");
         String name = result.getString("name");
         int organizer_id = result.getInt("organizer_id");
-        Date end_date = result.getDate("end_date");
-        Time end_time = result.getTime("end_time");
+        LocalDate end_date = result.getDate("end_date").toLocalDate();
+        LocalTime end_time = result.getTime("end_time").toLocalTime();
 
         Game game = new Game(id, name, organizer_id, end_date, end_time);
         return game;

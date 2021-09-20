@@ -61,10 +61,16 @@ export default {
 </script>
 
 <style scoped>
+h2 {
+  font-size: 3rem;
+}
+
 #createGame {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 1px black solid;
+  border-radius: 6px;
 }
 #createGame > * {
   display: flex;

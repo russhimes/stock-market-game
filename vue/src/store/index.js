@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import playerGamesService from '../services/PlayerGamesService.js'
 
 Vue.use(Vuex)
 
@@ -19,7 +20,9 @@ if(currentToken != null) {
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {}
+    user: currentUser || {},
+    games: [],
+    loaded: false
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -37,6 +40,15 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+    },
+    GET_GAMES(state, userId) {
+      playerGamesService.getGames(userId).then((response) => {
+        console.log(response);
+        for (let i = 0; i < response.data.length; i++) {
+          state.games.push(response.data[i]);
+        }
+        state.loaded = true;
+      });
     }
   }
 })

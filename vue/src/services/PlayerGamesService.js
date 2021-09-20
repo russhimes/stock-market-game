@@ -2,6 +2,6 @@ import axios from 'axios';
 
 export default {
     getGames(userId) {
-        return('/games', userId);
+        return axios.get('/games', userId);
     }
 }

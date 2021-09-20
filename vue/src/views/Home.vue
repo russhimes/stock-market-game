@@ -18,7 +18,7 @@
         <input type="date" id="endDate" v-model="game.end_date"/>
         <p>Time: </p>
         <input type="time" id="endTime" v-model="game.end_time"/>
-        <button type="submit"></button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   </div>

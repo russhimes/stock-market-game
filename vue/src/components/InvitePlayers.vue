@@ -2,6 +2,7 @@
   <div>
     <h1>Invite Users</h1>
     <div class="invited">
+      <h2>Invited</h2>
       <ul>
         <li v-for="user in invitedUsers" v-bind:key="user.id"> {{ user }}</li>
       </ul>

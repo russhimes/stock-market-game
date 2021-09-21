@@ -7,11 +7,11 @@
           <input type="text" id="gameName" v-model="game.name"/>
         </div>
         <div>
-        <p>   Date: </p>
+        <p>   End Date: </p>
         <input type="date" id="endDate" v-model="game.end_date"/>
         </div>
         <div>
-        <p>   Time: </p>
+        <p>   End Time: </p>
         <input type="time" id="endTime" v-model="game.end_time"/>
         </div>
         <button type="submit">Submit</button>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import playerGamesService from '../services/PlayerGamesService.js'
+import gamesService from '../services/GamesService.js'
 export default {
 data() {
     return {
@@ -34,13 +34,13 @@ data() {
   },
   methods: {
     createGame() {
-      playerGamesService.createGame(this.game)
+      gamesService.createGame(this.game)
       .then(response => {
         let gameId = response.data;
         this.$router.push({ name: 'add-players', params: { id: gameId } })
       })
       // Figure out what this does
-      playerGamesService.getGames(0);
+      gamesService.getGames(0);
     }
   }
 }

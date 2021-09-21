@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import playerGamesService from '../services/PlayerGamesService.js'
+import gamesService from '../services/GamesService.js'
 
 Vue.use(Vuex)
 
@@ -42,8 +42,7 @@ export default new Vuex.Store({
       axios.defaults.headers.common = {};
     },
     GET_GAMES(state, userId) {
-      playerGamesService.getGames(userId).then((response) => {
-        console.log(response);
+      gamesService.getAllGames(userId).then((response) => {
         for (let i = 0; i < response.data.length; i++) {
           state.games.push(response.data[i]);
         }

@@ -2,7 +2,7 @@
   <div class="home">
     <p v-if="!$store.state.user.username">You must be authenticated to see this</p>
     <div v-else>
-      <router-link id="createGame" tag="button" to="/CreateGame">Create Game!</router-link>
+      <router-link id="createGame" tag="button" v-bind:to="{name: 'new-game'}">Create Game!</router-link>
       <h2>Active Games</h2>
       <!--Discuss during team stand-up, we need to be able to get games by user,
       and we need to be able to assign games a "pending/accepted/rejected status" -->

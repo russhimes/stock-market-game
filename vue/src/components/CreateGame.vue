@@ -34,7 +34,12 @@ data() {
   },
   methods: {
     createGame() {
-      playerGamesService.createGame(this.game);
+      playerGamesService.createGame(this.game)
+      .then(response => {
+        let gameId = response.data;
+        this.$router.push({ name: 'add-players', params: { id: gameId } })
+      })
+      // Figure out what this does
       playerGamesService.getGames(0);
     }
   }

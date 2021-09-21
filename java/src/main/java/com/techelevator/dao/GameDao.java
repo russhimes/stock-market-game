@@ -12,7 +12,7 @@ public interface GameDao {
 
     Game getGameById(int id);
 
-    void createGame(Game game);
+    int createGame(Game game);
 
     void deleteGame(int id);
 

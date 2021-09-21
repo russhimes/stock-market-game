@@ -69,11 +69,13 @@ public class JdbcGameDao implements GameDao {
     }
 
     @Override
-    public void createGame(Game game) {
+    public int createGame(Game game) {
         String sql = "INSERT INTO games (name, organizer_id, end_date, end_time) " +
-                "VALUES (?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?) " +
+                "RETURNING id";
 
-        jdbcTemplate.update(sql, game.getName(), game.getOrganizer_id(), game.getEnd_date(), game.getEnd_time());
+        int id = jdbcTemplate.queryForObject(sql, Integer.class, game.getName(), game.getOrganizer_id(), game.getEnd_date(), game.getEnd_time());
+        return id;
     }
 
     @Override

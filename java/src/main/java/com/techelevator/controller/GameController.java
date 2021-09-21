@@ -26,7 +26,7 @@ public class GameController {
     public Game getGameById(@PathVariable int id) { return gameDao.getGameById(id); }
 
     @RequestMapping(path="/games", method = RequestMethod.POST)
-    public void createGame(@RequestBody Game game) { gameDao.createGame(game); }
+    public int createGame(@RequestBody Game game) { return gameDao.createGame(game); }
 
     @RequestMapping(path="/games/{id}", method = RequestMethod.DELETE)
     public void deleteGame(@PathVariable int id) { gameDao.deleteGame(id); }

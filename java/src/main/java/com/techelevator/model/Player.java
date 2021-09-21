@@ -6,15 +6,26 @@ public class Player {
     private int id;
     private int user_id;
     private int game_id;
-    private BigDecimal availableFunds;
-    private String gameStatus;
+    private BigDecimal available_funds;
+    private String game_status;
 
-    public Player(int id, int user_id, int game_id, String gameStatus) {
+    public Player() {
+        this.available_funds = new BigDecimal("100000.00");
+    }
+
+    public Player(int user_id, int game_id, String game_status) {
+        this.user_id = user_id;
+        this.game_id = game_id;
+        this.available_funds = new BigDecimal(100000);
+        this.game_status = game_status;
+    }
+
+    public Player(int id, int user_id, int game_id, String game_status) {
         this.id = id;
         this.user_id = user_id;
         this.game_id = game_id;
-        this.gameStatus = gameStatus;
-        this.availableFunds = new BigDecimal(100000);
+        this.game_status = game_status;
+        this.available_funds = new BigDecimal(100000);
     }
 
     public int getId() {
@@ -42,18 +53,18 @@ public class Player {
     }
 
     public String getGameStatus() {
-        return gameStatus;
+        return this.game_status;
     }
 
-    public void setGameStatus(String gameStatus) {
-        this.gameStatus = gameStatus;
+    public void setGame_status(String game_status) {
+        this.game_status = game_status;
     }
 
     public BigDecimal getAvailableFunds() {
-        return availableFunds;
+        return available_funds;
     }
 
-    public void setAvailableFunds(BigDecimal availableFunds) {
-        this.availableFunds = availableFunds;
+    public void setAvailable_funds(BigDecimal availableFunds) {
+        this.available_funds = availableFunds;
     }
 }

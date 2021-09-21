@@ -6,15 +6,16 @@
 </template>
 
 <script>
-import playerService from '..services/PlayerService.js';
+import playerService from '../services/PlayerService.js';
 export default {
   data(){
     return {
-      balance
+      balance: 0,
+      id: -1
     }
   },
   created(){
-    playerService.getBalance(id).then(
+    playerService.getBalance(this.id).then(
       (response) => {
         this.balance = response.data;
       }

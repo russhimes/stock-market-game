@@ -13,7 +13,7 @@ import LeaderBoard from '../views/Leader'
 import PortfolioBalance from '../views/Balance'
 // does header need a corresponding view? 
 import TheHeader from './TheHeader.vue'
-import PortfolioHoldings from '../views/Portfolio'
+import Portfolio from '../views/Portfolio'
 import PortfolioHoldings from './PortfolioHoldings.vue'
 
 export default {

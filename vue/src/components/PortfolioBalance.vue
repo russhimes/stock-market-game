@@ -6,11 +6,7 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import playerService from '../services/PlayerService.js';
-=======
-//import playerService from '..services/PlayerService.js';
->>>>>>> ac89d665bd6381daa94c89d64816029616a04568
 export default {
   data(){
     return {

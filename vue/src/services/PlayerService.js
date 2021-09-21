@@ -5,12 +5,8 @@ export default {
     getAllPlayers(){
         return axios.get()
     },
-<<<<<<< HEAD
     get(id) {
       console.log(id);
-=======
-    /*get(id) {
->>>>>>> ac89d665bd6381daa94c89d64816029616a04568
         return axios.get();
       },
 
@@ -32,6 +28,6 @@ export default {
       delete(id) {
         console.log(id);
         return axios.delete();
-      }*/
+      }
     }
     

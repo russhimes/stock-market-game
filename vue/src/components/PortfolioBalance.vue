@@ -1,20 +1,23 @@
 <template>
-  <h2>Your Current Balance is</h2>
+<div class = "balance">
+  <h3 class = "balanceHeader">Your Current Balance is</h3>
+  <p>This is where we will display balance</p>
   <!-- <h4 this.balance></h4> -->
 
-
+</div>
 </template>
 
 <script>
-import playerService from '..services/PlayerService.js';
+import playerService from '../services/PlayerService.js';
 export default {
   data(){
     return {
-      balance
+      balance: 0,
+      id: -1
     }
   },
   created(){
-    playerService.getBalance(id).then(
+    playerService.getBalance(this.id).then(
       (response) => {
         this.balance = response.data;
       }
@@ -28,5 +31,11 @@ export default {
 </script>
 
 <style>
+.balanceHeader{
+  color: pink;
+}
+.balance{
+  border-style: solid;
+}
 
 </style>

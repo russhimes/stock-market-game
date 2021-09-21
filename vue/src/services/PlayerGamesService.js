@@ -1,10 +1,22 @@
 import axios from 'axios';
 
 export default {
-    getGames(userId) {
-        return axios.get('/games', userId);
+    getAllGames() {
+        return axios.get('/games');
+    },
+    getGamesByOrganizerId(organizerId){
+        return axios.get('/games/organizer/' + organizerId);
+    },
+    getGameByUserId(userId){
+        return axios.get('games/player/' + userId);
+    },
+    getGameById(id){
+        return axios.get('/games/' + id);
     },
     createGame(game) {
         return axios.post('/games', game);
+    },
+    deleteGame(id){
+        return axios.delete('/games/' + id);
     }
 }

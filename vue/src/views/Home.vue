@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style scoped>
-#create-game {
+button {
   background-color: rgb(47, 107, 50);
   color: white;
   font-size: 3rem;

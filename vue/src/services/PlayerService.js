@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 // need path names  
+// using console.log as placeholder to avoid compiler errors
 export default {
     getAllPlayers(){
         return axios.get('/players');

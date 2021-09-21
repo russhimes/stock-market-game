@@ -10,7 +10,7 @@ public interface GameDao {
 
     List<Game> getGamesByOrganizerId(int organizer_id);
 
-    List<Game> getGameByUserId(int user_id);
+    List<Game> getGamesByUserId(int user_id);
 
     Game getGameById(int id);
 

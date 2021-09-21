@@ -3,12 +3,15 @@ package com.techelevator.controller;
 import com.techelevator.dao.GameDao;
 import com.techelevator.model.Game;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 @CrossOrigin
+@PreAuthorize("isAuthenticated()")
 public class GameController {
 
     @Autowired
@@ -23,7 +26,7 @@ public class GameController {
     public List<Game> getGamesByOrganizerId(@PathVariable int organizer_id) { return gameDao.getGamesByOrganizerId(organizer_id); }
 
     @RequestMapping(path="/games/player/{user_id}", method = RequestMethod.GET)
-    public List<Game> getGameByUserId(@PathVariable int user_id) { return gameDao.getGameByUserId(user_id); }
+    public List<Game> getGamesByUserId(@PathVariable int user_id) { return gameDao.getGamesByUserId(user_id); }
 
     @RequestMapping(path="/games/{id}", method = RequestMethod.GET)
     public Game getGameById(@PathVariable int id) { return gameDao.getGameById(id); }

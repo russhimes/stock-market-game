@@ -53,7 +53,7 @@ public class JdbcGameDao implements GameDao {
     }
 
     @Override
-    public List<Game> getGameByUserId(int user_id) {
+    public List<Game> getGamesByUserId(int user_id) {
         String sql = "SELECT games.id, name, organizer_id, end_date, end_time " +
                 "FROM games JOIN game_players ON games.organizer_id = game_players.user_id " +
                 "WHERE game_players.user_id = ?";

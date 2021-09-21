@@ -9,6 +9,7 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import LeaderBoard from '../views/Leader'
 import PortfolioBalance from '../views/Balance'
 import PortfolioHoldings from './PortfolioHoldings.vue'
@@ -18,6 +19,17 @@ import TheHeader from './TheHeader.vue'
 
 export default {
   components: { TheHeader, PortfolioBalance, LeaderBoard, PortfolioHoldings },
+=======
+//import LeaderBoard from '../views/Leader'
+//import PortfolioBalance from '../views/Balance'
+// does header need a corresponding view? 
+//import TheHeader from './TheHeader.vue'
+//import Portfolio from '../views/Portfolio'
+//import PortfolioHoldings from './PortfolioHoldings.vue'
+
+export default {
+  //components: { TheHeader, PortfolioBalance, LeaderBoard, PortfolioHoldings },
+>>>>>>> ac89d665bd6381daa94c89d64816029616a04568
 
 }
 </script>

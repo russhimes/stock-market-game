@@ -17,16 +17,11 @@ public class GameController {
     @Autowired
     private GameDao gameDao;
 
-    @RequestMapping(path="/games", method = RequestMethod.GET)
-    public List<Game> getAllGames() {
-        return gameDao.getAllGames();
-    }
-
     @RequestMapping(path="/games/organizer/{organizer_id}", method = RequestMethod.GET)
     public List<Game> getGamesByOrganizerId(@PathVariable int organizer_id) { return gameDao.getGamesByOrganizerId(organizer_id); }
 
-    @RequestMapping(path="/games/player/{user_id}", method = RequestMethod.GET)
-    public List<Game> getGamesByUserId(@PathVariable int user_id) { return gameDao.getGamesByUserId(user_id); }
+    @RequestMapping(path="/games/player", method = RequestMethod.GET)
+    public List<Game> getGamesByUsername(Principal principal) { return gameDao.getGamesByUsername(principal.getName()); }
 
     @RequestMapping(path="/games/{id}", method = RequestMethod.GET)
     public Game getGameById(@PathVariable int id) { return gameDao.getGameById(id); }

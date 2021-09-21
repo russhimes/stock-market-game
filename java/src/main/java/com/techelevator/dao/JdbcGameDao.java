@@ -6,6 +6,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -18,22 +19,6 @@ public class JdbcGameDao implements GameDao {
 
     public JdbcGameDao(DataSource datasource) {
         this.jdbcTemplate = new JdbcTemplate(datasource);
-    }
-
-
-    @Override
-    public List<Game> getAllGames() {
-        String sql = "SELECT id, name, organizer_id, end_date, end_time " +
-                "FROM games";
-
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-        List<Game> games = new ArrayList<>();
-
-        while(results.next()) {
-            games.add(mapResultToGame(results));
-        }
-
-        return games;
     }
 
     @Override
@@ -53,12 +38,12 @@ public class JdbcGameDao implements GameDao {
     }
 
     @Override
-    public List<Game> getGamesByUserId(int user_id) {
+    public List<Game> getGamesByUsername(String username) {
         String sql = "SELECT games.id, name, organizer_id, end_date, end_time " +
-                "FROM games JOIN game_players ON games.organizer_id = game_players.user_id " +
-                "WHERE game_players.user_id = ?";
+                "FROM games JOIN users ON games.organizer_id = users.user_id " +
+                "WHERE users.username = ?";
 
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user_id);
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
         List<Game> games = new ArrayList<>();
 
         while(results.next()) {

@@ -19,7 +19,7 @@ public class GameController {
         return gameDao.getAllGames();
     }
 
-    @RequestMapping(path="/games/{organizer_id}", method = RequestMethod.GET)
+    @RequestMapping(path="/games/organizer/{organizer_id}", method = RequestMethod.GET)
     public List<Game> getGamesByOrganizerId(@PathVariable int organizer_id) { return gameDao.getGamesByOrganizerId(organizer_id); }
 
     @RequestMapping(path="/games/{id}", method = RequestMethod.GET)

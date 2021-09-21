@@ -5,6 +5,7 @@ import com.techelevator.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -42,6 +43,11 @@ public class PlayerController {
     @RequestMapping(path="/players/{id}", method=RequestMethod.DELETE)
     public void deletePlayer(@PathVariable int id) {
         playerDao.deletePlayer(id);
+    }
+
+    @RequestMapping(path="/game/{game_id}/player", method=RequestMethod.GET)
+    public Player getCurrentPlayerByGame(@PathVariable int game_id, Principal principal) {
+        return playerDao.getCurrentPlayerByGame(game_id, principal.getName());
     }
 
 }

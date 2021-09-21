@@ -18,4 +18,6 @@ public interface PlayerDao {
 
     void deletePlayer(int id);
 
+    Player getCurrentPlayerByGame(int game_id, String username);
+
 }

@@ -6,6 +6,10 @@ export default {
     getAllPlayers(){
         return axios.get('/players');
     },
+
+    getPlayerByGame(game_id) {
+      return axios.get(`/game/${game_id}/player`);
+    },
     // get(id) {
     //     return axios.get();
     //   },

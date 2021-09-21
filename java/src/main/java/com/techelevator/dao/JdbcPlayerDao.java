@@ -92,6 +92,23 @@ public class JdbcPlayerDao implements PlayerDao {
         jdbcTemplate.update(sql, id);
     }
 
+    @Override
+    public Player getCurrentPlayerByGame(int game_id, String username) {
+        String sql = "SELECT * " +
+                "FROM game_players " +
+                "JOIN users ON users.user_id = game_players.user_id " +
+                "WHERE game_id = ? AND users.username = ?";
+
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, game_id, username);
+        Player player = null;
+        if(result.next()) {
+            player = mapResultToPlayer(result);
+        }
+
+        return player;
+    }
+
+
     private Player mapResultToPlayer(SqlRowSet result) {
         int id = result.getInt("id");
         int user_id = result.getInt("user_id");

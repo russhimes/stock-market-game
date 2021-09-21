@@ -1,8 +1,10 @@
 <template>
-  <h2>Your Current Balance is</h2>
+<div class = "balance">
+  <h3 class = "balanceHeader">Your Current Balance is</h3>
+  <p>This is where we will display balance</p>
   <!-- <h4 this.balance></h4> -->
 
-
+</div>
 </template>
 
 <script>
@@ -29,5 +31,11 @@ export default {
 </script>
 
 <style>
+.balanceHeader{
+  color: pink;
+}
+.balance{
+  border-style: solid;
+}
 
 </style>

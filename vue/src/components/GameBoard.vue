@@ -1,7 +1,7 @@
 <template>
   <div id = "main ">
     <the-header></the-header>
-      <h1>Welcome to the Game Board!</h1>
+      <h2 class = "boardTitle">Welcome to the Game Board!</h2>
       <portfolio-balance></portfolio-balance>
       <portfolio-holdings></portfolio-holdings>
       <leader-board></leader-board>
@@ -23,5 +23,8 @@ export default {
 </script>
 
 <style>
-
+  .boardTitle {
+    color: palevioletred;
+  }
+  
 </style>

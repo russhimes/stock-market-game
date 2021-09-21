@@ -55,6 +55,14 @@ const router = new Router({
         requiresAuth: false
       }
     },
+    {
+      path: "/createGame",
+      name: "create-game",
+      component: CreateGameForm,
+      meta: {
+        requiresAuth: true
+      }
+    }
   ]
 })
 

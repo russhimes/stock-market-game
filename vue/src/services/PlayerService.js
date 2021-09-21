@@ -5,7 +5,7 @@ export default {
     getAllPlayers(){
         return axios.get()
     },
-    get(id) {
+    /*get(id) {
         return axios.get();
       },
 
@@ -23,6 +23,6 @@ export default {
     
       delete(id) {
         return axios.delete();
-      }
+      }*/
     }
     

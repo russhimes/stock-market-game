@@ -9,15 +9,15 @@
 </template>
 
 <script>
-import LeaderBoard from '../views/Leader'
-import PortfolioBalance from '../views/Balance'
+//import LeaderBoard from '../views/Leader'
+//import PortfolioBalance from '../views/Balance'
 // does header need a corresponding view? 
-import TheHeader from './TheHeader.vue'
-import Portfolio from '../views/Portfolio'
-import PortfolioHoldings from './PortfolioHoldings.vue'
+//import TheHeader from './TheHeader.vue'
+//import Portfolio from '../views/Portfolio'
+//import PortfolioHoldings from './PortfolioHoldings.vue'
 
 export default {
-  components: { TheHeader, PortfolioBalance, LeaderBoar, PortfolioHoldings },
+  //components: { TheHeader, PortfolioBalance, LeaderBoard, PortfolioHoldings },
 
 }
 </script>

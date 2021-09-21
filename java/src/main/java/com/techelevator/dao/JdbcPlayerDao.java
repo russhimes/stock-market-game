@@ -21,7 +21,7 @@ public class JdbcPlayerDao implements PlayerDao {
 
     @Override
     public List<Player> getAllPlayers() {
-        String sql = "SELECT id, user_id, game_id, available_funds " +
+        String sql = "SELECT id, user_id, game_id, available_funds, game_status " +
                 "FROM game_players";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
@@ -36,7 +36,7 @@ public class JdbcPlayerDao implements PlayerDao {
 
     @Override
     public List<Player> getPlayersByGame(int game_id) {
-        String sql = "SELECT id, user_id, game_id, available_funds " +
+        String sql = "SELECT id, user_id, game_id, available_funds, game_status " +
                 "FROM game_players " +
                 "WHERE game_id = ?";
 
@@ -52,7 +52,7 @@ public class JdbcPlayerDao implements PlayerDao {
 
     @Override
     public Player getPlayerById(int id) {
-        String sql = "SELECT id, user_id, game_id, available_funds " +
+        String sql = "SELECT id, user_id, game_id, available_funds, game_status " +
                 "FROM game_players " +
                 "WHERE user_id = ?";
 
@@ -68,19 +68,19 @@ public class JdbcPlayerDao implements PlayerDao {
 
     @Override
     public void createPlayer(Player player) {
-        String sql = "INSERT INTO game_players (user_id, game_id, available_funds) " +
-                "VALUES (?, ?, ?)";
+        String sql = "INSERT INTO game_players (user_id, game_id, available_funds, game_status) " +
+                "VALUES (?, ?, ?, ?)";
 
-        jdbcTemplate.update(sql, player.getUser_id(), player.getGame_id(), player.getAvailableFunds());
+        jdbcTemplate.update(sql, player.getUser_id(), player.getGame_id(), player.getAvailableFunds(), player.getGameStatus());
     }
 
     @Override
     public void updatePlayer(Player player) {
         String sql = "UPDATE game_players " +
-                "SET available_funds = ? " +
+                "SET available_funds = ?, game_status = ? " +
                 "WHERE id = ?";
 
-        jdbcTemplate.update(sql, player.getAvailableFunds(), player.getId());
+        jdbcTemplate.update(sql, player.getAvailableFunds(), player.getGameStatus(), player.getId());
 
     }
 
@@ -97,8 +97,9 @@ public class JdbcPlayerDao implements PlayerDao {
         int user_id = result.getInt("user_id");
         int game_id = result.getInt("game_id");
         String funds = result.getString("available_funds");
+        String gameStatus = result.getString("game_status");
 
-        Player player = new Player(id, user_id, game_id);
+        Player player = new Player(id, user_id, game_id, gameStatus);
         if(funds != null) {
             player.setAvailableFunds(new BigDecimal(funds));
         }

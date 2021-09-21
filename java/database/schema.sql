@@ -38,6 +38,7 @@ CREATE TABLE game_players (
         user_id int NOT NULL,
         game_id int NOT NULL,
         available_funds decimal(15, 2) NOT NULL,
+        game_status varchar(50) NOT NULL,
         
         CONSTRAINT FK_game_players_users FOREIGN KEY(user_id) REFERENCES users(user_id),
         CONSTRAINT FK_game_players_games FOREIGN KEY(game_id) REFERENCES games(id)

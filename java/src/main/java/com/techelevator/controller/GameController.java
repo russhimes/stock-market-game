@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@PreAuthorize("isAuthenticated()")
+//@PreAuthorize("isAuthenticated()")
 public class GameController {
 
     @Autowired
@@ -20,7 +20,7 @@ public class GameController {
     @RequestMapping(path="/games/organizer/{organizer_id}", method = RequestMethod.GET)
     public List<Game> getGamesByOrganizerId(@PathVariable int organizer_id) { return gameDao.getGamesByOrganizerId(organizer_id); }
 
-    @RequestMapping(path="/games/player", method = RequestMethod.GET)
+    @RequestMapping(path="/games", method = RequestMethod.GET)
     public List<Game> getGamesByUsername(Principal principal) { return gameDao.getGamesByUsername(principal.getName()); }
 
     @RequestMapping(path="/games/{id}", method = RequestMethod.GET)

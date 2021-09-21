@@ -40,7 +40,8 @@ public class JdbcGameDao implements GameDao {
     @Override
     public List<Game> getGamesByUsername(String username) {
         String sql = "SELECT games.id, name, organizer_id, end_date, end_time " +
-                "FROM games JOIN users ON games.organizer_id = users.user_id " +
+                "FROM games JOIN game_players ON games.id = game_players.game_id " +
+                "JOIN users ON game_players.user_id = users.user_id " +
                 "WHERE users.username = ?";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);

@@ -71,7 +71,7 @@ public class JdbcPlayerDao implements PlayerDao {
         String sql = "INSERT INTO game_players (user_id, game_id, available_funds, game_status) " +
                 "VALUES (?, ?, ?, ?)";
 
-        jdbcTemplate.update(sql, player.getUser_id(), player.getGame_id(), player.getAvailableFunds(), player.getGameStatus());
+        jdbcTemplate.update(sql, player.getUser_id(), player.getGame_id(), player.getAvailableFunds(), player.getGame_status());
     }
 
     @Override
@@ -80,7 +80,7 @@ public class JdbcPlayerDao implements PlayerDao {
                 "SET available_funds = ?, game_status = ? " +
                 "WHERE id = ?";
 
-        jdbcTemplate.update(sql, player.getAvailableFunds(), player.getGameStatus(), player.getId());
+        jdbcTemplate.update(sql, player.getAvailableFunds(), player.getGame_status(), player.getId());
 
     }
 

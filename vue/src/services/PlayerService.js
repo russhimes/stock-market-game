@@ -22,9 +22,9 @@ export default {
       return axios.post('/players', player);
     },
   
-    //   update(player) {
-    //     return axios.put();
-    //   },
+      update(player) {
+        return axios.put(`/players/${player.id}/`, player);
+      },
     
     delete(id) {
       return axios.delete(`/players/${id}`);

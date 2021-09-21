@@ -41,8 +41,8 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
-    GET_GAMES(state, userId) {
-      gamesService.getAllGames(userId).then((response) => {
+    GET_GAMES(state) {
+      gamesService.getAllGames().then((response) => {
         for (let i = 0; i < response.data.length; i++) {
           state.games.push(response.data[i]);
         }

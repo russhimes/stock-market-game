@@ -52,7 +52,7 @@ public class Player {
         this.game_id = game_id;
     }
 
-    public String getGameStatus() {
+    public String getGame_status() {
         return this.game_status;
     }
 

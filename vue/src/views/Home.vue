@@ -21,10 +21,11 @@ import GameCard from '../components/GameCard.vue';
 export default {
   components: { GameCard },
   name: "home",
+  // FIX ME 
   created() {
-    if (!this.$store.state.loaded) {
-      this.$store.commit("GET_GAMES", 0);
-    }
+    //if (!this.$store.state.loaded) {
+      this.$store.commit("GET_GAMES");
+   // }
   }
 }
 </script>

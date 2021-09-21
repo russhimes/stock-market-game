@@ -7,11 +7,13 @@ public class Player {
     private int user_id;
     private int game_id;
     private BigDecimal availableFunds;
+    private String gameStatus;
 
-    public Player(int id, int user_id, int game_id) {
+    public Player(int id, int user_id, int game_id, String gameStatus) {
         this.id = id;
         this.user_id = user_id;
         this.game_id = game_id;
+        this.gameStatus = gameStatus;
         this.availableFunds = new BigDecimal(100000);
     }
 
@@ -37,6 +39,14 @@ public class Player {
 
     public void setGame_id(int game_id) {
         this.game_id = game_id;
+    }
+
+    public String getGameStatus() {
+        return gameStatus;
+    }
+
+    public void setGameStatus(String gameStatus) {
+        this.gameStatus = gameStatus;
     }
 
     public BigDecimal getAvailableFunds() {

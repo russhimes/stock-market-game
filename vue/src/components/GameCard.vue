@@ -32,7 +32,7 @@ export default {
         rejectGame(){
             this.player.game_status = 'Rejected'
             playerService.update(this.player)
-        
+        }
     },
 
     created() {
@@ -46,7 +46,7 @@ export default {
             })
     }
 }
-}
+
 </script>
 
 <style scoped>

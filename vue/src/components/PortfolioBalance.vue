@@ -1,16 +1,14 @@
 <template>
-  <h2>Your Current Balance is</h2>
+<div class = "balance">
+  <h3 class = "balanceHeader">Your Current Balance is</h3>
+  <p>This is where we will display balance</p>
   <!-- <h4 this.balance></h4> -->
 
-
+</div>
 </template>
 
 <script>
-<<<<<<< HEAD
 import playerService from '../services/PlayerService.js';
-=======
-//import playerService from '..services/PlayerService.js';
->>>>>>> ac89d665bd6381daa94c89d64816029616a04568
 export default {
   data(){
     return {
@@ -33,5 +31,11 @@ export default {
 </script>
 
 <style>
+.balanceHeader{
+  color: pink;
+}
+.balance{
+  border-style: solid;
+}
 
 </style>

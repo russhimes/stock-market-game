@@ -101,7 +101,7 @@ public class JdbcPlayerDao implements PlayerDao {
 
         Player player = new Player(id, user_id, game_id, gameStatus);
         if(funds != null) {
-            player.setAvailableFunds(new BigDecimal(funds));
+            player.setAvailable_funds(new BigDecimal(funds));
         }
         return player;
     }

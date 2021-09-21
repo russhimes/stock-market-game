@@ -1,10 +1,12 @@
 <template>
-  <h2>Leader Board!</h2>
+<div class = "LeaderBoard">
+  <h3 class="title">Leader Board!</h3>
+  <p class="body">This is where we will show the stats of the leaderboard!</p>
 
   <!-- <div class='playerCard' v-for='player in playerList'>
     {{ player.name }}
   </div> -->
-
+</div>
 </template>
 
 <script>
@@ -32,5 +34,10 @@ export default {
 </script>
 
 <style>
-
+.title{
+  color: pink;
+}
+.LeaderBoard{
+  border-style: solid;
+}
 </style>

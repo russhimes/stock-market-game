@@ -23,5 +23,5 @@ VALUES (2, 2, 100000.00, 'Pending');
 INSERT INTO game_players (user_id, game_id, available_funds, game_status)
 VALUES (1, 3, 100000.00, 'Accepted');
 
-INSERT INTO game_players (user_id, game_id, available_funds)
+INSERT INTO game_players (user_id, game_id, available_funds, game_status)
 VALUES (2, 3, 100000.00, 'Accepted');

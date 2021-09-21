@@ -7,6 +7,7 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
+import InvitePlayers from '../views/InvitePlayers.vue'
 import GameBoard from '../views/Board.vue'
 
 Vue.use(Router)
@@ -63,12 +64,14 @@ const router = new Router({
       }
     },
     {
-      path: "/createGame",
-      name: "create-game",
-      component: CreateGameForm,
-      meta: {
-        requiresAuth: true
-      }
+      path: '/new-game',
+      name: 'new-game',
+      component: CreateGameForm
+    },
+    {
+      path: '/add-players/:id',
+      name: 'add-players',
+      component: InvitePlayers
     }
   ]
 })

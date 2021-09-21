@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import playerService from '..services/PlayerService.js';
+import playerService from '../services/PlayerService.js'
 export default {
     data(){
       return {

@@ -2,11 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../views/Home.vue'
 //import Board from '../views/Board.vue'
-import CreateGameForm from '../views/CreateGameForm.vue'
+//import CreateGameForm from '../views/CreateGameForm.vue'
 import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
+import GameBoard from '../views/Board.vue'
 
 Vue.use(Router)
 
@@ -23,6 +24,12 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    // added game path
+    {
+      path: '/games/:id',
+      name: 'game',
+      component: GameBoard
+    },
     {
       path: '/',
       name: 'home',

@@ -1,9 +1,11 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.StockDao;
+import com.techelevator.model.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -11,4 +13,9 @@ public class StockController {
 
     @Autowired
     private StockDao stockDao;
+
+    @RequestMapping(path="/player/{player_id}/stocks", method= RequestMethod.GET)
+    public List<Stock> getStocksByPlayerId(@PathVariable int player_id) {
+        return stockDao.getStocksByPlayerId(player_id);
+    }
 }

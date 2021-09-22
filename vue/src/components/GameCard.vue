@@ -4,7 +4,7 @@
       <p id="gameEnd">Game ends on {{game.end_date}}, {{game.end_time}}</p>
       <button id="acceptButton" class="cardButton" v-if="player.game_status == 'Pending'" v-on:click="acceptGame()">Accept Invite</button>
       <button id="rejectButton" class="cardButton" v-if="player.game_status == 'Pending'" v-on:click="rejectGame()">Reject Invite</button>
-      <router-link id="gameLink" tag="button" v-if="true" v-bind:to="{name: 'game', params: {id: game.id}}">Go To Game</router-link>
+      <router-link id="gameLink" tag="button" v-if="player.game_status == 'Accepted'" v-bind:to="{name: 'game', params: {id: game.id}}">Go To Game</router-link>
   </div>
 </template>
 

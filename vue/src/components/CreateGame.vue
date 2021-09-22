@@ -21,6 +21,7 @@
 
 <script>
 import gamesService from '../services/GamesService.js'
+import playerService from '../services/PlayerService.js'
 export default {
 data() {
     return {
@@ -37,11 +38,25 @@ data() {
       gamesService.createGame(this.game)
       .then(response => {
         let gameId = response.data;
-        this.$router.push({ name: 'add-players', params: { id: gameId } })
+        console.log(this.$store.state.user);
+        this.inviteUser(this.$store.state.user);
+        this.$router.push({ name: 'add-players', params: { id: gameId } });
+
       })
-      // Figure out what this does
-      gamesService.getGames(0);
-    }
+    },
+    inviteUser(user) {
+      playerService.create({
+        user_id: user.id,
+        game_id: this.$route.params.id,
+        game_status: 'Pending'
+      })
+      .then((response) => {
+        if(response.status === 200) {
+          user.invited = true;
+          this.invitedUsers.push(user.username);
+        }
+      })
+    },
   }
 }
 </script>

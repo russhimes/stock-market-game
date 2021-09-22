@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface StockDao {
     List<Stock> getStocksByPlayerId(int id);
+
+    List<Stock> getAllStocks();
 }

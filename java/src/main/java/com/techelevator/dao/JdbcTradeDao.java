@@ -18,7 +18,8 @@ public class JdbcTradeDao implements TradeDao {
         this.jdbcTemplate = new JdbcTemplate(datasource);
     }
 
-    
+
+
 
     private Trade mapResultToTrade(SqlRowSet result) {
         int id = result.getInt("id");

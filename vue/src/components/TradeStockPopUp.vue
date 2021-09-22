@@ -17,7 +17,8 @@ export default {
             }
         ).catch(
         (error) => console.log(error)
-    );
+    ),
+    this.stockInfoTicker = this.$route.params.ticker;
     }
 }
 </script>

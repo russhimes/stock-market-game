@@ -67,11 +67,11 @@ public class JdbcPlayerDao implements PlayerDao {
     }
 
     @Override
-    public void createPlayer(Player player) {
+    public int createPlayer(Player player) {
         String sql = "INSERT INTO game_players (user_id, game_id, available_funds, game_status) " +
-                "VALUES (?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?) Returning id";
 
-        jdbcTemplate.update(sql, player.getUser_id(), player.getGame_id(), player.getAvailableFunds(), player.getGame_status());
+        return jdbcTemplate.queryForObject(sql, Integer.class, player.getUser_id(), player.getGame_id(), player.getAvailableFunds(), player.getGame_status());
     }
 
     @Override

@@ -56,8 +56,5 @@ button {
   min-height: 10vh;
   min-width: 30vw;
 }
-h2 {
-  font-size: 3rem;
-}
 
 </style>

@@ -61,16 +61,12 @@ export default {
 <style scoped>
 #gameCard {
     border: 2px black solid;
-    margin: 0.2rem;
     background-color: rgb(47, 107, 50);
     text-emphasis: Bold;
     color: white;
     border-radius: 6px;
-    font-family: sans-serif;
-}
-
-#gameName {
-    font-size: 2rem;
+    padding-bottom: 3px;
+    margin-right: 10px;
 }
 
 </style>

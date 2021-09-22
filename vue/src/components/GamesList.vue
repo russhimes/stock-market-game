@@ -16,52 +16,43 @@ export default {
     computed: {
             rejected() {
                 let rejected = [];
-                for (let game = 0; game < this.$store.state.games.length; game++) {
-                    //loop through to get the status of the current user
-                    //there must be an easier way to do this
-                    for (let player = 0; player < this.$store.state.games[game].players.length; player++) {
-                        if (this.$store.state.games[game].players[player].user_id == 
-                        this.$store.state.user.id &&
-                        this.$store.state.games[game].players[player].game_status == 'Rejected'){
-                         rejected.push(this.$store.state.games[game]);
+                for (let i = 0; i < this.$store.state.games.length; i++) {
+                    for (let j = 0; j < this.$store.state.players.length; j++) {
+                        if (this.$store.state.games[i].id == this.$store.state.players[j].game_id &&
+                        this.$store.state.user.id == this.$store.state.players[j].user_id
+                        && this.$store.state.players[j].game_status == 'Rejected') {
+                            rejected.push(this.$store.state.games[i]);
                         }
-                    }
+                    }       
                 }
                 return rejected;
             },
             accepted() {
                 let accepted = [];
-                for (let game = 0; game < this.$store.state.games.length; game++) {
-                    //loop through to get the status of the current user
-                    //there must be an easier way to do this
-                    for (let player = 0; player < this.$store.state.games[game].players.length; player++) {
-                        if (this.$store.state.games[game].players[player].user_id == 
-                        this.$store.state.user.id &&
-                        this.$store.state.games[game].players[player].game_status == 'Accepted'){
-                         accepted.push(this.$store.state.games[game]);
+                for (let i = 0; i < this.$store.state.games.length; i++) {
+                    for (let j = 0; j < this.$store.state.players.length; j++) {
+                        if (this.$store.state.games[i].id == this.$store.state.players[j].game_id &&
+                        this.$store.state.user.id == this.$store.state.players[j].user_id
+                        && this.$store.state.players[j].game_status == 'Accepted') {
+                            accepted.push(this.$store.state.games[i]);
                         }
                     }
                 }
-                
                 return accepted;
             },
             pending() {
                 let pending = [];
-                for (let game = 0; game < this.$store.state.games.length; game++) {
-                    //loop through to get the status of the current user
-                    //there must be an easier way to do this
-                    for (let player = 0; player < this.$store.state.games[game].players.length; player++) {
-                        if (this.$store.state.games[game].players[player].user_id == 
-                        this.$store.state.user.id &&
-                        this.$store.state.games[game].players[player].game_status == 'Pending'){
-                         pending.push(this.$store.state.games[game]);
+                for (let i = 0; i < this.$store.state.games.length; i++) {
+                    for (let j = 0; j < this.$store.state.players.length; j++) {
+                        if (this.$store.state.games[i].id == this.$store.state.players[j].game_id &&
+                        this.$store.state.user.id == this.$store.state.players[j].user_id
+                        && this.$store.state.players[j].game_status == 'Pending') {
+                            pending.push(this.$store.state.games[i]);
                         }
                     }
                 }
                 return pending;  
             }
-    },
-    methods: {
     }
 }
 </script>

@@ -21,6 +21,7 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     games: [],
+    players: [],
     loaded: false
   },
   mutations: {
@@ -44,8 +45,13 @@ export default new Vuex.Store({
       state.games.push(game);
     },
     ADD_PLAYER(state, player) {
-      for (let i = 0; i < state.games.length; i++) {
-        if (player.game_id == state.games[i].id) {state.games[i].players.push[player];}
+        state.players.push(player);
+    },
+    UPDATE_PLAYER_STATUS(state, player) {
+      for (let i = 0; i < state.players.length; i++) {
+        if (player.id == state.players[i].id) {
+          state.players[i].game_status = player.game_status;
+        }
       }
     }
   }

@@ -23,19 +23,25 @@ export default {
       for (let i = 0; i < response.data.length; i++) {
         let game = response.data[i];
         let isInList = false;
-        console.log(this.$store.state.games);
-        console.log(this.$store.state.games.length);
-        for (let j = 0; j < this.$store.state.games.length; j++) {
-          
-          if (this.$store.state.games[j].id == game.id) {isInList = true;}
+        for (let j = 0; j < this.$store.state.games.length; j++) {    
+          if (this.$store.state.games[j].id == game.id) isInList = true;
         }
-          playerService.getAllPlayersByGame(game.id)
+        if (!isInList) {
+          this.$store.commit("ADD_GAME", game);
+          playerService.getPlayersByGame(game.id)
           .then(playerResponse => {
-            if (!isInList) {
-              game.players = playerResponse.data;
-              this.$store.commit("ADD_GAME", game);
+            for (let j = 0; j < playerResponse.data.length; j++) {
+              let player = playerResponse.data[j];
+              isInList = false;
+              for (let k = 0; k < this.$store.state.players.length; k++) {
+                if (this.$store.state.players[k].id == player.id) isInList = true; 
+              }
+              if (!isInList) {
+                this.$store.commit("ADD_PLAYER", player);
+              }
             }
           });   
+        }
       }
     });
   }

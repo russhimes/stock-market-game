@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import tradeTopStocks from '../services/TradeStockService.js'
+import tradeTopStocks from '../services/StockService.js'
 export default {
     data(){
         return {

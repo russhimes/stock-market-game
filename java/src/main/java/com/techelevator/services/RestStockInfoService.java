@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -24,13 +25,29 @@ public class RestStockInfoService implements StockInfoService {
     @Override
     public List<StockInfo> getTopStocks() {
         //TODO
-        return null;
+        List<StockInfo> topTen = new ArrayList<>();
+        topTen.add(getStockInfo("FB"));
+        topTen.add(getStockInfo("TSLA"));
+        topTen.add(getStockInfo("AAPL"));
+        topTen.add(getStockInfo("AMZN"));
+        topTen.add(getStockInfo("MSFT"));
+        topTen.add(getStockInfo("NVDA"));
+        topTen.add(getStockInfo("FDX"));
+        topTen.add(getStockInfo("MRNA"));
+        topTen.add(getStockInfo("ADBE"));
+        topTen.add(getStockInfo("AMD"));
+        return topTen;
     }
 
     @Override
     public StockInfo getStockInfo(String stockSymbol) {
         HttpEntity<String> httpEntity = new HttpEntity<>("");
         String url = BASE_URL + "/quote?symbol=" + stockSymbol + "&token=" + apiKey;
+        StockInfo stockInfo = null;
+        String price = "";
+        String percentChange = "";
+        String companyName = "";
+        String logoURL = "";
         ResponseEntity<String> result = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
@@ -38,18 +55,30 @@ public class RestStockInfoService implements StockInfoService {
                 String.class
         );
 
-        StockInfo stockInfo = null;
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
             JsonNode jsonNode = objectMapper.readTree(result.getBody());
             JsonNode root = jsonNode.path("data");
-            String price = jsonNode.path("c").asText();
-            stockInfo = new StockInfo(stockSymbol, new BigDecimal(price));
+            price = jsonNode.path("c").asText();
+            percentChange = jsonNode.path("dp").asText();
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
+        url = BASE_URL + "/stock/profile2?symbol=" + stockSymbol + "&token=" + apiKey;
+        result = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                httpEntity,
+                String.class
+        );
+        try {
+            JsonNode jsonNode = objectMapper.readTree(result.getBody());
+            JsonNode root = jsonNode.path("data");
+            companyName = jsonNode.path("name").asText();
+            logoURL = jsonNode.path("logo").asText();
+        } catch (JsonProcessingException e) {e.printStackTrace();}
+        stockInfo = new StockInfo(stockSymbol, companyName, new BigDecimal(price), logoURL, new BigDecimal(percentChange));
         return stockInfo;
     }
 

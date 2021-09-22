@@ -8,16 +8,18 @@
   <h3>Make a Trade!</h3>
   <table>
   <tr>
+      <th></th>
       <th>Ticker</th>
       <th>Stock</th>
       <th>Value</th>
   </tr>
-  <tr>
-    <td> {{topStocks.ticker}} </td>
-    <td> {{topStocks.name }} </td>
-    <td> {{topStocks.value }} </td>
-    <td><router-link v-bind:to="{name:'stock-info', params: {ticker: stock-info.id}}">View Details</router-link></td>
-   
+  <tr v-for="stock in topStocks" v-bind:key="stock.id">
+      <td><img :src="stock.logoURL"></td>
+    <td> {{stock.stockSymbol}} </td>
+    <td> {{stock.companyName}} </td>
+    <td> {{stock.currentPrice}} </td>
+    <!--<td><router-link tag="button" v-bind:to="{name:'stock-info', params: {ticker: stock-info.id}}">View Details</router-link></td>
+  --> 
   </tr>
   </table>
 
@@ -37,7 +39,8 @@ export default {
 created(){
     tradeTopStocks.getTopStocks().then(
         (response) => {
-            this.tradeTopStocks = response.data;
+            this.topStocks = response.data;
+            console.log(this.topStocks);
         }
     ).catch(
         (error) => console.log(error)

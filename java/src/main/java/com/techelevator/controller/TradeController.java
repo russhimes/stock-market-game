@@ -1,9 +1,10 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.TradeDao;
+import com.techelevator.model.Player;
+import com.techelevator.model.Trade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -11,5 +12,10 @@ public class TradeController {
 
     @Autowired
     private TradeDao tradeDao;
+
+    @RequestMapping(path="/trades", method = RequestMethod.POST)
+    public void buyORSellTrade(@RequestBody Trade trade, @RequestBody Player player) {
+        tradeDao.buyOrSellTrade(trade, player);
+    }
 
 }

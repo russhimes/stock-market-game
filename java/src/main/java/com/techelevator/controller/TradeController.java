@@ -14,8 +14,8 @@ public class TradeController {
     private TradeDao tradeDao;
 
     @RequestMapping(path="/trades", method = RequestMethod.POST)
-    public void buyTrade(@RequestBody Trade trade, @RequestBody Player player) {
-        tradeDao.buyTrade(trade, player);
+    public void buyORSellTrade(@RequestBody Trade trade, @RequestBody Player player) {
+        tradeDao.buyOrSellTrade(trade, player);
     }
 
 }

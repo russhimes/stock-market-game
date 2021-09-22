@@ -5,6 +5,6 @@ import com.techelevator.model.Trade;
 
 public interface TradeDao {
 
-    void buyTrade(Trade trade, Player player);
+    void buyOrSellTrade(Trade trade, Player player);
 
 }

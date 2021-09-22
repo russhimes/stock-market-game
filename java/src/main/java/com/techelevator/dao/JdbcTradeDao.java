@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Locale;
 
 @Component
 public class JdbcTradeDao implements TradeDao {
@@ -19,12 +20,18 @@ public class JdbcTradeDao implements TradeDao {
         this.jdbcTemplate = new JdbcTemplate(datasource);
     }
 
-    public void buyTrade(Trade trade, Player player) {
+    public void buyOrSellTrade(Trade trade, Player player) {
         String sql = "INSERT INTO trades (stock_id, shares_traded, buy_or_sell, price, entered_in, date, time) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        jdbcTemplate.update(sql, trade.getId(), trade.getStock_id(), trade.getShares_traded(),
-                trade.getBuy_or_sell(), trade.getPrice(), trade.getEntered_in(), trade.getDate(), trade.getTime());
+        if (trade.getBuy_or_sell().toLowerCase() == "buy") {
+            if (player.getAvailableFunds().compareTo(trade.getPrice()) == 1 || player.getAvailableFunds().compareTo(trade.getPrice()) == 0) {
+                jdbcTemplate.update(sql, trade.getId(), trade.getStock_id(), trade.getShares_traded(),
+                        trade.getBuy_or_sell(), trade.getPrice(), trade.getEntered_in(), trade.getDate(), trade.getTime());
+            }
+        } else {
+            jdbcTemplate.update(sql, trade.getId(), trade.getStock_id(), trade.getShares_traded(),
+                    trade.getBuy_or_sell(), trade.getPrice(), trade.getEntered_in(), trade.getDate(), trade.getTime());
+        }
     }
 
     private Trade mapResultToTrade(SqlRowSet result) {

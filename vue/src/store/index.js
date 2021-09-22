@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import gamesService from '../services/GamesService.js'
+import playerService from '../services/PlayerService.js'
 
 Vue.use(Vuex)
 
@@ -45,10 +46,19 @@ export default new Vuex.Store({
       state.games = [];
       gamesService.getAllGames().then((response) => {
         for (let i = 0; i < response.data.length; i++) {
-          state.games.push(response.data[i]);
+                playerService.getPlayerByGame(response.data[i].id)
+                .then(playerResponse => {
+                    let gameWithStatus = response.data[i];
+                    gameWithStatus.game_status = playerResponse.data.game_status; 
+                    state.games.push(gameWithStatus);
+                });   
         }
-        state.loaded = true;
       });
+    },
+    ADD_STATUS(state, game) {
+      for (let i = 0; i < state.games.length; i++) {
+        if (game.id == state.games[i].id) {state.games[i].game_status = game.game_status;}
+      }
     }
   }
 })

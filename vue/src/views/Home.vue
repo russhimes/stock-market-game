@@ -10,7 +10,7 @@
       <h2>Pending Invites</h2> -->
       <!--Pending Games-->
      <!-- <h2>Rejected Games</h2> -->
-      <!--RejectedGames--> -->
+      <!--RejectedGames-->
       <games-list />
       
     </div>

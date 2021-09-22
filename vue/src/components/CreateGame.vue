@@ -30,30 +30,30 @@ data() {
         name: "",
         end_date: '',
         end_time: ''
-      }
+      },
+      gameId: -1
     }
   },
   methods: {
     createGame() {
       gamesService.createGame(this.game)
       .then(response => {
-        let gameId = response.data;
+        this.gameId = response.data;
         console.log(this.$store.state.user);
         this.inviteUser(this.$store.state.user);
-        this.$router.push({ name: 'add-players', params: { id: gameId } });
+        this.$router.push({ name: 'add-players', params: { id: this.gameId } });
 
       })
     },
     inviteUser(user) {
       playerService.create({
         user_id: user.id,
-        game_id: this.$route.params.id,
-        game_status: 'Pending'
+        game_id: this.gameId,
+        game_status: 'Accepted'
       })
       .then((response) => {
         if(response.status === 200) {
           user.invited = true;
-          this.invitedUsers.push(user.username);
         }
       })
     },

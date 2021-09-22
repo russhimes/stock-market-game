@@ -38,7 +38,6 @@ export default {
     created() {
         playerService.getPlayerByGame(this.game.id)
             .then(response => {
-                console.log(response)
                 this.player.game_status = response.data.game_status;
                 this.player.id = response.data.id;
                 this.player.user_id = response.data.user_id;

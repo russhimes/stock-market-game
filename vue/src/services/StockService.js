@@ -6,7 +6,10 @@ export default{
         return axios.get();
     },
     getStockInfo(ticker){
-        return axios.get('stockinfo' + ticker);
+        return axios.get(`/stockinfo/${ticker}`);
+    },
+    getPlayerStocks(playerId) {
+        return axios.get(`/player/${playerId}/stocks`);
     }
 
 

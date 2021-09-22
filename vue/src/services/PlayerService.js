@@ -11,8 +11,8 @@ export default {
       return axios.get(`/game/${game_id}/player`);
     },
 
-    getAllPlayersByGame(game_id) {
-      return axios.get(`players/game/${game_id}`)
+    getPlayersByGame(game_id) {
+      return axios.get(`players/game/${game_id}`);
     },
     // get(id) {
     //     return axios.get();

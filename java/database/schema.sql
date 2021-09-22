@@ -52,7 +52,6 @@ CREATE TABLE stocks (
         player_id int NOT NULL,
         stock_name varchar(10) NOT NULL,
         stock_ticker varchar(10) NOT NULL,
-        original_purchase_price decimal(15, 2) NOT NULL,
         total_shares decimal(15, 4) NOT NULL,
         
         CONSTRAINT FK_stocks_game_players FOREIGN KEY(player_id) REFERENCES game_players(id)

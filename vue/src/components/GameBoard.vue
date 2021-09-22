@@ -1,8 +1,8 @@
 <template>
   <div id = "main ">
       <h2 class = "boardTitle">Welcome to the Game Board!</h2>
-      <portfolio-balance></portfolio-balance>
-      <portfolio-holdings></portfolio-holdings>
+       <!-- <portfolio-balance></portfolio-balance> -->
+      <portfolio-holdings v-bind:gameId="gameId"></portfolio-holdings>
       <trade-stocks></trade-stocks>
       <leader-board></leader-board>
   </div>
@@ -10,14 +10,19 @@
 
 <script>
 import LeaderBoard from '../views/Leader'
-import PortfolioBalance from '../views/Balance'
+// import PortfolioBalance from '../views/Balance'
 import PortfolioHoldings from './PortfolioHoldings.vue'
 import TradeStocks from './TradeStocks.vue'
 
 
 export default {
-  components: { PortfolioBalance, LeaderBoard, PortfolioHoldings, TradeStocks },
-
+  components: { // PortfolioBalance, 
+  LeaderBoard, PortfolioHoldings, TradeStocks },
+  data() {
+    return {
+      gameId: this.$route.params.id,
+    }
+  }
 }
 </script>
 

@@ -12,7 +12,7 @@ public interface PlayerDao {
 
     Player getPlayerById(int id);
 
-    void createPlayer(Player player);
+    int createPlayer(Player player);
 
     void updatePlayer(Player player);
 

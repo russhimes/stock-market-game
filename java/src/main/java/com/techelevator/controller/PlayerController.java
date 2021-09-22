@@ -31,8 +31,8 @@ public class PlayerController {
     }
 
     @RequestMapping(path="/players", method= RequestMethod.POST)
-    public void createPlayer(@RequestBody Player player) {
-        playerDao.createPlayer(player);
+    public int createPlayer(@RequestBody Player player) {
+        return playerDao.createPlayer(player);
     }
 
     @RequestMapping(path="/players/{id}", method=RequestMethod.PUT)

@@ -5,7 +5,6 @@
       <router-link id="createGame" tag="button" to="/new-game">Create Game!</router-link>
       <games-list />
       
-      
     </div>
   </div>
 </template>

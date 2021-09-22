@@ -9,7 +9,7 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import InvitePlayers from '../views/InvitePlayers.vue'
 import GameBoard from '../views/Board.vue'
-import TradeStockService from '../services/TradeStockService'
+//import TradeStockService from '../services/TradeStockService'
 
 Vue.use(Router)
 
@@ -30,7 +30,7 @@ const router = new Router({
     {
       path: 'stockinfo/:ticker',
       name: 'stock-info',
-      component: TradeStockPopUp
+      //component: TradeStockPopUp
     },
     // added game path
     {

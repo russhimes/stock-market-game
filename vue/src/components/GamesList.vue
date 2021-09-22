@@ -60,7 +60,9 @@ export default {
                 }
                 return pending;  
             }
-        }
+    },
+    methods: {
+    }
 }
 </script>
 

@@ -6,12 +6,14 @@ public class Stock {
     private int id;
     private int player_id;
     private String stock_name;
+    private String stock_ticker;
     private BigDecimal original_purchase_price;
     private double total_shares;
 
-    public Stock(int player_id, String stock_name, BigDecimal original_purchase_price, double total_shares) {
+    public Stock(int player_id, String stock_name, String stock_ticker, BigDecimal original_purchase_price, double total_shares) {
         this.player_id = player_id;
         this.stock_name = stock_name;
+        this.stock_ticker = stock_ticker;
         this.original_purchase_price = original_purchase_price;
         this.total_shares = total_shares;
     }
@@ -54,5 +56,13 @@ public class Stock {
 
     public void setTotal_shares(double total_shares) {
         this.total_shares = total_shares;
+    }
+
+    public String getStock_ticker() {
+        return stock_ticker;
+    }
+
+    public void setStock_ticker(String stock_ticker) {
+        this.stock_ticker = stock_ticker;
     }
 }

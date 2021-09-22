@@ -51,6 +51,7 @@ CREATE TABLE stocks (
         id serial PRIMARY KEY,
         player_id int NOT NULL,
         stock_name varchar(10) NOT NULL,
+        stock_ticker varchar(10) NOT NULL,
         original_purchase_price decimal(15, 2) NOT NULL,
         total_shares decimal(15, 4) NOT NULL,
         

@@ -27,11 +27,11 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     // added stock info path to new component
-    // {
-    //   path: 'stockinfo/:ticker',
-    //   name: 'stock-info',
-    //   component: TradeStockPopUp
-    // },
+    {
+      path: 'stockinfo/:ticker',
+      name: 'stock-info',
+      component: TradeStockPopUp
+    },
     // added game path
     {
       path: '/games/:id',

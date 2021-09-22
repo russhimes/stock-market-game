@@ -9,6 +9,7 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import InvitePlayers from '../views/InvitePlayers.vue'
 import GameBoard from '../views/Board.vue'
+import TradeStockService from '../services/TradeStockService'
 
 Vue.use(Router)
 
@@ -25,6 +26,12 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    // added stock info path to new component
+    {
+      path: 'stockinfo/:ticker',
+      name: 'stock-info',
+      component: TradeStockPopUp
+    },
     // added game path
     {
       path: '/games/:id',

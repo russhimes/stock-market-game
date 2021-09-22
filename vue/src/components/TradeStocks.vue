@@ -16,7 +16,7 @@
     <td> {{topStocks.ticker}} </td>
     <td> {{topStocks.name }} </td>
     <td> {{topStocks.value }} </td>
-    <td><button>View Details</button></td>
+    <td><router-link v-bind:to="{name:'stock-info', params: {ticker: stock-info.id}}">View Details</router-link></td>
    
   </tr>
   </table>

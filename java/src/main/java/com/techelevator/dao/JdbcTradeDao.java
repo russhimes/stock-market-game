@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.Player;
 import com.techelevator.model.Trade;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -18,8 +19,13 @@ public class JdbcTradeDao implements TradeDao {
         this.jdbcTemplate = new JdbcTemplate(datasource);
     }
 
+    public void buyTrade(Trade trade, Player player) {
+        String sql = "INSERT INTO trades (stock_id, shares_traded, buy_or_sell, price, entered_in, date, time) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-
+        jdbcTemplate.update(sql, trade.getId(), trade.getStock_id(), trade.getShares_traded(),
+                trade.getBuy_or_sell(), trade.getPrice(), trade.getEntered_in(), trade.getDate(), trade.getTime());
+    }
 
     private Trade mapResultToTrade(SqlRowSet result) {
         int id = result.getInt("id");

@@ -2,29 +2,42 @@
   <div class="home">
     <p v-if="!$store.state.user.username">You must be authenticated to see this</p>
     <div v-else>
-      <router-link id="createGame" tag="button" v-bind:to="{name: 'new-game'}">Create Game!</router-link>
-      <!--<h2>Active Games</h2> -->
-      <!--Discuss during team stand-up, we need to be able to get games by user,
-      and we need to be able to assign games a "pending/accepted/rejected status" -->
-      <!--<game-card v-for="game in $store.state.games" v-bind:key="game.id" v-bind:game="game"/>
-      <h2>Pending Invites</h2> -->
-      <!--Pending Games-->
-     <!-- <h2>Rejected Games</h2> -->
-      <!--RejectedGames-->
+      <router-link id="createGame" tag="button" to="/new-game">Create Game!</router-link>
       <games-list />
+      
       
     </div>
   </div>
 </template>
 
 <script>
-//import GameCard from '../components/GameCard.vue';
 import GamesList from '../components/GamesList.vue';
+import gamesService from '../services/GamesService.js';
+import playerService from '../services/PlayerService.js';
+
 export default {
   components: { /*GameCard, */GamesList},
   name: "home",
-  created() {
-      this.$store.commit("GET_GAMES");
+  mounted() {
+    gamesService.getAllGames().then((response) => {
+      for (let i = 0; i < response.data.length; i++) {
+        let game = response.data[i];
+        let isInList = false;
+        console.log(this.$store.state.games);
+        console.log(this.$store.state.games.length);
+        for (let j = 0; j < this.$store.state.games.length; j++) {
+          
+          if (this.$store.state.games[j].id == game.id) {isInList = true;}
+        }
+          playerService.getAllPlayersByGame(game.id)
+          .then(playerResponse => {
+            if (!isInList) {
+              game.players = playerResponse.data;
+              this.$store.commit("ADD_GAME", game);
+            }
+          });   
+      }
+    });
   }
 }
 </script>

@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import gamesService from '../services/GamesService.js'
-import playerService from '../services/PlayerService.js'
 
 Vue.use(Vuex)
 
@@ -42,22 +40,12 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
-    GET_GAMES(state) {
-      state.games = [];
-      gamesService.getAllGames().then((response) => {
-        for (let i = 0; i < response.data.length; i++) {
-                playerService.getPlayerByGame(response.data[i].id)
-                .then(playerResponse => {
-                    let gameWithStatus = response.data[i];
-                    gameWithStatus.game_status = playerResponse.data.game_status; 
-                    state.games.push(gameWithStatus);
-                });   
-        }
-      });
+    ADD_GAME(state, game) {
+      state.games.push(game);
     },
-    ADD_STATUS(state, game) {
+    ADD_PLAYER(state, player) {
       for (let i = 0; i < state.games.length; i++) {
-        if (game.id == state.games[i].id) {state.games[i].game_status = game.game_status;}
+        if (player.game_id == state.games[i].id) {state.games[i].players.push[player];}
       }
     }
   }

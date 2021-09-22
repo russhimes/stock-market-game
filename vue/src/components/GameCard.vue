@@ -17,7 +17,7 @@ export default {
             player: {
                 id: "",
                 user_id: "",
-                game_id: this.game.id,
+                game_id: "",
                 availableFunds: "",
                 game_status: ""
             }
@@ -26,19 +26,25 @@ export default {
     methods: {
         acceptGame(){
             this.player.game_status = 'Accepted'
-            playerService.update(this.player)
-            
+            playerService.update(this.player).then(response => {
+                if (response.status >= 200 && response.status < 300) {
+                    this.$store.commit("ADD_PLAYER", this.player);
+                }
+            });
         },
         rejectGame(){
             this.player.game_status = 'Rejected'
-            playerService.update(this.player)
+            playerService.update(this.player).then(response => {
+                if (response.status >= 200 && response.status < 300) {
+                    this.$store.commit("ADD_PLAYER", this.player);
+                }
+            });
         }
     },
 
-    created() {
+   created() {
         playerService.getPlayerByGame(this.game.id)
             .then(response => {
-                console.log(response)
                 this.player.game_status = response.data.game_status;
                 this.player.id = response.data.id;
                 this.player.user_id = response.data.user_id;

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import TradeStockService from '../services/TradeStockService'
+import StockService from '../services/StockService'
 export default {
     data(){
         return {
@@ -11,9 +11,9 @@ export default {
         }
     },
     created(){
-        TradeStockService.getStockInfo().then(
+        StockService.getStockInfo().then(
             (response) => {
-                this.TradeStockService = response.data;
+                this.StockService = response.data;
             }
         ).catch(
         (error) => console.log(error)

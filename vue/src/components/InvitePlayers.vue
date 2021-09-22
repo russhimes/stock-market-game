@@ -17,6 +17,7 @@
         <td> {{ user.username }}</td>
         <button v-if="!user.invited" v-on:click="inviteUser(user)">Invite to Game</button>
         <button v-else v-on:click="cancelInvite(user)">Cancel Invite</button>
+        <router-link tag="button" to="/">Finished Inviting Players</router-link>
       </tr>
     </table>
   </div>
@@ -29,13 +30,15 @@ export default {
   data() {
     return {
       users: [],
-      invitedUsers: []
+      invitedUsers: [],
     }
   },
   created() {
     userService.getAllUsers().then( response => {
       response.data.forEach(user => {
-        this.users.push( { id: user.id, username: user.username, invited: false });
+        if (user.id != this.$store.state.user.id) {
+          this.users.push( { id: user.id, username: user.username, invited: false });
+        }
       })
     })
   },
@@ -49,12 +52,15 @@ export default {
       .then((response) => {
         if(response.status === 200) {
           user.invited = true;
+          console.log (response.data);
+          user.player_id = response.data;
           this.invitedUsers.push(user.username);
         }
       })
     },
     cancelInvite(user) {
-      playerService.delete(user.id)
+      console.log(user.player_id);
+      playerService.delete(user.player_id)
         .then(response => {
           if(response.status === 200) {
             let position = this.invitedUsers.indexOf(user.username);

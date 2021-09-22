@@ -1,5 +1,12 @@
 <template>
-  <h2>View our Stock List</h2>
+  <div>
+    <div v-for="stock in stocks" v-bind:key="stock.id">
+      <h3>{{ stock.stock_ticker }}</h3>
+      <p> Shares: {{ stock.total_shares}} </p>
+    </div>
+  </div>
+
+
 <!--  Displaying stock ticker, name, price (maybe day change?)
   <ul>
     <li v-for="stock in stockList"> 
@@ -11,8 +18,9 @@
 </template>
 
 <script>
-import stocksService from '../services/PortfolioHoldingsService.js';
+// import stocksService from '../services/PortfolioHoldingsService.js';
 export default {
+  props: ['stocks'],
   data(){
     return {
       stockList: []
@@ -21,13 +29,13 @@ export default {
   created(){
     // when component loads taking data returned from getAllStocks() - need endpoints 
     // saving it into stockList
-    stocksService.getAllStocks().then(
-      (response) => {
-      this.stockList = response.data;
-      }
-    ).catch(
-        (error) => console.log(error)
-    );
+    // stocksService.getAllStocks().then(
+    //   (response) => {
+    //   this.stockList = response.data;
+    //   }
+    // ).catch(
+    //     (error) => console.log(error)
+    // );
 }
 };
 </script>

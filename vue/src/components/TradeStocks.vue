@@ -1,6 +1,21 @@
 <template>
 <div>
-  <h2>Make a Trade!</h2>
+    <!-- load data pulled into table  -->
+    <!-- need to make it dyanamic  -->
+  <h3>Make a Trade!</h3>
+  <table>
+  <tr>
+      <th>Ticker</th>
+      <th>Stock</th>
+      <th>Value</th>
+  </tr>
+  <tr>
+    <td> {{topStocks.ticker}} </td>
+    <td> {{topStocks.name }} </td>
+    <td> {{topStocks.value }} </td>
+  </tr>
+  </table>
+
 </div>
  
 </template>
@@ -9,7 +24,8 @@
 import tradeTopStocks from '../services/TradeStockService.js'
 export default {
     data(){
-        return topStocks: []
+        return {
+            topStocks: []
     }
 },
 
@@ -23,6 +39,7 @@ created(){
     );
 
 }
+};
 </script>
 
 <style>

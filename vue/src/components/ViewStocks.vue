@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import stocksService from '..services/StocksService,js';
+import stocksService from '../services/PortfolioHoldingsService.js';
 export default {
   data(){
     return {

@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS users CASCADE;
 DROP SEQUENCE IF EXISTS seq_user_id;
 DROP TABLE IF EXISTS games CASCADE;
 DROP TABLE IF EXISTS game_players CASCADE;
+DROP TABLE IF EXISTS stocks CASCADE;
+DROP TABLE IF EXISTS trades CASCADE;
 
 CREATE SEQUENCE seq_user_id
   INCREMENT BY 1
@@ -42,6 +44,33 @@ CREATE TABLE game_players (
         
         CONSTRAINT FK_game_players_users FOREIGN KEY(user_id) REFERENCES users(user_id),
         CONSTRAINT FK_game_players_games FOREIGN KEY(game_id) REFERENCES games(id)
+);
+
+--contains stocks that are currently held by players
+CREATE TABLE stocks (
+        id serial PRIMARY KEY,
+        player_id int NOT NULL,
+        stock_name varchar(10) NOT NULL,
+        original_purchase_price decimal(15, 2) NOT NULL,
+        total_shares decimal(15, 4) NOT NULL,
+        
+        CONSTRAINT FK_stocks_game_players FOREIGN KEY(player_id) REFERENCES game_players(id)
+);
+
+CREATE TABLE trades (
+        id serial PRIMARY KEY,
+        stock_id int NOT NULL,
+        shares_traded decimal(15, 4) NOT NULL,
+        buy_or_sell varchar(10) NOT NULL,
+        --price at time of trade
+        price decimal(15, 2) NOT NULL,
+        -- entered in shares or dollars
+        entered_in varchar(10) NOT NULL,
+        -- date and time of trade
+        date date NOT NULL,
+        time time NOT NULL,
+        
+        CONSTRAINT FK_trades_stocks FOREIGN KEY(stock_id) REFERENCES stocks(id)
 );
 
 COMMIT TRANSACTION;

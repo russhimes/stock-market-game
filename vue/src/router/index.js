@@ -9,7 +9,10 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import InvitePlayers from '../views/InvitePlayers.vue'
 import GameBoard from '../views/Board.vue'
+<<<<<<< HEAD
 import StockPopUp from '../views/StockPopUp'
+=======
+>>>>>>> 866345250738d395ee2fc4e48507593944b82b7b
 
 
 Vue.use(Router)
@@ -28,11 +31,19 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     // added stock info path to new component
+<<<<<<< HEAD
     {
       path: '/stockinfo/:ticker',
       name: 'stock-info',
       component: StockPopUp
     },
+=======
+    // {
+    //   path: 'stockinfo/:ticker',
+    //   name: 'stock-info',
+    //   component: TradeStockPopUp
+    // },
+>>>>>>> 866345250738d395ee2fc4e48507593944b82b7b
     // added game path
     {
       path: '/games/:id',

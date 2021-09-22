@@ -43,9 +43,9 @@ export default new Vuex.Store({
     ADD_GAME(state, game) {
       state.games.push(game);
     },
-    ADD_STATUS(state, game) {
+    ADD_PLAYER(state, player) {
       for (let i = 0; i < state.games.length; i++) {
-        if (game.id == state.games[i].id) {state.games[i].game_status = game.game_status;}
+        if (player.game_id == state.games[i].id) {state.games[i].players.push[player];}
       }
     }
   }

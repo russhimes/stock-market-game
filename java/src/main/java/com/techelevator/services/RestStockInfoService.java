@@ -12,14 +12,20 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class RestStockInfoService implements StockInfoService {
 
     private String apiKey = "c55kruaad3icdhg123f0";
     private String BASE_URL = "https://finnhub.io/api/v1/";
+    private Map<String, LocalTime> retrieveTimeMap = new HashMap<>();
+    private Map<String, StockInfo> stockInfoMap = new HashMap<>();
     private RestTemplate restTemplate = new RestTemplate();
 
     @Override
@@ -41,6 +47,12 @@ public class RestStockInfoService implements StockInfoService {
 
     @Override
     public StockInfo getStockInfo(String stockSymbol) {
+        LocalTime retrievedTime = retrieveTimeMap.get(stockSymbol);
+        if (retrievedTime != null) {
+            if (retrievedTime.until(LocalTime.now(), ChronoUnit.MINUTES) <=10) {
+                return stockInfoMap.get(stockSymbol);
+            }
+        }
         HttpEntity<String> httpEntity = new HttpEntity<>("");
         String url = BASE_URL + "/quote?symbol=" + stockSymbol + "&token=" + apiKey;
         StockInfo stockInfo = null;
@@ -82,6 +94,8 @@ public class RestStockInfoService implements StockInfoService {
         } catch (JsonProcessingException e) {e.printStackTrace();}
 
         stockInfo = new StockInfo(stockSymbol, companyName, new BigDecimal(price), logoURL, new BigDecimal(percentChange));
+        retrieveTimeMap.put(stockInfo.getStockSymbol(), LocalTime.now());
+        stockInfoMap.put(stockSymbol, stockInfo);
         return stockInfo;
     }
 

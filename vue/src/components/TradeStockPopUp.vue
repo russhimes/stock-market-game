@@ -35,6 +35,7 @@
 
 <script>
 import stockService from '../services/StockService'
+import tradeService from '../services/TradeService'
 export default {
     data(){
         return {
@@ -46,7 +47,7 @@ export default {
             stock: {},
             toggleTrade: false,
             entryType: "Shares",
-            amount: 0,
+            amount: "",
         }
     },
     created(){
@@ -111,6 +112,7 @@ export default {
                     this.updateStock("Buy");
                     this.updatePlayer("Buy");
                     this.createTradeObject("Buy");
+                    this.amount = "";
                 }
             }
         },
@@ -131,7 +133,7 @@ export default {
             let price = this.entryType === "Dollars" ? this.amount : this.amount * this.currentPrice;
             let dateTime = new Date()
             let date = dateTime.toISOString().substring(0, 10);
-            let time = dateTime.toLocaleTimeString();
+            let time = dateTime.toString().substring(16, 24);
 
             // update trade in database
             let trade = {
@@ -139,11 +141,11 @@ export default {
                 shares_traded: shares,
                 buy_or_sell: buyOrSell,
                 price: price,
-                enteredIn: this.entryType,
+                entered_in: this.entryType,
                 date: date,
                 time: time
             }
-            console.log(trade);
+            tradeService.createTrade(trade);
         },
         updatePlayer(buyOrSell) {
             let player = this.getCurrentPlayer();

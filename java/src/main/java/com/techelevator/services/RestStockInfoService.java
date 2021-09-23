@@ -88,7 +88,6 @@ public class RestStockInfoService implements StockInfoService {
                 String.class
         );
 
-        System.out.println(result);
         try {
             JsonNode jsonNode = objectMapper.readTree(result.getBody());
             JsonNode root = jsonNode.path("data");

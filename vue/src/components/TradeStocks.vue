@@ -20,6 +20,9 @@
     <td> {{stock.currentPrice}} </td>
     <!--<td><router-link tag="button" v-bind:to="{name:'stock-info', params: {ticker: stock-info.id}}">View Details</router-link></td>
   --> 
+    <td>
+        <router-link v-bind:to="{name: 'stock-info', params: {ticker: stock.stockSymbol}}"> Trade Stock </router-link>
+    </td>
   </tr>
   </table>
 

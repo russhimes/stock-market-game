@@ -14,4 +14,6 @@ public interface StockDao {
     Stock getStockByStockId(int stockId);
 
     void updateStock(Stock stock);
+
+    void createStock(Stock stock);
 }

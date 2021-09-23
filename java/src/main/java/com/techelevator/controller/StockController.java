@@ -28,4 +28,9 @@ public class StockController {
     public Stock getStockByPlayerAndTicker(@PathVariable int player_id, @PathVariable String ticker) {
         return stockDao.getStockByPlayerAndTicker(player_id, ticker);
     }
+
+    @RequestMapping(path="/stocks", method = RequestMethod.POST)
+    public void createPlayer(@RequestBody Stock stock) {
+        stockDao.createStock(stock);
+    }
 }

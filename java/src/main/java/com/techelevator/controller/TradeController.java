@@ -36,11 +36,12 @@ public class TradeController {
     public void trade(@RequestBody Trade trade) {
 
         Stock stock =  stockDao.getStockByStockId(trade.getStock_id());
+
         Player player = playerDao.getPlayerById(stock.getPlayer_id());
-        // make sure transaction is a buy --> they have enough $
-        // if sell make sure they have enough stocks to sell
-        if (trade.getBuy_or_sell().equalsIgnoreCase("buy")
-                && (player.getAvailableFunds().compareTo(trade.getPrice()) == 1 || player.getAvailableFunds().compareTo(trade.getPrice()) == 0)){
+
+        // if buying, make sure player has enough money
+        if (trade.getBuy_or_sell().equalsIgnoreCase("buy") &&
+                (player.getAvailableFunds().compareTo(trade.getPrice()) >= 0)){
             tradeDao.createTrade(trade);
 
             // update player's balance
@@ -56,7 +57,7 @@ public class TradeController {
         }
 
         // TODO validate sell transaction
-
+        // if sell make sure they have enough stocks to sell
     }
 
 }

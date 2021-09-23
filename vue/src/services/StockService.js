@@ -25,6 +25,9 @@ export default{
     },
     getStockByPlayerAndTicker(playerId, ticker) {
         return axios.get(`/player/${playerId}/stocks/${ticker}`);
+    },
+    createStock(stock) {
+        return axios.post(`/stocks`, stock);
     }
 
 }

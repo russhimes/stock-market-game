@@ -79,6 +79,14 @@ public class JdbcStockDao implements StockDao {
         jdbcTemplate.update(sql, stock.getTotal_shares(), stock.getId());
     }
 
+    @Override
+    public void createStock(Stock stock) {
+        String sql = "INSERT INTO stocks (player_id, stock_name, stock_ticker, total_shares) " +
+                "VALUES (?, ?, ?, ?)";
+
+        jdbcTemplate.update(sql, stock.getPlayer_id(), stock.getStock_name(), stock.getStock_ticker(), stock.getTotal_shares());
+    }
+
 
     private Stock mapResultToStock(SqlRowSet result) {
         int id = result.getInt("id");

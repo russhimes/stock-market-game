@@ -122,23 +122,28 @@ export default {
         },
         buyStocks() {
             if(this.validBuyTransaction) {
-                // TODO - update logic so it handles stock not existing (AKA adds stock object instead of updating it)
                 if(this.stock.total_shares === 0) {
-                    this.createStock();
-                    stockService.getStockByPlayerAndTicker(this.$store.state.currentPlayerId, this.stockTicker)
-                        .then(result => {
-                            if(result.data != "") {
-                                this.stock.id = result.data.id;
-                                this.stock.player_id = result.data.player_id;
-                                this.stock.stock_name = result.data.stock_name;
-                                this.stock.stock_ticker = result.data.stock_ticker;
-                                this.stock.total_shares = result.data.total_shares;
-                            }
+                    this.createStock().then(() => {
+                        stockService.getStockByPlayerAndTicker(this.$store.state.currentPlayerId, this.stockTicker)
+                            .then(result => {
+                                if(result.data != "") {
+                                    this.stock.id = result.data.id;
+                                    this.stock.player_id = result.data.player_id;
+                                    this.stock.stock_name = result.data.stock_name;
+                                    this.stock.stock_ticker = result.data.stock_ticker;
+                                    this.stock.total_shares = result.data.total_shares;
+                                }
 
-                            this.updateStock("Buy");
-                            this.updatePlayer("Buy");
-                            this.createTradeObject("Buy");
-                            this.amount = "";
+                                this.updateStock("Buy");
+                                this.updatePlayer("Buy");
+                                this.createTradeObject("Buy");
+                                this.amount = "";
+                            })
+
+
+                    })
+                    .catch(error => {
+                            console.log(error);
                         });
                    
                 } else {
@@ -158,8 +163,6 @@ export default {
             
             let newShares = buyOrSell == "Buy" ? currentShares + shareChange : currentShares - shareChange;
             stock.total_shares = newShares;
-
-            // update stock in database
         },
         createTradeObject(buyOrSell) {
             let shares = this.entryType === "Shares" ? this.amount : this.amount / this.currentPrice;
@@ -178,6 +181,7 @@ export default {
                 date: date,
                 time: time
             }
+            console.log(trade);
             tradeService.createTrade(trade);
         },
         updatePlayer(buyOrSell) {
@@ -204,7 +208,7 @@ export default {
             };
 
             // update stock in database
-            stockService.createStock(stock);
+            return stockService.createStock(stock);
         }
 
     }

@@ -72,12 +72,15 @@ public class RestStockInfoService implements StockInfoService {
                 httpEntity,
                 String.class
         );
+
+        System.out.println(result);
         try {
             JsonNode jsonNode = objectMapper.readTree(result.getBody());
             JsonNode root = jsonNode.path("data");
             companyName = jsonNode.path("name").asText();
             logoURL = jsonNode.path("logo").asText();
         } catch (JsonProcessingException e) {e.printStackTrace();}
+
         stockInfo = new StockInfo(stockSymbol, companyName, new BigDecimal(price), logoURL, new BigDecimal(percentChange));
         return stockInfo;
     }

@@ -21,14 +21,14 @@
             </select>
 
             <div v-if="entryType === 'Shares'">
-                <p>Estimated Cost: ${{ estimatedCost }}</p>
+                <p>Estimated Value: ${{ estimatedCost }}</p>
             </div>
             <div v-else>
                 <p>Number of Stocks: {{ estimatedNumberOfStocks }}</p>
             </div>
 
             <button v-bind:class="{ 'invalidTransaction' : !validBuyTransaction }">Buy</button>
-            <button v-if="stock.total_shares > 0">Sell</button>
+            <button v-bind:class="{ 'invalidTransaction' : !validSellTransaction }" v-if="stock.total_shares> 0">Sell</button>
         </div>
 
       <!-- 
@@ -83,12 +83,34 @@ export default {
             return this.amount / this.currentPrice;
         },
         validSellTransaction() {
-            return true;
+            if(this.entryType=== "Shares" && this.stock.total_shares >= this.amount){
+                      return true;
+            }  if(this.entryType=== "Dollars" && this.marketValue >= this.amount){
+                      return true;
+            }
+            return false; 
+          
         },
         validBuyTransaction() {
-            return true;
+            let player = this.getCurrentPlayer();
+            console.log(player)
+            if(this.entryType=== "Shares" && player.availableFunds >= (this.amount * this.currentPrice)){
+                      return true;
+            }  if(this.entryType=== "Dollars" && player.availableFunds >= this.amount){
+                      return true;
+            }
+            return false; 
+        }
+    },
+    methods: {
+        getCurrentPlayer(){
+           return this.$store.state.players.find(player => {
+               console.log(player)
+               return player.id === this.$store.state.currentPlayerId
+            })
         }
     }
+
 }
 </script>
 

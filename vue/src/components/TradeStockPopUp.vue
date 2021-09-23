@@ -1,7 +1,7 @@
 <template>
   <div>
       <h2>{{stockTicker}}</h2>
-      <h3>{{stock.stock_name}}</h3>
+      <h3>{{ companyName }}</h3>
       <img :src="imageUrl">
       <p>Currrent Price: ${{currentPrice}}</p>
       <p>Percent Change: {{percentChange}}%</p>
@@ -27,15 +27,9 @@
                 <p>Number of Stocks: {{ estimatedNumberOfStocks }}</p>
             </div>
 
-            <button v-bind:class="{ 'invalidTransaction' : !validBuyTransaction }">Buy</button>
+            <button v-on:click="buyStocks()" v-bind:class="{ 'invalidTransaction' : !validBuyTransaction }">Buy</button>
             <button v-bind:class="{ 'invalidTransaction' : !validSellTransaction }" v-if="stock.total_shares> 0">Sell</button>
         </div>
-
-      <!-- 
-        options to
-        buy - shares or dollars
-        sell
-       -->
   </div>
 </template>
 
@@ -47,6 +41,7 @@ export default {
             stockTicker: this.$route.params.ticker,
             currentPrice: 0,
             imageUrl: "",
+            companyName: "",
             percentChange: 0,
             stock: {},
             toggleTrade: false,
@@ -66,7 +61,7 @@ export default {
                     this.currentPrice = response.data.currentPrice;
                     this.imageUrl = response.data.logoURL;
                     this.percentChange = response.data.percentageChange;
-                    console.log(response.data)
+                    this.companyName = response.data.companyName;
                 }
             ).catch(
                 (error) => console.log(error)
@@ -93,7 +88,6 @@ export default {
         },
         validBuyTransaction() {
             let player = this.getCurrentPlayer();
-            console.log(player)
             if(this.entryType=== "Shares" && player.availableFunds >= (this.amount * this.currentPrice)){
                       return true;
             }  if(this.entryType=== "Dollars" && player.availableFunds >= this.amount){
@@ -105,10 +99,63 @@ export default {
     methods: {
         getCurrentPlayer(){
            return this.$store.state.players.find(player => {
-               console.log(player)
                return player.id === this.$store.state.currentPlayerId
             })
+        },
+        buyStocks() {
+            if(this.validBuyTransaction) {
+                // TODO - update logic so it handles stock not existing (AKA adds stock object instead of updating it)
+                if(this.stock === {}) {
+                    console.log("empty object");
+                } else {
+                    this.updateStock("Buy");
+                    this.updatePlayer("Buy");
+                    this.createTradeObject("Buy");
+                }
+            }
+        },
+        updateStock(buyOrSell) {
+            let stock = this.stock;
+            let currentShares = parseInt(stock.total_shares);
+            let amount = parseInt(this.amount);
+
+            let shareChange = this.entryType === "Shares" ? amount : amount / this.currentPrice;
+            
+            let newShares = buyOrSell == "Buy" ? currentShares + shareChange : currentShares - shareChange;
+            stock.total_shares = newShares;
+
+            // update stock in database
+        },
+        createTradeObject(buyOrSell) {
+            let shares = this.entryType === "Shares" ? this.amount : this.amount / this.currentPrice;
+            let price = this.entryType === "Dollars" ? this.amount : this.amount * this.currentPrice;
+            let dateTime = new Date()
+            let date = dateTime.toISOString().substring(0, 10);
+            let time = dateTime.toLocaleTimeString();
+
+            // update trade in database
+            let trade = {
+                stock_id: this.stock.id,
+                shares_traded: shares,
+                buy_or_sell: buyOrSell,
+                price: price,
+                enteredIn: this.entryType,
+                date: date,
+                time: time
+            }
+            console.log(trade);
+        },
+        updatePlayer(buyOrSell) {
+            let player = this.getCurrentPlayer();
+            let initialBalance = player.availableFunds;
+            let amount = parseFloat(this.amount)
+            let balanceChange = this.entryType === "Dollars" ? amount : amount * this.currentPrice;
+
+            let newBalance = buyOrSell === "Buy" ? initialBalance - balanceChange : initialBalance + balanceChange;
+
+            player.availableFunds = newBalance;
         }
+
     }
 
 }

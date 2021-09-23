@@ -37,6 +37,7 @@ export default {
           .then(response => {
             this.stocks = response.data;
             this.portfolioValue = this.getPortfolioValue();
+            console.log(this.stocks);
           })
 
       })

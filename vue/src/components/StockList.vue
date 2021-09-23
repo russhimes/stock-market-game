@@ -1,21 +1,19 @@
 <template>
   <div>
-    <div v-for="stock in stocks" v-bind:key="stock.id">
-      <h3>{{ stock.stock_ticker }}</h3>
-      <p> Shares: {{ stock.total_shares}} </p>
-      <router-link v-bind:to="{name: 'stock-info', params: {ticker: stock.stock_ticker}}">Trade Stock</router-link>
-    </div>
+      <stock-card v-for="stock in stocks" v-bind:stock="stock" v-bind:key="stock.id"></stock-card>
   </div>
 </template>
 
 <script>
+import StockCard from './StockCard.vue';
 export default {
+  components: { StockCard },
   props: ['stocks'],
-  data(){
+  data() {
     return {
+      currentValue: "",
     }
   },
-  created(){}
 };
 </script>
 

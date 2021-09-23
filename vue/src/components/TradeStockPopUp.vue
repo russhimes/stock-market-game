@@ -31,6 +31,7 @@
             <button v-on:click="buyStocks()" v-bind:class="{ 'invalidTransaction' : !validBuyTransaction }">Buy</button>
             <button v-bind:class="{ 'invalidTransaction' : !validSellTransaction }" v-if="stock.total_shares> 0">Sell</button>
         </div>
+        <router-link v-bind:to="{ name: 'game', params: {id: $store.state.activeGameId}}">Back to Game Board</router-link>
   </div>
 </template>
 
@@ -82,7 +83,6 @@ export default {
             );
     },
     computed: {
-        // TODO: fix this - not pulling in correct amount
         buyingPower() {
             return this.getCurrentPlayer().availableFunds;
         },
@@ -171,7 +171,6 @@ export default {
             let date = dateTime.toISOString().substring(0, 10);
             let time = dateTime.toString().substring(16, 24);
 
-            // update trade in database
             let trade = {
                 stock_id: this.stock.id,
                 shares_traded: shares,
@@ -207,7 +206,6 @@ export default {
                 total_shares: total_shares
             };
 
-            // update stock in database
             return stockService.createStock(stock);
         }
 

@@ -1,11 +1,11 @@
 INSERT INTO games (name, organizer_id, end_date, end_time)
-VALUES ('Game One', 1, '2021-10-01', '11:59:59');
+VALUES ('Game One', 1, '2021-10-01', '11:59:59 PM');
 
 INSERT INTO games (name, organizer_id, end_date, end_time)
-VALUES ('Game Two', 1, '2021-10-02', '11:59:59');
+VALUES ('Game Two', 1, '2021-10-02', '11:59:59 PM');
 
 INSERT INTO games (name, organizer_id, end_date, end_time)
-VALUES ('Game Three', 1, '2021-10-03', '11:59:59');
+VALUES ('Game Three', 1, '2021-10-03', '11:59:59 PM');
 
 
 INSERT INTO game_players (user_id, game_id, available_funds, game_status)
@@ -45,15 +45,13 @@ INSERT INTO stocks (player_id, stock_name, stock_ticker, total_shares)
 VALUES (6, 'Apple', 'AAPL', 1);
 
 INSERT INTO stocks (player_id, stock_name, stock_ticker, total_shares)
-VALUES (7, 'Apple', 'AAPL', 1);
+VALUES (1, 'Tesla Inc', 'TSLA', 1);
 
 INSERT INTO stocks (player_id, stock_name, stock_ticker, total_shares)
-VALUES (8, 'Apple', 'AAPL', 1);
+VALUES (2, 'Tesla Inc', 'TSLA', 1);
 
 INSERT INTO stocks (player_id, stock_name, stock_ticker, total_shares)
-VALUES (9, 'Apple', 'AAPL', 1);
+VALUES (3, 'Tesla Inc', 'TSLA', 1);
 
 INSERT INTO trades (stock_id, shares_traded, buy_or_sell, price, entered_in, date, time)
 VALUES (1, 1, 'Buy', 145.36, 'Shares', '2021-9-22', '11:59:59');
-
-

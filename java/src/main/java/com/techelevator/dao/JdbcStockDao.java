@@ -60,6 +60,16 @@ public class JdbcStockDao implements StockDao {
         return stock;
     }
 
+    public Stock getStockByStockId(int stockId){
+        String sql = "SELECT * FROM stocks WHERE id = ?";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, stockId);
+        Stock stock = null;
+        if(result.next()){
+            stock = mapResultToStock(result);
+        }
+        return stock;
+    }
+
 
     private Stock mapResultToStock(SqlRowSet result) {
         int id = result.getInt("id");

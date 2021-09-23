@@ -87,6 +87,8 @@ public class RestStockInfoService implements StockInfoService {
                 httpEntity,
                 String.class
         );
+
+        System.out.println(result);
         try {
             JsonNode jsonNode = objectMapper.readTree(result.getBody());
             JsonNode root = jsonNode.path("data");
@@ -94,6 +96,7 @@ public class RestStockInfoService implements StockInfoService {
             logoURL = jsonNode.path("logo").asText();
         } catch (JsonProcessingException e) {e.printStackTrace();}
         stockInfo = new StockInfo(stockSymbol, companyName, new BigDecimal(price).setScale(2, RoundingMode.HALF_UP), logoURL, new BigDecimal(percentChange).setScale(2, RoundingMode.HALF_UP));
+
         retrieveTimeMap.put(stockInfo.getStockSymbol(), LocalTime.now());
         stockInfoMap.put(stockSymbol, stockInfo);
         return stockInfo;

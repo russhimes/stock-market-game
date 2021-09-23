@@ -8,4 +8,6 @@ public interface StockDao {
     List<Stock> getStocksByPlayerId(int id);
 
     List<Stock> getAllStocks();
+
+    Stock getStockByPlayerAndTicker(int player_id, String ticker);
 }

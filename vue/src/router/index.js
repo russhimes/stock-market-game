@@ -31,7 +31,7 @@ const router = new Router({
     {
       path: '/stockinfo/:ticker',
       name: 'stock-info',
-      component: StockPopUp
+      component: StockPopUp,
     },
 
     // added game path

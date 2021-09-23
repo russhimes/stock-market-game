@@ -4,7 +4,7 @@
       <p id="gameEnd">Game ends on {{game.end_date}}, {{game.end_time}}</p>
       <button id="acceptButton" class="cardButton" v-if="player.game_status == 'Pending'" v-on:click="acceptGame()">Accept Invite</button>
       <button id="rejectButton" class="cardButton" v-if="player.game_status == 'Pending'" v-on:click="rejectGame()">Reject Invite</button>
-      <router-link id="gameLink" tag="button" v-if="player.game_status == 'Accepted'" v-bind:to="{name: 'game', params: {id: game.id}}">Go To Game</router-link>
+      <router-link v-on:click.native="updateCurrentPlayer()" id="gameLink" tag="button" v-if="player.game_status == 'Accepted'" v-bind:to="{name: 'game', params: {id: game.id}}">Go To Game</router-link>
   </div>
 </template>
 
@@ -30,7 +30,6 @@ export default {
             playerService.update(this.player).then(response => {
                 if (response.status) {
                     this.$store.commit("UPDATE_PLAYER_STATUS", this.player);
-                    console.log(this.$store.state.games);
                 }
             });
         },
@@ -39,9 +38,11 @@ export default {
             playerService.update(this.player).then(response => {
                 if (response.status) {
                     this.$store.commit("UPDATE_PLAYER_STATUS", this.player);
-                    console.log(this.$store.state.games);
                 }
             });
+        },
+        updateCurrentPlayer() {
+            this.$store.commit('SET_CURRENT_PLAYER', this.player.id);
         }
     },
 

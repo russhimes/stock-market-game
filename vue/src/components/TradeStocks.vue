@@ -40,7 +40,7 @@ created(){
     tradeTopStocks.getTopStocks().then(
         (response) => {
             this.topStocks = response.data;
-            console.log(this.topStocks);
+            //console.log(this.topStocks);
         }
     ).catch(
         (error) => console.log(error)

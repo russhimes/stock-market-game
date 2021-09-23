@@ -10,4 +10,6 @@ public interface TradeDao {
 
     void sellTrade(Trade trade, Stock stock);
 
+    boolean createTrade(Trade trade);
+
 }

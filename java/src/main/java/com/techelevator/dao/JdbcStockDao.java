@@ -45,6 +45,22 @@ public class JdbcStockDao implements StockDao {
         return stocks;
     }
 
+    @Override
+    public Stock getStockByPlayerAndTicker(int player_id, String ticker) {
+        String sql = "SELECT stocks.id, player_id, stock_name, stock_ticker, total_shares " +
+                "FROM stocks " +
+                "WHERE player_id = ? AND stock_ticker = ?";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, player_id, ticker);
+        Stock stock = null;
+
+        if(result.next()) {
+            stock = mapResultToStock(result);
+        }
+
+        return stock;
+    }
+
+
     private Stock mapResultToStock(SqlRowSet result) {
         int id = result.getInt("id");
         int player_id = result.getInt("player_id");

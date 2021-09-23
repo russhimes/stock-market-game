@@ -23,4 +23,9 @@ public class StockController {
     public List<Stock> getAllStocks() {
         return stockDao.getAllStocks();
     }
+
+    @RequestMapping(path="/player/{player_id}/stocks/{ticker}", method=RequestMethod.GET)
+    public Stock getStockByPlayerAndTicker(@PathVariable int player_id, @PathVariable String ticker) {
+        return stockDao.getStockByPlayerAndTicker(player_id, ticker);
+    }
 }

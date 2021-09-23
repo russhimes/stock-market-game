@@ -10,7 +10,9 @@ export default{
     },
     getPlayerStocks(playerId) {
         return axios.get(`/player/${playerId}/stocks`);
+    },
+    getStockByPlayerAndTicker(playerId, ticker) {
+        return axios.get(`/player/${playerId}/stocks/${ticker}`);
     }
-
 
 }

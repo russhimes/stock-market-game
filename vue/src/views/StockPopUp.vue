@@ -6,7 +6,6 @@
 import TradeStockPopUp from '../components/TradeStockPopUp.vue'
 export default {
   components: { TradeStockPopUp },
-
 }
 </script>
 

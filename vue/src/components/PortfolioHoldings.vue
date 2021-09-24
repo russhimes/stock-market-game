@@ -35,9 +35,10 @@ export default {
         this.player = response.data;
         stockService.getPlayerStocks(this.player.id)
           .then(response => {
-            this.stocks = response.data;
+            this.stocks = response.data.filter(stock => {
+              return stock.total_shares > 0;
+            })
             this.portfolioValue = this.getPortfolioValue();
-            console.log(this.stocks);
           })
 
       })

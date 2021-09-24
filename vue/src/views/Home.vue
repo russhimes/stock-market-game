@@ -60,7 +60,7 @@ export default {
     display: block;
     background-color:var(--color-green);
     border: none;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     height: 3rem;
     width: 15rem;
     padding: 1.4rem 2.2rem;
@@ -102,7 +102,7 @@ export default {
   }
 
   .block {
-    padding: 4rem;
+    padding: 2rem var(--padding);
     display: flex;
     justify-content: space-between;
   }

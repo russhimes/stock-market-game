@@ -28,7 +28,8 @@ export default {
     --background-color: #eeeeee;
     --color-primary: #211a1e;
     --color-lighter: #454545;
-    --max-width: 600px;
+    --padding: 4rem;
+    --border-radius: 5px;
   }
 
   *,
@@ -50,15 +51,15 @@ export default {
   }
 
   h1 {
-    font-size: 2.2rem;
-  }
-
-  h2 {
     font-size: 2rem;
   }
 
-  h3 {
+  h2 {
     font-size: 1.8rem;
+  }
+
+  h3 {
+    font-size: 1.4rem;
   }
   
   p, a {
@@ -73,5 +74,27 @@ export default {
   a:hover {
     border-bottom: 2px solid var(--color-green);
   }
+
+  ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: var(--border-radius);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 
 </style>

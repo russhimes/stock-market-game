@@ -1,15 +1,23 @@
 <template>
-  <div id="gameCard">
+<div>
+    <router-link class="gameCard" v-on:click.native="updateCurrentPlayer()" id="gameLink" tag="button" v-if="player.game_status == 'Accepted'" v-bind:to="{name: 'game', params: {id: game.id}}">
       <h3 id="gameName">{{game.name}}</h3>
       <p id="gameEnd">Game ends on {{game.end_date}}, {{game.end_time}}</p>
-      <button id="acceptButton" class="cardButton" v-if="player.game_status == 'Pending'" v-on:click="acceptGame()">Accept Invite</button>
-      <button id="rejectButton" class="cardButton" v-if="player.game_status == 'Pending'" v-on:click="rejectGame()">Reject Invite</button>
-      <router-link v-on:click.native="updateCurrentPlayer()" id="gameLink" tag="button" v-if="player.game_status == 'Accepted'" v-bind:to="{name: 'game', params: {id: game.id}}">Go To Game</router-link>
-  </div>
+    </router-link>
+<div class="gameCard" v-else>
+    <h3 id="gameName">{{game.name}}</h3>
+      <p id="gameEnd">Invited By: {{gameOrganizer}}</p>
+      <a id="acceptButton" class="cardButton" v-if="player.game_status == 'Pending'" v-on:click="acceptGame()">Accept Invite</a>
+      <a id="rejectButton" class="cardButton" v-if="player.game_status == 'Pending'" v-on:click="rejectGame()">Reject Invite</a>
+</div>
+
+</div>
+
 </template>
 
 <script>
 import playerService from '../services/PlayerService'
+import userService from '../services/UserService'
 export default {
     props: ["game"],
     data() {
@@ -20,7 +28,8 @@ export default {
                 game_id: "",
                 availableFunds: "",
                 game_status: ""
-            }
+            },
+            gameOrganizer: "",
         }
     },
     methods: {
@@ -54,6 +63,10 @@ export default {
                 this.player.id = response.data.id;
                 this.player.user_id = response.data.user_id;
                 this.player.availableFunds = response.data.availableFunds;
+            });
+        userService.getUserById(this.game.organizer_id)
+            .then(response => {
+                this.gameOrganizer = response.data.username;
             })
     }
 }
@@ -61,14 +74,43 @@ export default {
 </script>
 
 <style scoped>
-#gameCard {
-    border: 2px black solid;
-    background-color: rgb(47, 107, 50);
-    text-emphasis: Bold;
-    color: white;
-    border-radius: 6px;
-    padding-bottom: 3px;
-    margin-right: 10px;
+.gameCard {
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: none;
+    transition: 0.4s;
+    text-align: left;
+}
+
+#gameLink:hover {
+    background-color: var(--color-green);
+    cursor: pointer;
+}
+
+/* .gameCard:hover {
+    background-color: var(--color-green);
+    cursor: pointer;
+} */
+
+#acceptButton, #rejectButton {
+    cursor: pointer;
+    font-size: 1rem;
+    margin-right: 1.6rem;
+    border-bottom: 2px solid var(--color-lighter);
+}
+
+#rejectButton:hover {
+    border-bottom: 2px solid var(--color-red);
+}
+
+#acceptButton:hover {
+    border-bottom: 2px solid var(--color-green);
+}
+
+h3, p {
+    padding-bottom: 0.5rem;
 }
 
 </style>

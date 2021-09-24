@@ -4,6 +4,9 @@ import axios from 'axios';
 export default {
     getAllUsers() {
         return axios.get('/users');
+    },
+    getUserById(id) {
+        return axios.get(`/users/${id}`);
     }
 }
     

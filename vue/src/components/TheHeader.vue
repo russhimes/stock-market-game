@@ -23,17 +23,17 @@ export default {
     }
 
     #header {
-        max-height: 10vh;
-        height: 10vh;
+        max-height: 6vh;
+        height: 6vh;
         width: 100vw;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 2rem 4rem;
+        padding: 1.4rem var(--padding);
     }
 
     h1 {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
         font-weight: 100;
         text-transform: uppercase;
         flex-grow: 1;

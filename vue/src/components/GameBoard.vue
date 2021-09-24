@@ -1,7 +1,7 @@
 <template>
   <div id = "main ">
       <h2 class = "boardTitle">Welcome to the Game Board!</h2>
-       <countdown-timer v-bind:end-date="endDate" v-bind:end-time="endTime"></countdown-timer>
+       <countdown-timer v-bind:game="game"></countdown-timer>
       <portfolio-holdings v-bind:gameId="gameId"></portfolio-holdings>
       <trade-stocks></trade-stocks>
       <leader-board></leader-board>
@@ -18,7 +18,7 @@ import GameService from '../services/GamesService'
 // timer
 // pass game id to timer comp via props 
 
-// within a computed() grab game info from database using games services and gameId
+// grab game info from database using games services and gameId
 // store that in data section here
 // pass to countdown timer using v-bind (follow line 5)
 // inside of countdown have props to accept games to access information 
@@ -36,10 +36,8 @@ export default {
       },
     }
   },
-  
-  created: {
-    getTime(){
-        GameService.getGameByUserId(this.$store.state.currentPlayerId)
+  created() {
+        GameService.getGameById(this.gameId)
         .then(result => {
           if(result.data != ""){
               this.game.id = result.data.id;
@@ -47,12 +45,13 @@ export default {
               this.game.organizer_id = result.data.organizer_id;
               this.game.end_date = result.data.end_date;
               this.game.end_time = result.data.end_time;
+              console.log(this.game);
           }
         })
         
       }
     }
-  }
+  
 
 </script>
 

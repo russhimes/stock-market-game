@@ -33,9 +33,7 @@ export default {
         displayMinutes: 0,
         displaySeconds: 0
     }),
-    props() {
-
-    },
+    props:  ["game"],
 
     computed: {
         // values in milisec
@@ -51,15 +49,20 @@ export default {
         }
     },
     mounted() {
-        // problem showing
-      //  this.showRemaining();
+       
+       //this.showRemaining();
+       console.log("in countdown timer");
+       console.log(this.game);
+       const end = new Date(this.game.end_date);
+       console.log(end);
     },
 
     methods: {
         showRemaining(){
             const timer = setInterval(() => {
                 const now = new Date();
-                const end = new Date(2022, 4, 22, 10, 10, 10, 10); // placeholder to test 
+                const end = new Date(); // placeholder to test 
+               // console.log()
                 const distance = end.getTime() - now.getTime();
 
                 // when time is up

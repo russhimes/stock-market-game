@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.PlayerDao;
+import com.techelevator.dao.UserDao;
 import com.techelevator.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +15,17 @@ public class PlayerController {
 
     @Autowired
     private PlayerDao playerDao;
+    @Autowired
+    private UserDao userDao;
 
     @RequestMapping(path="/players", method = RequestMethod.GET)
     public List<Player> getAllPlayers() {
-        return playerDao.getAllPlayers();
+        List<Player> current = playerDao.getAllPlayers();
+        for(Player player : current){
+            player.setUsername(userDao.getUsernameById(player.getUser_id()));
+        }
+
+        return current;
     }
 
     @RequestMapping(path="/players/game/{game_id}", method = RequestMethod.GET)

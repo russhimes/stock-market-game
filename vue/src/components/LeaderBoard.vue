@@ -1,10 +1,11 @@
 <template>
 <div class = "LeaderBoard">
   <h3 class="title">Leaderboard!</h3>
-    <countdown-timer></countdown-timer>
-  <p class="body">This is where we will show the stats of the leaderboard!</p>
+   
+  <p class="body"></p>
   <div v-for="player in playerList" v-bind:key="player.id">
-    <div>{{player.id}} : {{player.availableFunds}}</div>
+    <div>{{player.username}} : {{player.availableFunds}}</div>
+    <div></div>
   </div>
 
   <!-- <div class='playerCard' v-for='player in playerList'>
@@ -15,12 +16,11 @@
 
 <script>
 import playerService from '../services/PlayerService.js'
-import CountdownTimer from '../components/CountdownTimer';
+import UserService from '../services/UserService.js'
+//import CountdownTimer from '../components/CountdownTimer';
 
 export default {
-  components: {
-    CountdownTimer
-  },
+ 
     data(){
       return {
         playerList: [],
@@ -42,6 +42,11 @@ export default {
           }
       ).catch(
         (error) => console.log(error)
+      );
+      UserService.getAllUsers().then(
+        (response) => {
+          this.userList = response.data;
+        }
       );
 
     },

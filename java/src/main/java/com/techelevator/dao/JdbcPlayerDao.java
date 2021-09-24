@@ -14,6 +14,7 @@ import java.util.List;
 public class JdbcPlayerDao implements PlayerDao {
 
     private JdbcTemplate jdbcTemplate;
+    private JdbcUserDao userDao;
 
     public JdbcPlayerDao(DataSource datasource) {
         this.jdbcTemplate = new JdbcTemplate(datasource);
@@ -30,6 +31,7 @@ public class JdbcPlayerDao implements PlayerDao {
         while(results.next()) {
             players.add(mapResultToPlayer(results));
         }
+
 
         return players;
     }
@@ -111,7 +113,7 @@ public class JdbcPlayerDao implements PlayerDao {
 
     private Player mapResultToPlayer(SqlRowSet result) {
         int id = result.getInt("id");
-        int user_id = result.getInt("user_id");
+        Long user_id = result.getLong("user_id");
         int game_id = result.getInt("game_id");
         String funds = result.getString("available_funds");
         String gameStatus = result.getString("game_status");

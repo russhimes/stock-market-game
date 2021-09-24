@@ -1,10 +1,11 @@
 <template>
   <div id="header">
       <h1>Virtual Stock Market</h1>
-      <router-link v-bind:to="{ name: 'home' }">Home &nbsp;|&nbsp;</router-link>
-      <p v-if="$store.state.user.username" id="username">{{$store.state.user.username}} &nbsp;|&nbsp;</p>
-      <routerLink v-if="$store.state.user.username" id="logoutLink" to="/logout">Log Out</routerLink>
-      <router-link v-else id="loginLink" to="/login">Log In</router-link>
+      <div class="links">
+        <router-link v-bind:to="{ name: 'home' }">Home</router-link>
+        <router-link v-if="$store.state.user.username" id="logoutLink" to="/logout">Log Out</router-link>
+        <router-link v-else id="loginLink" to="/login">Log In</router-link>
+      </div>
   </div>
 </template>
 
@@ -16,11 +17,35 @@ export default {
 </script>
 
 <style scoped>
-#header {
-    max-height: 10vh;
-    width: 100vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    * {
+        background-color: var(--color-lighter);
+        color: var(--background-color);
+    }
+
+    #header {
+        max-height: 6vh;
+        height: 6vh;
+        width: 100vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.4rem var(--padding);
+    }
+
+    h1 {
+        font-size: 1.4rem;
+        font-weight: 100;
+        text-transform: uppercase;
+        flex-grow: 1;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .links {
+        display: flex;
+        justify-content: space-around;
+        flex-grow: 0.5;
+    }
 </style>

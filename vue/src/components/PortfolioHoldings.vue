@@ -1,16 +1,20 @@
 <template>
   <div class="holdings">
     <div>
-      <h3>Total Portfolio Value: </h3>
-      <p> ${{ portfolioValue }} </p>
-    </div>
-    <div class="buyingPower">
-      <h3>Buying Power: </h3>
-      <p> ${{ player.availableFunds }} </p>
-    </div>
-      <h3 class= "holdingsTitle">Stocks:</h3>
+      <h3 class= "holdingsTitle">Your Position</h3>
+      <div class="portfolioValue">
+        <h4>Total Portfolio Value: </h4>
+        <p> ${{ portfolioValue }} </p>
+      </div>
+      <div class="buyingPower">
+        <h4>Buying Power: </h4>
+        <p> ${{ player.availableFunds }} </p>
+
+      </div>
+      </div>
+
       <stock-list v-bind:stocks="stocks"></stock-list>
-  </div>
+      </div>
 </template>
 
 <script>
@@ -57,7 +61,7 @@ export default {
             this.portfolioValue += (currentValue * shares);
           })
       }
-      return portfolioValue;
+      return portfolioValue.toFixed(2);
     }
   }
 
@@ -66,9 +70,14 @@ export default {
 
 <style>
 .holdingsTitle{
-  color: pink;
+  margin: 1rem;
 }
 .holdings{
   border-style: solid;
 }
+
+.portfolioValue, .buyingPower {
+  margin: 1rem;
+}
+
 </style>

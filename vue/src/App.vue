@@ -61,14 +61,20 @@ export default {
   h3 {
     font-size: 1.4rem;
   }
+
+  h4 {
+    font-size: 1rem;
+  }
   
   p, a {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   a {
     transition: 0.2s;
     border-bottom: 2px solid transparent;
+    text-decoration: none;
+    border-bottom: 2px solid var(--color-lighter);
   }
 
   a:hover {

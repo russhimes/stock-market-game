@@ -1,9 +1,11 @@
 <template>
   <div id = "main ">
       <h2 class = "boardTitle">Welcome to the Game Board!</h2>
-      <portfolio-holdings v-bind:gameId="gameId"></portfolio-holdings>
-      <trade-stocks></trade-stocks>
-      <leader-board></leader-board>
+      <div id="flex">
+        <portfolio-holdings v-bind:gameId="gameId"></portfolio-holdings>
+        <trade-stocks></trade-stocks>
+        <leader-board></leader-board>
+      </div>
   </div>
 </template>
 
@@ -24,8 +26,7 @@ export default {
 </script>
 
 <style>
-  .boardTitle {
-    color: palevioletred;
+  #flex {
+    display: flex;
   }
-  
 </style>

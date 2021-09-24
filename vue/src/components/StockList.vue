@@ -11,12 +11,10 @@ export default {
   props: ['stocks'],
   data() {
     return {
-      currentValue: "",
     }
   },
 };
 </script>
 
-<style>
-
+<style scoped>
 </style>

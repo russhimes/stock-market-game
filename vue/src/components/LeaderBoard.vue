@@ -5,6 +5,7 @@
   <div v-for="player in playerList" v-bind:key="player.id">
     <div>{{player.id}} : {{player.availableFunds}}</div>
   </div>
+  <countdown-timer></countdown-timer>
   <!-- <div class='playerCard' v-for='player in playerList'>
     {{ player.name }}
   </div> -->
@@ -13,7 +14,12 @@
 
 <script>
 import playerService from '../services/PlayerService.js'
+import CountdownTimer from '../components/CountdownTimer';
+
 export default {
+  components: {
+    CountdownTimer
+  },
     data(){
       return {
         playerList: [],

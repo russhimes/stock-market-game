@@ -4,8 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.techelevator.dao.PlayerDao;
+import com.techelevator.dao.StockDao;
+import com.techelevator.model.Player;
 import com.techelevator.model.SearchInfo;
+import com.techelevator.model.Stock;
 import com.techelevator.model.StockInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +35,12 @@ public class RestStockInfoService implements StockInfoService {
     private Map<String, StockInfo> stockInfoMap = new HashMap<>();
     private Map <String, List<SearchInfo>> searchInfoMap = new HashMap<>();
     private RestTemplate restTemplate = new RestTemplate();
+
+    @Autowired
+    private PlayerDao playerDao;
+
+    @Autowired
+    private StockDao stockDao;
 
     @Override
     public List<StockInfo> getTopStocks() {
@@ -136,5 +147,21 @@ public class RestStockInfoService implements StockInfoService {
         }
         return searchInfoList;
     }
+
+    @Override
+    public BigDecimal getPortfolioValue(int playerId) {
+        Player player = playerDao.getPlayerById(playerId);
+        BigDecimal availableFunds = player.getAvailableFunds();
+        List<Stock> stocks = stockDao.getStocksByPlayerId(playerId);
+        BigDecimal stocksValue = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
+        for (Stock stock : stocks) {
+            StockInfo stockInfo = getStockInfo(stock.getStock_ticker());
+            BigDecimal thisStockValue = stockInfo.getCurrentPrice().multiply(new BigDecimal(stock.getTotal_shares()).setScale(2, RoundingMode.HALF_UP));
+            stocksValue = stocksValue.add(thisStockValue);
+        }
+
+        return availableFunds.add(stocksValue).setScale(2, RoundingMode.HALF_UP);
+    }
+
 
 }

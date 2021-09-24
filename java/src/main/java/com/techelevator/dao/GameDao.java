@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface GameDao {
 
+    List<Game> getAllGames();
+
     List<Game> getGamesByOrganizerId(int organizer_id);
 
     List<Game> getGamesByUsername(String username);

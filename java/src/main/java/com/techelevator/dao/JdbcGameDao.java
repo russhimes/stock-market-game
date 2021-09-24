@@ -21,6 +21,20 @@ public class JdbcGameDao implements GameDao {
         this.jdbcTemplate = new JdbcTemplate(datasource);
     }
 
+    public List<Game> getAllGames() {
+        String sql = "SELECT id, name, organizer_id, end_date, end_time " +
+                "FROM games;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        List<Game> games = new ArrayList<>();
+
+        while(results.next()) {
+            games.add(mapResultToGame(results));
+        }
+
+        return games;
+    }
+
     @Override
     public List<Game> getGamesByOrganizerId(int organizer_id) {
         String sql = "SELECT id, name, organizer_id, end_date, end_time " +

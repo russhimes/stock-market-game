@@ -76,16 +76,14 @@ export default {
        //this.showRemaining();
       
     },
-// date = new Date('2021-09-16T10:20:00.000Z');
 
     methods: {
         showRemaining(){
             const timer = setInterval(() => {
                 const now = new Date();
-                const end = new Date(this.game.end_date + 'T' + this.game.end_time + '.000Z'); // placeholder to test 
-                //console.log(end)
+                const end = new Date(this.game.end_date + 'T' + this.game.end_time + '.000Z'); 
                 const distance = end.getTime() - now.getTime();
-               //     console.log(distance);
+               
                 // when time is up
                 if(distance < 0){
                    //stop timer
@@ -109,14 +107,14 @@ export default {
                 delta -= minutes * 60;
 
                 // what's left is seconds
-                var seconds = Math.floor(delta % 60);  // in theory the modulus is not required
+                var seconds = Math.floor(delta % 60);  
 
                
                 console.log(days);
                 console.log(hours);
                 console.log(minutes);
                 console.log(seconds);
-                // adding 0 to time 
+       
                 this.displayMinutes = minutes < 10 ? "0" + minutes : minutes;
                 this.displaySeconds = seconds < 10 ? "0" + seconds : seconds;
                 this. displayHours = hours <  10 ? "0" + hours : hours;

@@ -8,7 +8,7 @@ export default {
         return axios.get('/games/organizer/' + organizerId);
     },
     getGameByUserId(userId){
-        return axios.get('games/player/' + userId);
+        return axios.get('/games/' + userId);
     },
     getGameById(id){
         return axios.get('/games/' + id);
@@ -18,5 +18,6 @@ export default {
     },
     deleteGame(id){
         return axios.delete('/games/' + id);
-    }
+    },
+    
 }

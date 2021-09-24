@@ -29,15 +29,16 @@ public class GameController {
     private GameDao gameDao;
 
     @Autowired
-    public SchedulingService schedulingService;
+    private SchedulingService schedulingService;
+
+    @Autowired
+    private EndGameService endGameService;
 
     @RequestMapping(path="/games/organizer/{organizer_id}", method = RequestMethod.GET)
     public List<Game> getGamesByOrganizerId(@PathVariable int organizer_id) { return gameDao.getGamesByOrganizerId(organizer_id); }
 
     @RequestMapping(path="/games", method = RequestMethod.GET)
     public List<Game> getGamesByUsername(Principal principal) {
-        //schedulingService.addTaskToScheduler(-1, () -> {
-          //  System.out.println("Hurray!");}, Date.from(Instant.now().plus(10, ChronoUnit.SECONDS)));
         return gameDao.getGamesByUsername(principal.getName()); }
 
     @RequestMapping(path="/games/{id}", method = RequestMethod.GET)
@@ -47,7 +48,9 @@ public class GameController {
     public int createGame(@RequestBody Game game) {
         LocalDateTime dateTime =  LocalDateTime.of(game.getEnd_date(), game.getEnd_time());
         Date date = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
-        schedulingService.addTaskToScheduler(game.getId(), new EndGameService(game.getId()), date);
+        endGameService.setGame(game);
+        schedulingService.addTaskToScheduler(game.getId(), endGameService, date);
+        System.out.println(Date.from(Instant.now()).getTime() - date.getTime());
         return gameDao.createGame(game); }
 
     @RequestMapping(path="/games/{id}", method = RequestMethod.DELETE)

@@ -25,6 +25,8 @@ public class SchedulingService  {
     GameDao gameDao;
     @Autowired
     StockDao stockDao;
+    @Autowired
+    EndGameService endGameService;
 
     TaskScheduler scheduler;
 
@@ -37,6 +39,7 @@ public class SchedulingService  {
     public void addTaskToScheduler(int id, Runnable task, Date runningDate) {
         ScheduledFuture<?> scheduledTask = scheduler.schedule(task, runningDate);
         jobsMap.put(id, scheduledTask);
+        System.out.println(jobsMap.get(id).toString() + " Date: " + runningDate);
     }
 
     public void removeTaskFromScheduler(int id) {
@@ -53,7 +56,9 @@ public class SchedulingService  {
         for (Game game : games ) {
            LocalDateTime dateTime =  LocalDateTime.of(game.getEnd_date(), game.getEnd_time());
            Date date = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
-            addTaskToScheduler(game.getId(), new EndGameService(game.getId()), date);
+            System.out.println(game.getId());
+           endGameService.setGame(game);
+           addTaskToScheduler(game.getId(), endGameService, date);
         }
     }
 

@@ -27,7 +27,7 @@ public class ScheduleConfig implements SchedulingConfigurer {
             public Date nextExecutionTime(TriggerContext triggerContext) {
                 Calendar nextExecutionTime = new GregorianCalendar();
                 Date lastActualExecutionTime = triggerContext.lastActualExecutionTime();
-                nextExecutionTime.add(Calendar.HOUR,  getNewExecutionTime());
+                nextExecutionTime.add(Calendar.MINUTE,  getNewExecutionTime());
                 return nextExecutionTime.getTime();
             }
         });
@@ -35,7 +35,7 @@ public class ScheduleConfig implements SchedulingConfigurer {
 
     //If needed we can make this setable I'm sure.  But now it just returns 24 hours.
     private int getNewExecutionTime() {
-        return 24;
+        return 1;
     }
 
     @Bean

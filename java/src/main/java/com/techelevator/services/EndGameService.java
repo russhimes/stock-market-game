@@ -8,6 +8,7 @@ import com.techelevator.model.Trade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -17,41 +18,27 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+@Component
 public class EndGameService implements Runnable  {
 
     private Game game;
-    private String gameWinner;
-    private List<Player> players = new ArrayList<>();
-    private TaskScheduler taskScheduler =  new ThreadPoolTaskScheduler();
 
     @Autowired
     private UserDao userDao;
-
     @Autowired
     private GameDao gameDao;
-
     @Autowired
     private PlayerDao playerDao;
-
     @Autowired
     private TradeDao tradeDao;
-
     @Autowired
     private StockDao stockDao;
-
     @Autowired
     private StockInfoService stockInfoService;
 
-
-
-
-    public EndGameService(int gameId) {
-        this.game = gameDao.getGameById(gameId);
-    }
-
     @Override
     public void run() {
-        players = playerDao.getPlayersByGame(game.getId());
+        List<Player> players = playerDao.getPlayersByGame(game.getId());
         for (Player player : players) {
             List<Stock> stocks = stockDao.getStocksByPlayerId(player.getId());
             for (Stock stock : stocks) {
@@ -67,8 +54,6 @@ public class EndGameService implements Runnable  {
                 tradeDao.createTrade(trade);
             }
         }
-        players.sort(Comparator.comparing(Player::getAvailableFunds).reversed());
-        gameWinner = userDao.getUserById((long) players.get(0).getUser_id()).getUsername();
     }
 
     public Game getGame() {
@@ -79,19 +64,9 @@ public class EndGameService implements Runnable  {
         this.game = game;
     }
 
-    public String getGameWinner() {
-        return gameWinner;
+    public String toString() {
+        return game.getName();
     }
 
-    public void setGameWinner(String gameWinner) {
-        this.gameWinner = gameWinner;
-    }
 
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(List<Player> players) {
-        this.players = players;
-    }
 }

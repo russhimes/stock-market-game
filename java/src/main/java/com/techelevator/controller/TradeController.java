@@ -55,9 +55,20 @@ public class TradeController {
             stock.setTotal_shares(originalShares + newShares);
             stockDao.updateStock(stock);
         }
+        else if(trade.getBuy_or_sell().equalsIgnoreCase("sell") && stock.getTotal_shares() >= trade.getShares_traded()) {
+            tradeDao.createTrade(trade);
 
-        // TODO validate sell transaction
-        // if sell make sure they have enough stocks to sell
+            // update player's balance
+            BigDecimal newBalance = player.getAvailableFunds().add(trade.getPrice());
+            player.setAvailable_funds(newBalance);
+            playerDao.updatePlayer(player);
+
+            // update stock to reflect new number of shares
+            double originalShares = stock.getTotal_shares();
+            double soldShares = trade.getShares_traded();
+            stock.setTotal_shares(originalShares - soldShares);
+            stockDao.updateStock(stock);
+        }
     }
 
 }

@@ -1,7 +1,7 @@
 <template>
 <div class = "LeaderBoard">
   <h3 class="title">Leaderboard!</h3>
-    <countdown-timer></countdown-timer>
+   
   <p class="body">This is where we will show the stats of the leaderboard!</p>
   <div v-for="player in playerList" v-bind:key="player.id">
     <div>{{player.username}} : {{player.availableFunds}}</div>
@@ -16,13 +16,15 @@
 
 <script>
 import playerService from '../services/PlayerService.js'
+<<<<<<< HEAD
 import UserService from '../services/UserService.js'
 import CountdownTimer from '../components/CountdownTimer';
+=======
+
+>>>>>>> fc167870708c4bd0bd06408fafe530dbe5478a66
 
 export default {
-  components: {
-    CountdownTimer
-  },
+ 
     data(){
       return {
         playerList: [],

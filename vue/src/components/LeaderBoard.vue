@@ -1,11 +1,12 @@
 <template>
 <div class = "LeaderBoard">
   <h3 class="title">Leaderboard!</h3>
+    <countdown-timer></countdown-timer>
   <p class="body">This is where we will show the stats of the leaderboard!</p>
   <div v-for="player in playerList" v-bind:key="player.id">
     <div>{{player.id}} : {{player.availableFunds}}</div>
   </div>
-  <countdown-timer></countdown-timer>
+
   <!-- <div class='playerCard' v-for='player in playerList'>
     {{ player.name }}
   </div> -->

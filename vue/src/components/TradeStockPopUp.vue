@@ -96,9 +96,9 @@ export default {
             return this.amount / this.currentPrice;
         },
         validSellTransaction() {
-            if(this.entryType=== "Shares" && this.stock.total_shares >= this.amount){
+            if(this.entryType=== "Shares" && this.stock.total_shares >= this.amount && this.amount > 0){
                       return true;
-            }  if(this.entryType=== "Dollars" && this.marketValue >= this.amount){
+            }  if(this.entryType=== "Dollars" && this.marketValue >= this.amount && this.amount > 0){
                       return true;
             }
             return false; 
@@ -106,9 +106,9 @@ export default {
         },
         validBuyTransaction() {
             let player = this.getCurrentPlayer();
-            if(this.entryType=== "Shares" && player.availableFunds >= (this.amount * this.currentPrice)){
+            if(this.entryType=== "Shares" && player.availableFunds >= (this.amount * this.currentPrice) && this.amount > 0){
                       return true;
-            }  if(this.entryType=== "Dollars" && player.availableFunds >= this.amount){
+            }  if(this.entryType=== "Dollars" && player.availableFunds >= this.amount && this.amount > 0){
                       return true;
             }
             return false; 

@@ -22,20 +22,41 @@
               </tr>
           </table>
       </body>
-
-
-
   </div>
 </template>
 
 <script>
+import GameService from '../services/GamesService'
 export default {
     data: () => ({
         displayDays: 0,
         displayHours: 0,
         displayMinutes: 0,
-        displaySeconds: 0
+        displaySeconds: 0,
+        game: {
+        id: "",
+        name: "",
+        organizer_id:"",
+        end_date: "",
+        end_time: ""
+      }
     }),
+   created() {
+        GameService.getGameById(this.gameId)
+        .then(result => {
+          if(result.data != ""){
+              this.game.id = result.data.id;
+              this.game.name = result.data.name;
+              this.game.organizer_id = result.data.organizer_id;
+              this.game.end_date = result.data.end_date;
+              this.game.end_time = result.data.end_time;
+          }
+       this.showRemaining();
+        })
+        
+        
+   },
+    props:  ["gameId"],
 
     computed: {
         // values in milisec
@@ -51,16 +72,18 @@ export default {
         }
     },
     mounted() {
-      //  this.showRemaining();
+       
+       //this.showRemaining();
+      
     },
 
     methods: {
         showRemaining(){
             const timer = setInterval(() => {
                 const now = new Date();
-                const end = new Date(2022, 4, 22, 10, 10, 10, 10); // placeholder to test 
+                const end = new Date(this.game.end_date + 'T' + this.game.end_time + '.000Z'); 
                 const distance = end.getTime() - now.getTime();
-
+               
                 // when time is up
                 if(distance < 0){
                    //stop timer
@@ -68,12 +91,30 @@ export default {
                    return
 
                 }
-                // calculate values from milisec 
-                const days = Math.floor((distance / this._days));
-                const hours = Math.floor((distance % this._days) / this._hours);
-                const minutes = Math.floor((distance % this.hours) / this._minutes);
-                const seconds = Math.floor((distance % this.minutes) / this.seconds);
-                // adding 0 to time 
+                // get total seconds between the times
+                var delta = Math.abs(end -now) / 1000;
+
+                // calculate (and subtract) whole days
+                var days = Math.floor(delta / 86400);
+                delta -= days * 86400;
+
+                // calculate (and subtract) whole hours
+                var hours = Math.floor(delta / 3600) % 24;
+                delta -= hours * 3600;
+
+                // calculate (and subtract) whole minutes
+                var minutes = Math.floor(delta / 60) % 60;
+                delta -= minutes * 60;
+
+                // what's left is seconds
+                var seconds = Math.floor(delta % 60);  
+
+               
+                console.log(days);
+                console.log(hours);
+                console.log(minutes);
+                console.log(seconds);
+       
                 this.displayMinutes = minutes < 10 ? "0" + minutes : minutes;
                 this.displaySeconds = seconds < 10 ? "0" + seconds : seconds;
                 this. displayHours = hours <  10 ? "0" + hours : hours;
@@ -82,11 +123,7 @@ export default {
         }
     }
 };
-
-
-
-
-      
+ 
 </script>
 
 <style>

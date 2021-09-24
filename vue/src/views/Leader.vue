@@ -1,5 +1,5 @@
 <template>
-<div>hi
+<div>
   <leader-board/>
   </div>
 </template>

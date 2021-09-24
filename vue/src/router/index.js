@@ -10,6 +10,7 @@ import store from '../store/index'
 import InvitePlayers from '../views/InvitePlayers.vue'
 import GameBoard from '../views/Board.vue'
 import StockPopUp from '../views/StockPopUp' 
+import Leader from '../views/Leader.vue'
 
 
 Vue.use(Router)
@@ -81,6 +82,11 @@ const router = new Router({
       path: '/add-players/:id',
       name: 'add-players',
       component: InvitePlayers
+    },
+    {
+      path: '/leaderboard',
+      name: 'leaderboard',
+      component: Leader
     }
   ]
 })

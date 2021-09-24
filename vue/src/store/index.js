@@ -24,6 +24,7 @@ export default new Vuex.Store({
     players: [],
     loaded: false,
     currentPlayerId: -1,
+    activeGameId: -1,
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -57,6 +58,9 @@ export default new Vuex.Store({
     },
     SET_CURRENT_PLAYER(state, player_id) {
       state.currentPlayerId = player_id;
+    },
+    SET_ACTIVE_GAME(state, game_id) {
+      state.activeGameId = game_id;
     }
   }
 })

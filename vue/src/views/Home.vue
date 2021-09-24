@@ -15,9 +15,10 @@ import gamesService from '../services/GamesService.js';
 import playerService from '../services/PlayerService.js';
 
 export default {
-  components: { /*GameCard, */GamesList},
+  components: {GamesList},
   name: "home",
-  mounted() {
+
+    mounted() {
     gamesService.getAllGames().then((response) => {
       for (let i = 0; i < response.data.length; i++) {
         let game = response.data[i];

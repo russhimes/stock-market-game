@@ -12,4 +12,8 @@ public interface StockDao {
     Stock getStockByPlayerAndTicker(int player_id, String ticker);
 
     Stock getStockByStockId(int stockId);
+
+    void updateStock(Stock stock);
+
+    void createStock(Stock stock);
 }

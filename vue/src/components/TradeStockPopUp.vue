@@ -10,6 +10,7 @@
       <p>Shares: {{ stock.total_shares }}</p>
       <p>Market Value: ${{marketValue}} </p>
 
+        <p>Buying Power: ${{ buyingPower }}</p>
       <button v-on:click="toggleTrade = !toggleTrade">Trade</button>
         <div v-if="toggleTrade">
             <label for="amount">Amount:</label>
@@ -30,11 +31,13 @@
             <button v-on:click="buyStocks()" v-bind:class="{ 'invalidTransaction' : !validBuyTransaction }">Buy</button>
             <button v-bind:class="{ 'invalidTransaction' : !validSellTransaction }" v-if="stock.total_shares> 0">Sell</button>
         </div>
+        <router-link v-bind:to="{ name: 'game', params: {id: $store.state.activeGameId}}">Back to Game Board</router-link>
   </div>
 </template>
 
 <script>
 import stockService from '../services/StockService'
+import tradeService from '../services/TradeService'
 export default {
     data(){
         return {
@@ -43,16 +46,28 @@ export default {
             imageUrl: "",
             companyName: "",
             percentChange: 0,
-            stock: {},
+            stock: {
+                id: "",
+                player_id: "",
+                stock_name: "",
+                stock_ticker: "",
+                total_shares: 0
+            },
             toggleTrade: false,
             entryType: "Shares",
-            amount: 0,
+            amount: "",
         }
     },
     created(){
         stockService.getStockByPlayerAndTicker(this.$store.state.currentPlayerId, this.stockTicker)
             .then(result => {
-                this.stock = result.data;
+                if(result.data != "") {
+                    this.stock.id = result.data.id;
+                    this.stock.player_id = result.data.player_id;
+                    this.stock.stock_name = result.data.stock_name;
+                    this.stock.stock_ticker = result.data.stock_ticker;
+                    this.stock.total_shares = result.data.total_shares;
+                }
             });
 
         stockService.getStockInfo(this.stockTicker)
@@ -68,6 +83,9 @@ export default {
             );
     },
     computed: {
+        buyingPower() {
+            return this.getCurrentPlayer().availableFunds;
+        },
         marketValue() {
             return this.stock.total_shares * this.currentPrice;
         },
@@ -104,13 +122,35 @@ export default {
         },
         buyStocks() {
             if(this.validBuyTransaction) {
-                // TODO - update logic so it handles stock not existing (AKA adds stock object instead of updating it)
-                if(this.stock === {}) {
-                    console.log("empty object");
+                if(this.stock.total_shares === 0) {
+                    this.createStock().then(() => {
+                        stockService.getStockByPlayerAndTicker(this.$store.state.currentPlayerId, this.stockTicker)
+                            .then(result => {
+                                if(result.data != "") {
+                                    this.stock.id = result.data.id;
+                                    this.stock.player_id = result.data.player_id;
+                                    this.stock.stock_name = result.data.stock_name;
+                                    this.stock.stock_ticker = result.data.stock_ticker;
+                                    this.stock.total_shares = result.data.total_shares;
+                                }
+
+                                this.updateStock("Buy");
+                                this.updatePlayer("Buy");
+                                this.createTradeObject("Buy");
+                                this.amount = "";
+                            })
+
+
+                    })
+                    .catch(error => {
+                            console.log(error);
+                        });
+                   
                 } else {
                     this.updateStock("Buy");
                     this.updatePlayer("Buy");
                     this.createTradeObject("Buy");
+                    this.amount = "";
                 }
             }
         },
@@ -123,27 +163,25 @@ export default {
             
             let newShares = buyOrSell == "Buy" ? currentShares + shareChange : currentShares - shareChange;
             stock.total_shares = newShares;
-
-            // update stock in database
         },
         createTradeObject(buyOrSell) {
             let shares = this.entryType === "Shares" ? this.amount : this.amount / this.currentPrice;
             let price = this.entryType === "Dollars" ? this.amount : this.amount * this.currentPrice;
             let dateTime = new Date()
             let date = dateTime.toISOString().substring(0, 10);
-            let time = dateTime.toLocaleTimeString();
+            let time = dateTime.toString().substring(16, 24);
 
-            // update trade in database
             let trade = {
                 stock_id: this.stock.id,
                 shares_traded: shares,
                 buy_or_sell: buyOrSell,
                 price: price,
-                enteredIn: this.entryType,
+                entered_in: this.entryType,
                 date: date,
                 time: time
             }
             console.log(trade);
+            tradeService.createTrade(trade);
         },
         updatePlayer(buyOrSell) {
             let player = this.getCurrentPlayer();
@@ -154,6 +192,21 @@ export default {
             let newBalance = buyOrSell === "Buy" ? initialBalance - balanceChange : initialBalance + balanceChange;
 
             player.availableFunds = newBalance;
+        },
+        createStock() {
+            let player_id = this.getCurrentPlayer().id;
+            let stock_name = this.companyName;
+            let stock_ticker = this.stockTicker;
+            let total_shares = 0;
+
+            let stock = {
+                player_id: player_id,
+                stock_name: stock_name,
+                stock_ticker: stock_ticker,
+                total_shares: total_shares
+            };
+
+            return stockService.createStock(stock);
         }
 
     }

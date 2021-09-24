@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.techelevator.model.SearchInfo;
 import com.techelevator.model.StockInfo;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class RestStockInfoService implements StockInfoService {
     private String BASE_URL = "https://finnhub.io/api/v1/";
     private Map<String, LocalTime> retrieveTimeMap = new HashMap<>();
     private Map<String, StockInfo> stockInfoMap = new HashMap<>();
+    private Map <String, List<SearchInfo>> searchInfoMap = new HashMap<>();
     private RestTemplate restTemplate = new RestTemplate();
 
     @Override
@@ -85,18 +88,53 @@ public class RestStockInfoService implements StockInfoService {
                 String.class
         );
 
-        System.out.println(result);
         try {
             JsonNode jsonNode = objectMapper.readTree(result.getBody());
             JsonNode root = jsonNode.path("data");
             companyName = jsonNode.path("name").asText();
             logoURL = jsonNode.path("logo").asText();
         } catch (JsonProcessingException e) {e.printStackTrace();}
+        stockInfo = new StockInfo(stockSymbol, companyName, new BigDecimal(price).setScale(2, RoundingMode.HALF_UP), logoURL, new BigDecimal(percentChange).setScale(2, RoundingMode.HALF_UP));
 
-        stockInfo = new StockInfo(stockSymbol, companyName, new BigDecimal(price), logoURL, new BigDecimal(percentChange));
         retrieveTimeMap.put(stockInfo.getStockSymbol(), LocalTime.now());
         stockInfoMap.put(stockSymbol, stockInfo);
         return stockInfo;
+    }
+
+    public List<SearchInfo> getSearchInfo(String searchTerm) {
+        List<SearchInfo> searchInfoList = new ArrayList<>();
+        if (searchInfoMap.containsKey(searchTerm)) {
+            return searchInfoMap.get(searchTerm);
+        }
+        HttpEntity<String> httpEntity = new HttpEntity<>("");
+        String url = BASE_URL + "search?q=" + searchTerm + "&token=" + apiKey;
+        String description = "";
+        String stockSymbol = "";
+        ResponseEntity<String> result = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                httpEntity,
+                String.class
+        );
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            JsonNode jsonNode = objectMapper.readTree(result.getBody());
+            JsonNode root = jsonNode.path("data");
+            System.out.println(jsonNode.asText());
+            int count;
+            if (Integer.parseInt(jsonNode.path("count").asText()) > 10)  count = 10;
+            else count = Integer.parseInt(jsonNode.path("count").asText());
+            for (int i = 0; i < count; i++) {
+                description = jsonNode.path("result").get(i).path("description").asText();
+                stockSymbol = jsonNode.path("result").get(i).path("displaySymbol").asText();
+                searchInfoList.add(new SearchInfo(searchTerm, description, stockSymbol));
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return searchInfoList;
     }
 
 }

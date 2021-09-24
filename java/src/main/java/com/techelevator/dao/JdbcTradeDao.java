@@ -43,12 +43,11 @@ public class JdbcTradeDao implements TradeDao {
         }
     }
 
-    public boolean createTrade(Trade trade){
+    public void createTrade(Trade trade){
         String sql = "INSERT INTO trades (stock_id, shares_traded, buy_or_sell, price, entered_in, date, time) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-
-        return true;
+        jdbcTemplate.update(sql, trade.getStock_id(), trade.getShares_traded(), trade.getBuy_or_sell(), trade.getPrice(), trade.getEntered_in(), trade.getDate(), trade.getTime());
     }
 
     private Trade mapResultToTrade(SqlRowSet result) {

@@ -43,6 +43,7 @@ export default {
         },
         updateCurrentPlayer() {
             this.$store.commit('SET_CURRENT_PLAYER', this.player.id);
+            this.$store.commit('SET_ACTIVE_GAME', this.game.id);
         }
     },
 

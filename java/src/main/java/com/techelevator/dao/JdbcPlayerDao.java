@@ -54,7 +54,7 @@ public class JdbcPlayerDao implements PlayerDao {
     public Player getPlayerById(int id) {
         String sql = "SELECT id, user_id, game_id, available_funds, game_status " +
                 "FROM game_players " +
-                "WHERE user_id = ?";
+                "WHERE id = ?";
 
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, id);
         Player player = null;

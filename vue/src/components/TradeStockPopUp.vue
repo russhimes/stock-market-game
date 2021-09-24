@@ -29,7 +29,7 @@
             </div>
 
             <button v-on:click="buyStocks()" v-bind:class="{ 'invalidTransaction' : !validBuyTransaction }">Buy</button>
-            <button v-bind:class="{ 'invalidTransaction' : !validSellTransaction }" v-if="stock.total_shares> 0">Sell</button>
+            <button v-on:click="sellStocks()" v-bind:class="{ 'invalidTransaction' : !validSellTransaction }" v-if="stock.total_shares> 0">Sell</button>
         </div>
         <router-link v-bind:to="{ name: 'game', params: {id: $store.state.activeGameId}}">Back to Game Board</router-link>
   </div>
@@ -139,8 +139,6 @@ export default {
                                 this.createTradeObject("Buy");
                                 this.amount = "";
                             })
-
-
                     })
                     .catch(error => {
                             console.log(error);
@@ -154,6 +152,17 @@ export default {
                 }
             }
         },
+        sellStocks() {
+            if(this.validSellTransaction) {
+                if(this.stock.total_shares > 0) {
+                    this.updateStock("Sell");
+                    this.updatePlayer("Sell");
+                    this.createTradeObject("Sell");
+                    this.amount = "";
+                }
+            }
+        },
+
         updateStock(buyOrSell) {
             let stock = this.stock;
             let currentShares = parseInt(stock.total_shares);
@@ -180,7 +189,6 @@ export default {
                 date: date,
                 time: time
             }
-            console.log(trade);
             tradeService.createTrade(trade);
         },
         updatePlayer(buyOrSell) {

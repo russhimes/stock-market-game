@@ -27,22 +27,22 @@ INSERT INTO game_players (user_id, game_id, available_funds, game_status)
 VALUES (2, 3, 100000.00, 'Accepted');
 
 INSERT INTO stocks (player_id, stock_name, stock_ticker, total_shares)
-VALUES (1, 'Apple', 'AAPL', 1);
+VALUES (1, 'Apple Inc', 'AAPL', 1);
 
 INSERT INTO stocks (player_id, stock_name, stock_ticker, total_shares)
-VALUES (2, 'Apple', 'AAPL', 1);
+VALUES (2, 'Apple Inc', 'AAPL', 1);
 
 INSERT INTO stocks (player_id, stock_name, stock_ticker, total_shares)
-VALUES (3, 'Apple', 'AAPL', 1);
+VALUES (3, 'Apple Inc', 'AAPL', 1);
 
 INSERT INTO stocks (player_id, stock_name, stock_ticker, total_shares)
-VALUES (4, 'Apple', 'AAPL', 1);
+VALUES (4, 'Apple Inc', 'AAPL', 1);
 
 INSERT INTO stocks (player_id, stock_name, stock_ticker, total_shares)
-VALUES (5, 'Apple', 'AAPL', 1);
+VALUES (5, 'Apple Inc', 'AAPL', 1);
 
 INSERT INTO stocks (player_id, stock_name, stock_ticker, total_shares)
-VALUES (6, 'Apple', 'AAPL', 1);
+VALUES (6, 'Apple Inc', 'AAPL', 1);
 
 INSERT INTO stocks (player_id, stock_name, stock_ticker, total_shares)
 VALUES (1, 'Tesla Inc', 'TSLA', 1);

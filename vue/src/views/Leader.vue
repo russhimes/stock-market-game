@@ -1,5 +1,7 @@
 <template>
+<div>hi
   <leader-board/>
+  </div>
 </template>
 
 <script>

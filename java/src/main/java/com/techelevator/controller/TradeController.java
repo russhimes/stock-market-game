@@ -44,6 +44,10 @@ public class TradeController {
                 (player.getAvailableFunds().compareTo(trade.getPrice()) >= 0)){
             tradeDao.createTrade(trade);
 
+            // TODO update player and stock
+            // TODO validate sell transaction
+
+
             // update player's balance
             BigDecimal newBalance = player.getAvailableFunds().subtract(trade.getPrice());
             player.setAvailable_funds(newBalance);
@@ -54,6 +58,7 @@ public class TradeController {
             double newShares = trade.getShares_traded();
             stock.setTotal_shares(originalShares + newShares);
             stockDao.updateStock(stock);
+
         }
         else if(trade.getBuy_or_sell().equalsIgnoreCase("sell") && stock.getTotal_shares() >= trade.getShares_traded()) {
             tradeDao.createTrade(trade);

@@ -1,11 +1,14 @@
 <template>
-  <div id = "main ">
-      <h2 class = "boardTitle">Welcome to the Game Board!</h2>
-      <div id="flex">
-        <countdown-timer v-bind:gameId="gameId"></countdown-timer>
-        <portfolio-holdings v-bind:gameId="gameId"></portfolio-holdings>
-        <trade-stocks></trade-stocks>
+  <div id = "main">
+      <h2 class = "boardTitle">{{ game.name }} Dashboard</h2>
+      <div class="flex">
+       <countdown-timer v-bind:gameId="gameId"></countdown-timer>
         <leader-board></leader-board>
+      </div>
+      <div class="flex">
+        <portfolio-holdings v-bind:gameId="gameId" class="portfolio"></portfolio-holdings>
+        <trade-stocks class="trade"></trade-stocks>
+
       </div>
        
   </div>
@@ -58,8 +61,19 @@ export default {
 
 </script>
 
-<style>
-  #flex {
-    display: flex;
+<style scope>
+  #main {
+    padding: 2rem var(--padding);
   }
+
+  .flex {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .portfolio, .trade {
+    flex-grow: 1;
+  }
+
+
 </style>

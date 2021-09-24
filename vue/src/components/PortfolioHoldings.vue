@@ -68,7 +68,7 @@ export default {
 }
 </script>
 
-<style>
+<style scope >
 .holdingsTitle{
   margin: 1rem;
 }

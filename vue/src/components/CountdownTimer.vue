@@ -1,7 +1,7 @@
 <template>
   <div>
       <head>
-            <title>Game Countdown!</title>
+            <h4>Time Remaining</h4>
       </head>
       <body>
           <table class="countdownContainer">
@@ -126,7 +126,7 @@ export default {
  
 </script>
 
-<style>
+<style scope>
 body{
     background: #f6f6f6;
 }
@@ -140,6 +140,10 @@ body{
 
 .info {
     font-size: 30px;
+}
+
+tr {
+    height: auto;
 }
 
 </style>

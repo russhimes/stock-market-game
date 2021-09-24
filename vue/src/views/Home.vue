@@ -2,7 +2,14 @@
   <div class="home">
     <p v-if="!$store.state.user.username">You must be authenticated to see this</p>
     <div v-else>
-      <router-link id="createGame" tag="button" to="/new-game">Create Game!</router-link>
+      <div class="block">
+        <h1>Welcome back, {{ $store.state.user.username }}!</h1>
+        <router-link class="button" id="createGame" tag="button" v-bind:to="{name: 'new-game'}">
+            <span class="icon">+</span>
+          <span class="text">New Game</span>
+        </router-link>
+      </div>
+      
       <games-list />
       
     </div>
@@ -49,12 +56,55 @@ export default {
 </script>
 
 <style scoped>
-button {
-  background-color: rgb(47, 107, 50);
-  color: white;
-  font-size: 3rem;
-  min-height: 10vh;
-  min-width: 30vw;
-}
+  button {
+    display: block;
+    background-color:var(--color-green);
+    border: none;
+    border-radius: 5px;
+    height: 3rem;
+    width: 15rem;
+    padding: 1.4rem 2.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+  }
+
+  .icon, .text {
+    color: var(--background-color);
+    position: relative;
+    left: 4.5rem;
+    transition: 0.2s;
+  }
+
+  .icon {
+    font-size: 2.2rem;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  .text {
+    font-size: 1.4rem;
+    opacity: 0;
+    min-width: 8rem;
+  }
+
+  button:hover .text, button:hover .icon {
+    transform: translateX(0rem);
+    opacity: 1;
+    left: 0;
+    width: 100%;
+  }
+
+  button:hover .icon {
+    font-size: 2rem;
+  }
+
+  .block {
+    padding: 4rem;
+    display: flex;
+    justify-content: space-between;
+  }
 
 </style>

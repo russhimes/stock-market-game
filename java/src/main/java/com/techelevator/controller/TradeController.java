@@ -41,7 +41,7 @@ public class TradeController {
                 && (player.getAvailableFunds().compareTo(trade.getPrice()) == 1 || player.getAvailableFunds().compareTo(trade.getPrice()) == 0)){
             tradeDao.createTrade(trade);
             // TODO update player and stock
-            // TODO validate sell transaction 
+            // TODO validate sell transaction
         }
 
     }

@@ -1,7 +1,7 @@
 <template>
   <div id = "main ">
       <h2 class = "boardTitle">Welcome to the Game Board!</h2>
-       <countdown-timer v-bind:game="game"></countdown-timer>
+       <countdown-timer v-bind:gameId="gameId"></countdown-timer>
       <portfolio-holdings v-bind:gameId="gameId"></portfolio-holdings>
       <trade-stocks></trade-stocks>
       <leader-board></leader-board>
@@ -45,7 +45,7 @@ export default {
               this.game.organizer_id = result.data.organizer_id;
               this.game.end_date = result.data.end_date;
               this.game.end_time = result.data.end_time;
-              console.log(this.game);
+             // console.log(this.game);
           }
         })
         

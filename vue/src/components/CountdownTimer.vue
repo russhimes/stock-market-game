@@ -22,9 +22,6 @@
               </tr>
           </table>
       </body>
-
-
-
   </div>
 </template>
 
@@ -36,6 +33,9 @@ export default {
         displayMinutes: 0,
         displaySeconds: 0
     }),
+    props() {
+
+    },
 
     computed: {
         // values in milisec
@@ -51,6 +51,7 @@ export default {
         }
     },
     mounted() {
+        // problem showing
       //  this.showRemaining();
     },
 
@@ -82,11 +83,7 @@ export default {
         }
     }
 };
-
-
-
-
-      
+ 
 </script>
 
 <style>

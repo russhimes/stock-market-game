@@ -17,6 +17,7 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 
@@ -49,7 +50,7 @@ public class GameController {
         int gameId = gameDao.createGame(game);
         game.setId(gameId);
         LocalDateTime dateTime =  LocalDateTime.of(game.getEnd_date(), game.getEnd_time());
-        Date date = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+        Date date = Date.from(dateTime.atZone(TimeZone.getTimeZone("UTC").toZoneId()).toInstant());
         endGameService.setGame(game);
         schedulingService.addTaskToScheduler(game.getId(), endGameService, date);
         System.out.println(Date.from(Instant.now()).getTime() - date.getTime());

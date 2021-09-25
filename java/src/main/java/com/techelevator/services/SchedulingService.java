@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ScheduledFuture;
 
 @Service
@@ -55,7 +52,7 @@ public class SchedulingService  {
         List<Game> games = gameDao.getAllGames();
         for (Game game : games ) {
            LocalDateTime dateTime =  LocalDateTime.of(game.getEnd_date(), game.getEnd_time());
-           Date date = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+           Date date = Date.from(dateTime.atZone(TimeZone.getTimeZone("UTC").toZoneId()).toInstant());
             System.out.println(game.getId());
            endGameService.setGame(game);
            addTaskToScheduler(game.getId(), endGameService, date);

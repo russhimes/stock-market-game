@@ -24,6 +24,7 @@
             </td>
         </tr>
         </table>
+        <stock-search   />
 
 
     </div>
@@ -34,7 +35,9 @@
 
 <script>
 import tradeTopStocks from '../services/StockService.js'
+import StockSearch from '../components/StockSearch.vue'
 export default {
+    components: {StockSearch},
     data(){
         return {
             topStocks: []

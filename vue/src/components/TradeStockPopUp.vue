@@ -84,16 +84,16 @@ export default {
     },
     computed: {
         buyingPower() {
-            return this.getCurrentPlayer().availableFunds;
+            return Number((this.getCurrentPlayer().availableFunds).toFixed(2));
         },
         marketValue() {
-            return this.stock.total_shares * this.currentPrice;
+            return Number((this.stock.total_shares * this.currentPrice).toFixed(2));
         },
         estimatedCost() {
-            return this.amount * this.currentPrice;
+            return Number((this.amount * this.currentPrice).toFixed(2));
         },
         estimatedNumberOfStocks() {
-            return this.amount / this.currentPrice;
+            return Math.floor(this.amount / this.currentPrice);
         },
         validSellTransaction() {
             if(this.entryType=== "Shares" && this.stock.total_shares >= this.amount && this.amount > 0){

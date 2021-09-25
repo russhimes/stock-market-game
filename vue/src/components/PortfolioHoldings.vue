@@ -42,6 +42,8 @@ export default {
             this.stocks = response.data.filter(stock => {
               return stock.total_shares > 0;
             })
+            let i = Number(this.getPortfolioValue()).toFixed(2);
+            console.log(i);
             this.portfolioValue = this.getPortfolioValue();
           })
 
@@ -61,7 +63,7 @@ export default {
             this.portfolioValue += (currentValue * shares);
           })
       }
-      return portfolioValue.toFixed(2);
+      return Number(portfolioValue.toFixed(2));
     }
   }
 

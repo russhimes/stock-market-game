@@ -46,12 +46,14 @@ public class GameController {
 
     @RequestMapping(path="/games", method = RequestMethod.POST)
     public int createGame(@RequestBody Game game) {
+        int gameId = gameDao.createGame(game);
+        game.setId(gameId);
         LocalDateTime dateTime =  LocalDateTime.of(game.getEnd_date(), game.getEnd_time());
         Date date = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
         endGameService.setGame(game);
         schedulingService.addTaskToScheduler(game.getId(), endGameService, date);
         System.out.println(Date.from(Instant.now()).getTime() - date.getTime());
-        return gameDao.createGame(game); }
+        return gameId; }
 
     @RequestMapping(path="/games/{id}", method = RequestMethod.DELETE)
     public void deleteGame(@PathVariable int id) { gameDao.deleteGame(id); }

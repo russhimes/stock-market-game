@@ -1,16 +1,20 @@
 <template>
-  <div id = "main">
-      <h2 class = "boardTitle">{{ game.name }} Dashboard</h2>
-      <div class="flex">
-       <countdown-timer v-bind:gameId="gameId"></countdown-timer>
-        <leader-board v-bind:gameId="gameId"></leader-board>
-      </div>
-      <div class="flex">
-        <portfolio-holdings v-bind:gameId="gameId" class="portfolio"></portfolio-holdings>
-        <trade-stocks class="trade"></trade-stocks>
+  <div id="main">
+    <div id = "game" v-if="gameOver == false">
+        <h2 class = "boardTitle">{{ game.name }} Dashboard</h2>
+        <div class="flex">
+        <countdown-timer v-bind:gameId="gameId"></countdown-timer>
+          <leader-board v-bind:gameId="gameId"></leader-board>
+        </div>
+        <div class="flex">
+          <portfolio-holdings v-bind:gameId="gameId" class="portfolio"></portfolio-holdings>
+          <trade-stocks class="trade"></trade-stocks>
 
-      </div>
-       
+        </div>
+    </div>
+    <div v-else>
+      <game-over v-bind:gameId="gameId"/>
+    </div>
   </div>
 </template>
 
@@ -20,6 +24,7 @@ import PortfolioHoldings from './PortfolioHoldings.vue'
 import TradeStocks from './TradeStocks.vue'
 import CountdownTimer from '../components/CountdownTimer'
 import GameService from '../services/GamesService'
+import GameOver from './GameOver.vue'
 
 // timer
 // pass game id to timer comp via props 
@@ -29,7 +34,7 @@ import GameService from '../services/GamesService'
 // pass to countdown timer using v-bind (follow line 5)
 // inside of countdown have props to accept games to access information 
 export default {
-  components: { LeaderBoard, PortfolioHoldings, TradeStocks, CountdownTimer },
+  components: { LeaderBoard, PortfolioHoldings, TradeStocks, CountdownTimer, GameOver},
   data() {
     return {
       gameId: this.$route.params.id,
@@ -43,20 +48,27 @@ export default {
     }
   },
   created() {
-        GameService.getGameById(this.gameId)
-        .then(result => {
-          if(result.data != ""){
-              this.game.id = result.data.id;
-              this.game.name = result.data.name;
-              this.game.organizer_id = result.data.organizer_id;
-              this.game.end_date = result.data.end_date;
-              this.game.end_time = result.data.end_time;
-             // console.log(this.game);
-          }
-        })
-        
+    GameService.getGameById(this.gameId)
+    .then(result => {
+      if(result.data != ""){
+        this.game.id = result.data.id;
+        this.game.name = result.data.name;
+        this.game.organizer_id = result.data.organizer_id;
+        this.game.end_date = result.data.end_date;
+        this.game.end_time = result.data.end_time;
+        // console.log(this.game);
       }
+    });   
+  },
+  computed: {
+    gameOver() {
+      const now = new Date();
+      const end = new Date(this.game.end_date + 'T' + this.game.end_time + '.000Z'); 
+      if (end - now < 0) return true;
+      else return false;
     }
+  }
+}
   
 
 </script>

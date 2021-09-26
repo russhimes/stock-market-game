@@ -35,11 +35,14 @@ public class EndGameService implements Runnable  {
     private StockDao stockDao;
     @Autowired
     private StockInfoService stockInfoService;
+    @Autowired
+    private SchedulingService schedulingService;
 
     @Override
     public void run() {
         List<Player> players = playerDao.getPlayersByGame(game.getId());
         for (Player player : players) {
+            player.setGame_status("Finished");
             List<Stock> stocks = stockDao.getStocksByPlayerId(player.getId());
             for (Stock stock : stocks) {
                 Trade trade = new Trade(stock.getId(), stock.getTotal_shares(), "sell",
@@ -49,11 +52,12 @@ public class EndGameService implements Runnable  {
                 player.setAvailable_funds(player.getAvailableFunds().
                         add(trade.getPrice().
                                 multiply(new BigDecimal(trade.getShares_traded()).setScale(2, RoundingMode.HALF_UP))));
-                player.setGame_status("Finished");
-                playerDao.updatePlayer(player);
                 stockDao.updateStock(stock);
                 tradeDao.createTrade(trade);
+                schedulingService.removeTaskFromScheduler(game.getId());
+
             }
+            playerDao.updatePlayer(player);
         }
     }
 

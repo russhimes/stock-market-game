@@ -2,8 +2,10 @@ package com.techelevator.services;
 
 
 import com.techelevator.dao.GameDao;
+import com.techelevator.dao.PlayerDao;
 import com.techelevator.dao.StockDao;
 import com.techelevator.model.Game;
+import com.techelevator.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -20,6 +22,8 @@ public class SchedulingService  {
 
     @Autowired
     GameDao gameDao;
+    @Autowired
+    PlayerDao playerDao;
     @Autowired
     StockDao stockDao;
     @Autowired
@@ -51,11 +55,20 @@ public class SchedulingService  {
     void contextRefreshedEvent(){
         List<Game> games = gameDao.getAllGames();
         for (Game game : games ) {
-           LocalDateTime dateTime =  LocalDateTime.of(game.getEnd_date(), game.getEnd_time());
-           Date date = Date.from(dateTime.atZone(TimeZone.getTimeZone("UTC").toZoneId()).toInstant());
-            System.out.println(game.getId());
-           endGameService.setGame(game);
-           addTaskToScheduler(game.getId(), endGameService, date);
+            List<Player> players = playerDao.getPlayersByGame(game.getId());
+            boolean isFinished = true;
+            for (Player player : players) {
+                if (!player.getGame_status().equals("Finished")) {
+                    isFinished = false;
+                }
+            }
+            if (!isFinished) {
+                LocalDateTime dateTime = LocalDateTime.of(game.getEnd_date(), game.getEnd_time());
+                Date date = Date.from(dateTime.atZone(TimeZone.getTimeZone("UTC").toZoneId()).toInstant());
+                System.out.println(game.getId());
+                endGameService.setGame(game);
+                addTaskToScheduler(game.getId(), endGameService, date);
+            }
         }
     }
 

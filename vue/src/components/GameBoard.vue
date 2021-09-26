@@ -3,7 +3,7 @@
       <h2 class = "boardTitle">{{ game.name }} Dashboard</h2>
       <div class="flex">
        <countdown-timer v-bind:gameId="gameId"></countdown-timer>
-        <leader-board></leader-board>
+        <leader-board v-bind:gameId="gameId"></leader-board>
       </div>
       <div class="flex">
         <portfolio-holdings v-bind:gameId="gameId" class="portfolio"></portfolio-holdings>

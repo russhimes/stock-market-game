@@ -49,6 +49,7 @@ public class EndGameService implements Runnable  {
                 player.setAvailable_funds(player.getAvailableFunds().
                         add(trade.getPrice().
                                 multiply(new BigDecimal(trade.getShares_traded()).setScale(2, RoundingMode.HALF_UP))));
+                player.setGame_status("Finished");
                 playerDao.updatePlayer(player);
                 stockDao.updateStock(stock);
                 tradeDao.createTrade(trade);

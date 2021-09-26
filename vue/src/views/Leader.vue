@@ -1,6 +1,6 @@
 <template>
 <div>
-  <leader-board/>
+  <leader-board v-bind:gameId="gameId"/>
   </div>
 </template>
 
@@ -8,6 +8,7 @@
 import LeaderBoard from '../components/LeaderBoard.vue'
 export default {
   components: { LeaderBoard },
+  props: ["gameId"]
 
 }
 </script>

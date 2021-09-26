@@ -16,11 +16,10 @@
 
 <script>
 import playerService from '../services/PlayerService.js'
-import UserService from '../services/UserService.js'
+import userService from '../services/UserService.js'
 //import CountdownTimer from '../components/CountdownTimer';
 
 export default {
- 
     data(){
       return {
         playerList: [],
@@ -33,23 +32,25 @@ export default {
       
       //since this is the leaderboard page and the only use will be sorting, I just implemented it in the created 
       //portion, will need to do some work to get player names to show, and maybe stocks owned/shares owned
-      playerService.getAllPlayers().then(
+      playerService.getPlayersByGame(this.gameId).then(
           (response) => {
+            console.log(this.gameId);
             this.playerList = response.data;
             this.playerlist = this.playerList.sort((a,b) => {
               return b.availableFunds - a.availableFunds
             })
+          for (let i = 0; i < this.playerList.length; i++) {
+            userService.getUserById(this.playerList[i].user_id).then(userResponse => {
+              this.playerList[i].username = userResponse.data.username;
+            })
           }
-      ).catch(
+        })
+      
+      .catch(
         (error) => console.log(error)
       );
-      UserService.getAllUsers().then(
-        (response) => {
-          this.userList = response.data;
-        }
-      );
-
     },
+    props:  ["gameId"],
     computed: {
       // filteredList(){
       //   if()

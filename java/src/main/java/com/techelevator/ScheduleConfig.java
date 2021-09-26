@@ -21,13 +21,13 @@ public class ScheduleConfig implements SchedulingConfigurer {
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
         scheduledTaskRegistrar.addTriggerTask(new Runnable() {
             public void run() {
-                System.out.println("Currently Running Scheduler");
+
             }
         }, new Trigger() {
             public Date nextExecutionTime(TriggerContext triggerContext) {
                 Calendar nextExecutionTime = new GregorianCalendar();
                 Date lastActualExecutionTime = triggerContext.lastActualExecutionTime();
-                nextExecutionTime.add(Calendar.MINUTE,  getNewExecutionTime());
+                nextExecutionTime.add(Calendar.SECOND,  getNewExecutionTime());
                 return nextExecutionTime.getTime();
             }
         });

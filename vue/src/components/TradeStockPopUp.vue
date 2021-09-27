@@ -1,16 +1,27 @@
 <template>
-  <div>
-      <h2>{{stockTicker}}</h2>
-      <h3>{{ companyName }}</h3>
-      <img :src="imageUrl">
-      <p>Currrent Price: ${{currentPrice}}</p>
-      <p>Percent Change: {{percentChange}}%</p>
+<div>
 
-      <h3>Your Position</h3>
-      <p>Shares: {{ stock.total_shares }}</p>
-      <p>Market Value: ${{marketValue}} </p>
-
-        <p>Buying Power: ${{ buyingPower }}</p>
+  <div class="container">
+      <div class="info">
+        <img :src="imageUrl">
+        <div class="company">
+            <h2>{{stockTicker}}</h2>
+            <h3>{{ companyName }}</h3>
+        </div>
+      </div>
+      <div class="flex">
+        <div class="value">
+            <h3>Current Value</h3>
+            <p>Currrent Price: ${{currentPrice}}</p>
+            <p>Percent Change: {{percentChange}}%</p>
+        </div>
+        <div class="your-position">
+            <h3>Your Position</h3>
+            <p>Shares: {{ stock.total_shares }}</p>
+            <p>Market Value: ${{marketValue}} </p>
+            <p>Buying Power: ${{ buyingPower }}</p>
+        </div>
+      </div>
       <button v-on:click="toggleTrade = !toggleTrade">Trade</button>
         <div v-if="toggleTrade">
             <label for="amount">Amount:</label>
@@ -31,8 +42,9 @@
             <button v-on:click="buyStocks()" v-bind:class="{ 'invalidTransaction' : !validBuyTransaction }">Buy</button>
             <button v-on:click="sellStocks()" v-bind:class="{ 'invalidTransaction' : !validSellTransaction }" v-if="stock.total_shares> 0">Sell</button>
         </div>
-        <router-link v-bind:to="{ name: 'game', params: {id: $store.state.activeGameId}}">Back to Game Board</router-link>
   </div>
+        <router-link v-bind:to="{ name: 'game', params: {id: $store.state.activeGameId}}">Back to Game Board</router-link>
+</div>
 </template>
 
 <script>
@@ -93,7 +105,7 @@ export default {
             return Number((this.amount * this.currentPrice).toFixed(2));
         },
         estimatedNumberOfStocks() {
-            return Math.floor(this.amount / this.currentPrice);
+            return Number(this.amount / this.currentPrice).toFixed(6);
         },
         validSellTransaction() {
             if(this.entryType=== "Shares" && this.stock.total_shares >= this.amount && this.amount > 0){
@@ -222,8 +234,81 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+    .container {
+        display: flex;
+        flex-direction: column;
+        padding: 4rem;
+        margin: var(--padding);
+        background-color: var(--color-lighter);
+        border-radius: var(--border-radius);
+        color: var(--background-color);
+        width: 50vw;
+        margin: var(--padding) auto;
+        justify-content: center;
+    }
+
+
+
+    .info {
+        display: flex;
+        align-items: center;
+        justify-content: center
+    }
+
+    .info img {
+        max-height: 6rem;
+        margin-right: 1rem;
+    }
+
+    h2{
+        text-transform: none;
+        font-size: 1.2rem;
+    }
+
+    .info {
+        margin-bottom: 4rem;
+    }
+
+    .company h3 {
+        font-size: 2.6rem;
+    }
+
+    .flex {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 3rem;
+    }
+
+    .flex h3 {
+        text-align: left;
+    }
+
+    button {
+        padding: 0.2rem 2rem;
+        color: var(--background-color);
+        border: 2px solid var(--background-color);
+        background-color: transparent;
+        border-radius: 4rem;
+        cursor: pointer;
+        transition: 0.4s;
+        text-transform: uppercase;
+        width: 50%;
+        margin: auto;
+    }
+
+    button:hover {
+        border: 2px solid var(--color-green);
+        background-color: var(--color-green);
+    }
+
     .invalidTransaction {
-        background-color: red;
+        background-color: var(--color-red);
+        border: 2px solid var(--color-red);
+    }
+
+    .invalidTransaction:hover {
+        background-color: var(--color-red);
+        border: 2px solid var(--color-red);
     }
 </style>

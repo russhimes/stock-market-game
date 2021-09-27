@@ -14,7 +14,7 @@
             <h4 id= "minutes">{{displayMinutes}}</h4>
             <p>Minutes</p>
         </div>
-        <div class="time">
+        <div class="time seconds">
             <h4 id= "seconds">{{displaySeconds}}</h4>
             <p>Seconds</p>
         </div>
@@ -25,6 +25,7 @@
 <script>
 import GameService from '../services/GamesService'
 export default {
+    props:  ["gameId"],
     data: () => ({
         displayDays: 0,
         displayHours: 0,
@@ -54,8 +55,6 @@ export default {
         
         
    },
-    props:  ["gameId"],
-
     computed: {
         // values in milisec
         _seconds: () => 1000,
@@ -118,7 +117,7 @@ export default {
  
 </script>
 
-<style scope>
+<style scoped>
 /* .countdownContainer {
     text-align: center;
     background: #ddd;
@@ -128,7 +127,6 @@ export default {
 } */
 
 .container {
-    border: 2px solid var(--color-primary);
     padding: 1rem;
 }
 

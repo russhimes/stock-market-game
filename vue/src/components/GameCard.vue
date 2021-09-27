@@ -2,7 +2,9 @@
 <div>
     <router-link class="gameCard" v-on:click.native="updateCurrentPlayer()" id="gameLink" tag="button" v-if="player.game_status == 'Accepted'" v-bind:to="{name: 'game', params: {id: game.id}}">
       <h3 id="gameName">{{game.name}}</h3>
-      <p id="gameEnd">Game ends on {{game.end_date}}, {{game.end_time}}</p>
+      <!-- <p id="gameEnd">Game ends on {{game.end_date}}, {{game.end_time}}</p> -->
+      <countdown-timer v-bind:gameId="game.id" class="countdown-timer"></countdown-timer>
+      <leader-board v-bind:gameId="game.id" class="leaderboard"/>
     </router-link>
 <div class="gameCard" v-else>
     <h3 id="gameName">{{game.name}}</h3>
@@ -16,9 +18,16 @@
 </template>
 
 <script>
+import LeaderBoard from '../components/LeaderBoard'
+import CountdownTimer from '../components/CountdownTimer'
 import playerService from '../services/PlayerService'
 import userService from '../services/UserService'
+
 export default {
+    name: 'game-card',
+    components: {
+        LeaderBoard, CountdownTimer
+    },
     props: ["game"],
     data() {
         return {
@@ -68,49 +77,107 @@ export default {
             .then(response => {
                 this.gameOrganizer = response.data.username;
             })
+            console.log(this.game);
     }
 }
 
 </script>
 
-<style scoped>
-.gameCard {
-    background-color: var(--background-color);
-    border-radius: var(--border-radius);
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border: none;
-    transition: 0.4s;
-    text-align: left;
-}
+<style>
+    .gameCard {
+        background-color: var(--background-color);
+        border-radius: var(--border-radius);
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border: none;
+        transition: 0.4s;
+        text-align: left;
+    }
 
-#gameLink:hover {
-    background-color: var(--color-green);
-    cursor: pointer;
-}
+    .gameCard:hover {
+        opacity: 0.9;
+    }
+    #gameLink:hover {
+        cursor: pointer;
+    }
 
-/* .gameCard:hover {
-    background-color: var(--color-green);
-    cursor: pointer;
-} */
+    #gameName {
+        padding: 0.5rem 0;
+    }
 
-#acceptButton, #rejectButton {
-    cursor: pointer;
-    font-size: 1rem;
-    margin-right: 1.6rem;
-    border-bottom: 2px solid var(--color-lighter);
-}
+    #acceptButton, #rejectButton {
+        cursor: pointer;
+        font-size: 1rem;
+        margin-right: 1.6rem;
+        border-bottom: 2px solid var(--color-lighter);
+    }
 
-#rejectButton:hover {
-    border-bottom: 2px solid var(--color-red);
-}
+    #rejectButton:hover {
+        border-bottom: 2px solid var(--color-red);
+    }
 
-#acceptButton:hover {
-    border-bottom: 2px solid var(--color-green);
-}
+    #acceptButton:hover {
+        border-bottom: 2px solid var(--color-green);
+    }
 
-h3, p {
-    padding-bottom: 0.5rem;
-}
+    h3, p {
+        padding-bottom: 0.5rem;
+    }
 
+    h3 {
+        text-transform: uppercase;
+    }
+
+    button {
+        text-transform: none;
+        width: 100%;
+    }
+
+    button:hover {
+        border: 0;
+    }
+
+    /* button:hover .leaderboard, button:hover .countdown-timer {
+        background-color: var(--background-color);
+    } */
+
+    .leaderboard {
+        border: 0;
+        padding: 0;
+        text-align: center;
+        background-color: white;
+        border-radius: var(--border-radius);
+        transition: 0.4s;
+        color: var(--color-primary);
+    }
+
+    .leaderboard h3, .countdown-timer h3 {
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+
+    .countdown-timer {
+        padding: 0;
+        border: 0;
+        background-color: white;
+        border-radius: var(--border-radius);
+        margin-bottom: 0.5rem;
+        transition: 0.4s;
+    }
+
+    .countdown-timer .time {
+        width: 3rem;
+    }
+
+    .countdown-timer .countdownContainer h4 {
+        font-size: 1rem;
+    }
+
+    .countdown-timer .countdownContainer p {
+        font-size: 0.7rem;
+    }
+
+    /* .countdown-timer .seconds {
+        display: none;
+    } */
 </style>

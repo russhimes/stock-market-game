@@ -1,30 +1,34 @@
 <template>
+<div class="container">
 <div id="createGame">
   <h2>Create Game</h2>
       <form id="createGame" @submit.prevent="createGame">
         <div>
-          <p>   Name: </p>
+          <label>Name:</label>
           <input type="text" id="gameName" v-model="game.name"/>
         </div>
         <div>
-        <p>   End Date: </p>
+        <label>End Date:</label>
         <input type="date" id="endDate" v-model="game.end_date"/>
         </div>
         <div>
-        <p>   End Time: </p>
-        <input type="time" id="endTime" v-model="game.end_time"/>
+        <label>End Time:</label>
+        <input type="time" id="endTime"  v-model="game.end_time"/> 
+
+        <!-- v-on:click="convertTimetoUTC()" -->
         </div>
-        <div>
+        <!-- <div>
           <label for="timezone">Time Zone</label>
           <select name="timezone" id="timezone">
-            <option value="CT">CT</option>
-            <option value="ET">ET</option>
-            <option value="MT">MT</option>
-            <option value="PT">PT</option>
+            <option v-on:click="convertCdtTime()" value="CDT">CDT</option>
+            <option v-on:click="convertEdtTime()" value="EDT">EDT</option>
+            <option v-on:click="convertMdtTime()" value="MDT">MDT</option>
+            <option v-on:click="convertPdtTime()" value="PDT">PDT</option>
         </select>
-        </div>
+        </div> -->
         <button type="submit">Submit</button>
       </form>
+</div>
 </div>
 </template>
 
@@ -43,8 +47,19 @@ data() {
       gameId: -1
     }
   },
+// create date/ time object then convert and move back to seperate objs
   methods: {
+    convertTimetoUTC(){
+        let moment = (this.game.end_date + 'T' + this.game.end_time + '.000Z');
+        let utc_offset = moment.getTimezoneOffset();
+        moment.setMinutes(moment.getMinutes() + utc_offset)
+        console.log(this.game)
+    },
+
     createGame() {
+      // call converision method
+     this.convertTimetoUTC()
+  
       gamesService.createGame(this.game)
       .then(response => {
         this.gameId = response.data;
@@ -66,22 +81,51 @@ data() {
         }
       })
     },
+
   }
+  
 }
+   
+   
 </script>
 
 <style>
-h2 {
-  font-size: 3rem;
-}
-
-#createGame > * {
+ .container {
   display: flex;
+  align-content: center;
+  justify-content: center;
+  height: 90vh;
 } 
 
-#createGame > button {
-  min-width: 10vw;
-  min-height: 50px;
-  vertical-align: middle;
+h2 {
+  padding-top: 70px;
+  margin: 0.5rem;
 }
+
+label {
+       box-sizing: border-box;
+       width: 100px;
+       display: inline-block;
+       margin: 0.5rem;    
+}
+
+
+button{
+    font-size: 1.2rem;
+    padding: 0.4rem 2rem;
+    margin: 1rem;
+    border: 2px solid var(--background-color);
+    background-color: transparent;
+    border-radius: 4rem;
+    cursor: pointer;
+    transition: 0.4s;
+    width: auto; 
+    border-color: white;
+}
+
+button:hover {
+        border: 2px solid var(--color-green);
+        background-color: var(--color-green);
+    }
+
 </style>

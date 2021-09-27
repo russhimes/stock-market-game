@@ -1,4 +1,6 @@
 <template>
+<div class="container">
+
   <div id="login" class="text-center">
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
@@ -12,29 +14,34 @@
         role="alert"
         v-if="this.$route.query.registration"
       >Thank you for registering, please sign in.</div>
-      <label for="username" class="sr-only">Username</label>
-      <input
-        type="text"
-        id="username"
-        class="form-control"
-        placeholder="Username"
-        v-model="user.username"
-        required
-        autofocus
-      />
-      <label for="password" class="sr-only">Password</label>
-      <input
-        type="password"
-        id="password"
-        class="form-control"
-        placeholder="Password"
-        v-model="user.password"
-        required
-      />
+      <div>
+        <label for="username" class="sr-only">Username</label>
+        <input
+          type="text"
+          id="username"
+          class="form-control"
+          placeholder="Username"
+          v-model="user.username"
+          required
+          autofocus
+        />
+      </div>
+      <div>
+        <label for="password" class="sr-only">Password</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          placeholder="Password"
+          v-model="user.password"
+          required
+        />
+      </div>
       <router-link :to="{ name: 'register' }">Need an account?</router-link>
       <button type="submit">Sign in</button>
     </form>
   </div>
+</div>
 </template>
 
 <script>
@@ -74,3 +81,83 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .container {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 90vh;
+  }
+
+  #login {
+    padding: var(--padding);
+    margin: auto;
+    border-radius: var(--border-radius);
+    color: var(--background-color);
+    background-color: var(--color-lighter);
+    width: 50vw;
+    text-align: center;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }
+
+  a {
+    color: var(--background-color);
+  }
+
+  #username, #password {
+    border: none;
+    background-color: var(--color-lighter);
+    border-bottom: 2px solid var(--background-color);
+    transition: 0.4s;
+    color: var(--background-color);
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    margin: 0.5rem;
+    width: 100%;
+  }
+
+  input:focus, input:hover {
+      background-color: var(--color-lighter);
+      outline: none;
+      border-bottom: 2px solid var(--color-green);
+      color: var(--background-color);
+      font-size: 1rem;
+  }
+
+  .form-signin {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin: 1rem;
+    padding: 2rem;
+    font-size: 1.2rem;
+  }
+
+  a {
+    margin: 1rem;
+    font-size: 1.2rem;
+  }
+
+  button {
+    font-size: 1.2rem;
+    padding: 0.4rem 2rem;
+    color: var(--background-color);
+    border: 2px solid var(--background-color);
+    background-color: transparent;
+    border-radius: 4rem;
+    cursor: pointer;
+    transition: 0.4s;
+    text-transform: uppercase;
+    width: auto;
+}
+
+    button:hover {
+        border: 2px solid var(--color-green);
+        background-color: var(--color-green);
+    }
+</style>

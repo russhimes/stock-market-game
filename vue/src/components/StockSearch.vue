@@ -1,7 +1,9 @@
 <template>
   <div id="stockSearch">
-      <input type="text" id="searchText" v-model="searchTerm" />
-      <button v-on:click="retrieveSearch(searchTerm)">Search</button>
+      <div class="input">
+        <input type="text" id="searchText" v-model="searchTerm" />
+        <button v-on:click="retrieveSearch(searchTerm)">Search</button>
+      </div>
       <router-link class="resultsList" v-if="searchResult.companyName" :to="{name: 'stock-info', params: {ticker: searchResult.stockSymbol}}">
         {{searchResult.companyName}} (${{searchResult.currentPrice}})
       </router-link>
@@ -39,35 +41,50 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .resultsList{
         display: flex;
         flex-direction:row;
         text-decoration: none;
+        background-color: var(--background-color);
+        padding: 1rem;
+        margin: 0.5rem 0;
+        border-radius: var(--border-radius);
     }
 
     #stockSearch {
         padding: 1rem;
         text-align: center;
+        width: auto;
     }
+
+    .input {
+        display: flex;
+    }
+
 
     input {
         border: none;
         background-color: transparent;
-        border-bottom: 2px solid var(--color-primary);
+        border-bottom: 2px solid var(--background-color);
         margin: 0 1rem;
-        width: 50%;
         transition: 0.4s;
+        color: var(--background-color);
+        font-size: 1rem;
     }
 
     input:focus, input:hover {
         outline: none;
         border-bottom: 2px solid var(--color-green);
+        color: var(--background-color);
+        font-size: 1rem;
     }
 
     button {
         padding: 0.2rem 2rem;
-        border: 2px solid var(--color-primary);
+        color: var(--background-color);
+        border: 2px solid var(--background-color);
+        background-color: transparent;
         border-radius: 4rem;
         cursor: pointer;
         transition: 0.4s;
@@ -78,7 +95,8 @@ export default {
         border: 2px solid var(--color-green);
         background-color: var(--color-green);
     }
+
     #errorText {
-        color: red;
+        color: var(--color-red);
     }
 </style>

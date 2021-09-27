@@ -1,15 +1,15 @@
 <template>
-   <div class="stock">
-       <div class="column">
-        <h4>{{ stock.stock_ticker }}</h4>
-        <p> {{ stock.total_shares}} Share{{stock.total_shares != 1 ? "s" : ""}} </p>
-        <p>Value: ${{ marketValue }} </p>
-       </div>
-       <div class="column">
-
-        <router-link v-bind:to="{name: 'stock-info', params: {ticker: stock.stock_ticker}}">Trade</router-link>
-      </div>
-    </div>
+    <router-link v-bind:to="{name: 'stock-info', params: {ticker: stock.stock_ticker}}">
+        <div class="stock">
+            <div class="column">
+                <h3>{{ stock.stock_ticker }}</h3>
+            </div>
+            <div class="column column-2">
+                <p> {{ stock.total_shares}} Share{{stock.total_shares != 1 ? "s" : ""}} </p>
+                <p>Value: ${{ marketValue.toFixed(2) }} </p>
+            </div>
+        </div>
+    </router-link>
 </template>
 
 <script>
@@ -39,12 +39,33 @@ export default {
 
 <style scoped>
     .stock {
-        /* border-bottom: 1px solid var(--color-primary); */
-        border-top: 1px solid var(--color-primary);
+        background-color: var(--background-color);
+        color: var(--color-primary);
+        border-radius: var(--border-radius);
+        margin-bottom: 0.5rem;
         display: flex;
         justify-content: space-between;
         padding: 0.3rem  1rem;
         align-items: center;
+        transition: 0.4s;
+    }
+
+    h3 {
+        padding: 0.4rem 0;
+        text-align: left;
+    }
+
+    .column-2 {
+        text-align: right;
+    }
+
+    p {
+        margin: 0.5rem;
+        padding-bottom: 0;
+    }
+
+    .stock:hover {
+        background-color: white;
     }
 
 </style>

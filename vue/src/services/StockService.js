@@ -8,7 +8,8 @@ export default{
         return axios.get(`/stockinfo/${ticker}`);
     },
     getSearchInfo(searchTerm){
-        return axios(`stockinfo/search/${searchTerm}`, {
+        console.log("Calling getSearchInfo");
+        const value = axios(`stockinfo/${searchTerm}`, {
             method: 'GET',
             mode: 'no-cors',
             headers: {
@@ -17,6 +18,7 @@ export default{
             },
            credentials: 'same-origin',
           });
+          return value;
         //return axios.get(`/stockifo/search/${searchTerm}`);
     },
     getPlayerStocks(playerId) {

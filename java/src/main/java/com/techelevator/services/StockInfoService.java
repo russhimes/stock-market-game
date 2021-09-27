@@ -15,5 +15,5 @@ public interface StockInfoService {
 
     List<SearchInfo> getSearchInfo(String searchTerm);
 
-    BigDecimal getPortfolioValue(int playerId);
+    void getPortfolioValue(int playerId);
 }

@@ -14,6 +14,15 @@
         <p>   End Time: </p>
         <input type="time" id="endTime" v-model="game.end_time"/>
         </div>
+        <div>
+          <label for="timezone">Time Zone</label>
+          <select name="timezone" id="timezone">
+            <option value="CT">CT</option>
+            <option value="ET">ET</option>
+            <option value="MT">MT</option>
+            <option value="PT">PT</option>
+        </select>
+        </div>
         <button type="submit">Submit</button>
       </form>
 </div>

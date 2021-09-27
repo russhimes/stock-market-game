@@ -1,14 +1,15 @@
 <template>
-   <div class="stock">
-       <div class="column">
-        <h3>{{ stock.stock_ticker }}</h3>
-        <p>Value: ${{ marketValue }} </p>
-       </div>
-       <div class="column column-2">
-        <p> {{ stock.total_shares}} Share{{stock.total_shares != 1 ? "s" : ""}} </p>
-        <router-link v-bind:to="{name: 'stock-info', params: {ticker: stock.stock_ticker}}">Trade</router-link>
-      </div>
-    </div>
+    <router-link v-bind:to="{name: 'stock-info', params: {ticker: stock.stock_ticker}}">
+        <div class="stock">
+            <div class="column">
+                <h3>{{ stock.stock_ticker }}</h3>
+            </div>
+            <div class="column column-2">
+                <p> {{ stock.total_shares}} Share{{stock.total_shares != 1 ? "s" : ""}} </p>
+                <p>Value: ${{ marketValue.toFixed(2) }} </p>
+            </div>
+        </div>
+    </router-link>
 </template>
 
 <script>
@@ -46,6 +47,7 @@ export default {
         justify-content: space-between;
         padding: 0.3rem  1rem;
         align-items: center;
+        transition: 0.4s;
     }
 
     h3 {
@@ -57,7 +59,13 @@ export default {
         text-align: right;
     }
 
-    a {
-        font-weight: bold;
+    p {
+        margin: 0.5rem;
+        padding-bottom: 0;
     }
+
+    .stock:hover {
+        background-color: white;
+    }
+
 </style>

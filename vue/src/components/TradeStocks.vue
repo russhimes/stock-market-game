@@ -8,15 +8,14 @@
     <div class="wrapper">
         <h3>Make a Trade</h3>
         <div class="scroll">
-            <div v-for="stock in topStocks" v-bind:key="stock.id" class="row">
+        <router-link v-for="stock in topStocks" v-bind:key="stock.id" v-bind:to="{name: 'stock-info', params: {ticker: stock.stockSymbol}}">
+            <div class="row">
                 <img :src="stock.logoURL">
                 <p> {{stock.stockSymbol}} </p>
                 <p> {{stock.companyName}} </p>
-                <p> ${{stock.currentPrice}} </p>
-                <p>
-                    <router-link v-bind:to="{name: 'stock-info', params: {ticker: stock.stockSymbol}}"> Trade </router-link>
-                </p>
+                <p> ${{stock.currentPrice.toFixed(2)}} </p>
             </div>
+        </router-link>
         </div>
         <stock-search />
 
@@ -97,5 +96,9 @@ created(){
 
     p {
         padding: 0;
+    }
+
+    .row:hover {
+        background-color: white;
     }
 </style>

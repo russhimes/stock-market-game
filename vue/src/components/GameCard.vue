@@ -94,6 +94,9 @@ export default {
         text-align: left;
     }
 
+    .gameCard:hover {
+        opacity: 0.9;
+    }
     #gameLink:hover {
         cursor: pointer;
     }

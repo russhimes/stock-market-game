@@ -1,7 +1,9 @@
 <template>
   <div id="stockSearch">
-      <input type="text" id="searchText" v-model="searchTerm" />
-      <button v-on:click="retrieveSearch(searchTerm)">Search</button>
+      <div class="input">
+        <input type="text" id="searchText" v-model="searchTerm" />
+        <button v-on:click="retrieveSearch(searchTerm)">Search</button>
+      </div>
       <router-link class="resultsList" v-if="searchResult.companyName" :to="{name: 'stock-info', params: {ticker: searchResult.stockSymbol}}">
         {{searchResult.companyName}} (${{searchResult.currentPrice}})
       </router-link>
@@ -56,12 +58,16 @@ export default {
         width: auto;
     }
 
+    .input {
+        display: flex;
+    }
+
+
     input {
         border: none;
         background-color: transparent;
         border-bottom: 2px solid var(--background-color);
         margin: 0 1rem;
-        width: 50%;
         transition: 0.4s;
         color: var(--background-color);
         font-size: 1rem;
@@ -89,7 +95,8 @@ export default {
         border: 2px solid var(--color-green);
         background-color: var(--color-green);
     }
+
     #errorText {
-        color: red;
+        color: var(--color-red);
     }
 </style>

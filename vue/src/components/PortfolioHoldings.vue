@@ -8,7 +8,7 @@
       </div>
       <div class="buyingPower">
         <h4>Buying Power: </h4>
-        <p> ${{ player.availableFunds }} </p>
+        <p> ${{ player.availableFunds.toFixed(2) }} </p>
 
       </div>
       </div>
@@ -41,9 +41,8 @@ export default {
             this.stocks = response.data.filter(stock => {
               return stock.total_shares > 0;
             })
-            let i = Number(this.getPortfolioValue()).toFixed(2);
-            console.log(i);
-            this.portfolioValue = this.getPortfolioValue();
+            // let i =
+            this.portfolioValue =  Number(this.getPortfolioValue()).toFixed(2);
           })
 
       })
@@ -59,10 +58,10 @@ export default {
         stockService.getStockInfo(stock_ticker)
           .then(response => {
             let currentValue = response.data.currentPrice;
-            this.portfolioValue += (currentValue * shares);
+            portfolioValue += (currentValue * shares);
           })
       }
-      return Number(portfolioValue.toFixed(2));
+      return Number(portfolioValue);
     }
   }
 

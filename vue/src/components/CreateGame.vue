@@ -1,17 +1,18 @@
 <template>
+<div class="container">
 <div id="createGame">
   <h2>Create Game</h2>
       <form id="createGame" @submit.prevent="createGame">
         <div>
-          <p>   Name: </p>
+          <label>Name:</label>
           <input type="text" id="gameName" v-model="game.name"/>
         </div>
         <div>
-        <p>   End Date: </p>
+        <label>End Date:</label>
         <input type="date" id="endDate" v-model="game.end_date"/>
         </div>
         <div>
-        <p>   End Time: </p>
+        <label>End Time:</label>
         <input type="time" id="endTime"  v-model="game.end_time"/> 
 
         <!-- v-on:click="convertTimetoUTC()" -->
@@ -27,6 +28,7 @@
         </div> -->
         <button type="submit">Submit</button>
       </form>
+</div>
 </div>
 </template>
 
@@ -87,15 +89,44 @@ data() {
    
 </script>
 
-<style scope>
+<style>
 
-#createGame > * {
+ .container {
   display: flex;
+  align-content: center;
+  justify-content: center;
+  height: 90vh;
 } 
 
-#createGame > button {
-  min-width: 10vw;
-  min-height: 50px;
-  vertical-align: middle;
+h2 {
+  margin: 0.5rem;
 }
+
+label {
+       box-sizing: border-box;
+       width: 100px;
+       display: inline-block;
+       margin: 0.5rem;
+       
+}
+
+
+button{
+    font-size: 1.2rem;
+    padding: 0.4rem 2rem;
+    margin: 1rem;
+    border: 2px solid var(--background-color);
+    background-color: transparent;
+    border-radius: 4rem;
+    cursor: pointer;
+    transition: 0.4s;
+    width: auto; 
+
+}
+
+button:hover {
+        border: 2px solid var(--color-green);
+        background-color: var(--color-green);
+    }
+
 </style>

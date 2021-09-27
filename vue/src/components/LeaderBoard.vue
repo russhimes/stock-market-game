@@ -3,7 +3,7 @@
   <h3 class="title">Leaderboard</h3>
 
   <div v-for="player in playerList" v-bind:key="player.id">
-    <p>{{player.username}} : {{player.availableFunds}}</p>
+    <p>{{player.username}} : ${{player.availableFunds.toFixed(2)}}</p>
   </div>
 
   <!-- <div class='playerCard' v-for='player in playerList'>

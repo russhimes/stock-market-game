@@ -149,7 +149,7 @@ public class RestStockInfoService implements StockInfoService {
     }
 
     @Override
-    public BigDecimal getPortfolioValue(int playerId) {
+    public void getPortfolioValue(int playerId) {
         Player player = playerDao.getPlayerById(playerId);
         BigDecimal availableFunds = player.getAvailableFunds();
         List<Stock> stocks = stockDao.getStocksByPlayerId(playerId);
@@ -159,8 +159,8 @@ public class RestStockInfoService implements StockInfoService {
             BigDecimal thisStockValue = stockInfo.getCurrentPrice().multiply(new BigDecimal(stock.getTotal_shares()).setScale(2, RoundingMode.HALF_UP));
             stocksValue = stocksValue.add(thisStockValue);
         }
-
-        return availableFunds.add(stocksValue).setScale(2, RoundingMode.HALF_UP);
+        player.setAvailable_funds(availableFunds.add(stocksValue));
+        playerDao.updatePlayer(player);
     }
 
 

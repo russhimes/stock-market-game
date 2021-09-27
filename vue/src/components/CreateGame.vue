@@ -12,17 +12,19 @@
         </div>
         <div>
         <p>   End Time: </p>
-        <input type="time" id="endTime" v-model="game.end_time"/>
+        <input type="time" id="endTime"  v-model="game.end_time"/> 
+
+        <!-- v-on:click="convertTimetoUTC()" -->
         </div>
-        <div>
+        <!-- <div>
           <label for="timezone">Time Zone</label>
           <select name="timezone" id="timezone">
-            <option value="CT">CT</option>
-            <option value="ET">ET</option>
-            <option value="MT">MT</option>
-            <option value="PT">PT</option>
+            <option v-on:click="convertCdtTime()" value="CDT">CDT</option>
+            <option v-on:click="convertEdtTime()" value="EDT">EDT</option>
+            <option v-on:click="convertMdtTime()" value="MDT">MDT</option>
+            <option v-on:click="convertPdtTime()" value="PDT">PDT</option>
         </select>
-        </div>
+        </div> -->
         <button type="submit">Submit</button>
       </form>
 </div>
@@ -43,8 +45,19 @@ data() {
       gameId: -1
     }
   },
+// create date/ time object then convert and move back to seperate objs
   methods: {
+    convertTimetoUTC(){
+        let moment = (this.game.end_date + 'T' + this.game.end_time + '.000Z');
+        let utc_offset = moment.getTimezoneOffset();
+        moment.setMinutes(moment.getMinutes() + utc_offset)
+        console.log(this.game)
+    },
+
     createGame() {
+      // call converision method
+     this.convertTimetoUTC()
+  
       gamesService.createGame(this.game)
       .then(response => {
         this.gameId = response.data;
@@ -66,8 +79,12 @@ data() {
         }
       })
     },
+
   }
+  
 }
+   
+   
 </script>
 
 <style>

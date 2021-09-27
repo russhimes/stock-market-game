@@ -222,7 +222,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .invalidTransaction {
         background-color: red;
     }

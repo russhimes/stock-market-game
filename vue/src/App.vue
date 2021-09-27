@@ -41,7 +41,6 @@ export default {
   }
 
   * {
-    color: var(--color-primary);
     font-family: 'Poppins', 'Helvetica', sans-serif; 
   }
 
@@ -60,6 +59,7 @@ export default {
 
   h3 {
     font-size: 1.4rem;
+    text-align: center;
   }
 
   h4 {
@@ -75,6 +75,7 @@ export default {
     border-bottom: 2px solid transparent;
     text-decoration: none;
     border-bottom: 2px solid var(--color-lighter);
+    color: var(--color-primary);
   }
 
   a:hover {
@@ -88,7 +89,8 @@ export default {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--color-lighter);
+  border-radius: var(--border-radius);
 }
 
 /* Handle */

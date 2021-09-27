@@ -1,5 +1,5 @@
 <template>
-    <div id="gamesList">
+    <div class="gamesList">
         <div class="cardsContainer">
             <h2>Active Games</h2>
             <game-card v-for="game in accepted" v-bind:key="game.id" v-bind:game="game"/>
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style scoped>
-    #gamesList {
+    .gamesList {
         display: flex;
         padding: 0 var(--padding);
         overflow-x: auto;
@@ -103,6 +103,14 @@ export default {
         min-width: 22rem;
         height: 70vh;
         overflow-y: auto;
+    }
+
+    button {
+        text-transform: none;
+    }
+
+    button:hover {
+        border: 0;
     }
 
 </style>

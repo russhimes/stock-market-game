@@ -16,9 +16,10 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
   .stock-scroll{
     max-height: 40vh;
     overflow-y: scroll;
+    padding: 1rem;
   }
 </style>

@@ -69,17 +69,18 @@ export default {
 }
 </script>
 
-<style scope >
+<style scoped >
 .holdingsTitle{
   margin: 1rem;
 }
 
 .holdings{
   border-style: solid;
+  padding: 1rem;
 }
 
 .portfolioValue, .buyingPower {
-  margin: 1rem;
+  margin: 0.4rem 1rem;
 }
 
 </style>

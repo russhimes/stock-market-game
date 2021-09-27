@@ -1,8 +1,7 @@
 <template>
-<div class = "leaderboard">
+<div class = "leader-board">
   <h3 class="title">Leaderboard</h3>
-   
-  <p class="body"></p>
+
   <div v-for="player in playerList" v-bind:key="player.id">
     <p>{{player.username}} : {{player.availableFunds}}</p>
   </div>
@@ -19,6 +18,7 @@ import userService from '../services/UserService.js'
 //import CountdownTimer from '../components/CountdownTimer';
 
 export default {
+    name: 'leader-board',
     data(){
       return {
         playerList: [],
@@ -61,8 +61,7 @@ export default {
 </script>
 
 <style>
-.leaderboard{
-  border-style: solid;
-  padding: 1rem;
-}
+  .leader-board{
+    padding: 1rem;
+  }
 </style>

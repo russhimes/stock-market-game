@@ -90,7 +90,6 @@ data() {
 </script>
 
 <style>
-
  .container {
   display: flex;
   align-content: center;
@@ -99,6 +98,7 @@ data() {
 } 
 
 h2 {
+  padding-top: 70px;
   margin: 0.5rem;
 }
 
@@ -106,8 +106,7 @@ label {
        box-sizing: border-box;
        width: 100px;
        display: inline-block;
-       margin: 0.5rem;
-       
+       margin: 0.5rem;    
 }
 
 
@@ -121,7 +120,7 @@ button{
     cursor: pointer;
     transition: 0.4s;
     width: auto; 
-
+    border-color: white;
 }
 
 button:hover {

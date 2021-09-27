@@ -38,7 +38,8 @@ export default {
         name: "",
         organizer_id:"",
         end_date: "",
-        end_time: ""
+        end_time: "",
+        isFinished: false
       }
     }),
    created() {
@@ -88,7 +89,7 @@ export default {
                 if(distance < 0){
                    //stop timer
                    clearInterval(timer);
-                   return
+                   return;
 
                 }
                 // get total seconds between the times

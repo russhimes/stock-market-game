@@ -6,25 +6,21 @@
     pop up w logic on how much you can buy/ sell 
     form submission at the bottom to search and show results here  -->
     <div class="wrapper">
-        <h3>Make a Trade!</h3>
-        <table>
-        <!-- <tr>
-            <th></th>
-            <th>Ticker</th>
-            <th>Stock</th>
-            <th>Value</th>
-        </tr> -->
-        <tr v-for="stock in topStocks" v-bind:key="stock.id">
-            <td><img :src="stock.logoURL"></td>
-            <td> {{stock.stockSymbol}} </td>
-            <td> {{stock.companyName}} </td>
-            <td> ${{stock.currentPrice}} </td>
-            <td>
-                <router-link v-bind:to="{name: 'stock-info', params: {ticker: stock.stockSymbol}}"> Trade Stock </router-link>
-            </td>
-        </tr>
-        </table>
-        <stock-search   />
+        <h3>Make a Trade</h3>
+        <div class="scroll">
+            <table>
+                <tr v-for="stock in topStocks" v-bind:key="stock.id">
+                    <td><img :src="stock.logoURL"></td>
+                    <td> {{stock.stockSymbol}} </td>
+                    <td> {{stock.companyName}} </td>
+                    <td> ${{stock.currentPrice}} </td>
+                    <td>
+                        <router-link v-bind:to="{name: 'stock-info', params: {ticker: stock.stockSymbol}}"> Trade </router-link>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <stock-search />
 
 
     </div>
@@ -72,9 +68,20 @@ created(){
         justify-content: center;
     }
 
+    .scroll {
+        max-height: 50vh;
+        overflow-y: scroll;
+    }
+
     tr {
         height: 3rem;
         padding: 10px;
+        align-items: center;
+        max-height: 3rem;
+    }
+
+    td {
+        padding-right: 10px;
     }
 
     h3 {

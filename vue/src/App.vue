@@ -66,7 +66,7 @@ export default {
     font-size: 1rem;
   }
   
-  p, a, td, tr {
+  p, a, td, tr, label, button {
     font-size: 1rem;
   }
 

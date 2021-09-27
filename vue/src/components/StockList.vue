@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="stock-scroll">
       <stock-card v-for="stock in stocks" v-bind:stock="stock" v-bind:key="stock.id"></stock-card>
   </div>
 </template>
@@ -16,5 +16,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scope>
+  .stock-scroll{
+    max-height: 40vh;
+    overflow-y: scroll;
+  }
 </style>

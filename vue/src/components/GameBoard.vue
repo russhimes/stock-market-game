@@ -1,14 +1,17 @@
 <template>
   <div id="main">
     <div id = "game" v-if="gameOver == false">
-        <h2 class = "boardTitle">{{ game.name }} Dashboard</h2>
+        <h1 class = "boardTitle">{{ game.name }} Dashboard</h1>
+
         <div class="flex">
-        <countdown-timer v-bind:gameId="gameId"></countdown-timer>
-          <leader-board v-bind:gameId="gameId"></leader-board>
-        </div>
-        <div class="flex">
-          <portfolio-holdings v-bind:gameId="gameId" class="portfolio"></portfolio-holdings>
+          <div>
+            <portfolio-holdings v-bind:gameId="gameId" class="portfolio"></portfolio-holdings>
+          </div>
           <trade-stocks class="trade"></trade-stocks>
+          <div>
+            <countdown-timer v-bind:gameId="gameId"></countdown-timer>
+            <leader-board v-bind:gameId="gameId"></leader-board>
+          </div>
 
         </div>
     </div>
@@ -91,5 +94,12 @@ export default {
     flex-grow: 1;
   }
 
+  h3{
+    padding: 0.5rem;
+  }
 
+  .boardTitle {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
 </style>

@@ -12,7 +12,6 @@
 
       </div>
       </div>
-
       <stock-list v-bind:stocks="stocks"></stock-list>
       </div>
 </template>
@@ -74,6 +73,7 @@ export default {
 .holdingsTitle{
   margin: 1rem;
 }
+
 .holdings{
   border-style: solid;
 }

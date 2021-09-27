@@ -1,27 +1,24 @@
 <template>
-  <div>
-      <head>
-            <h4>Time Remaining</h4>
-      </head>
-      <body>
-          <table class="countdownContainer">
-              <tr>
-                  <td colspan="4" class="info">Game Countdown</td>
-              </tr>
-              <tr>
-                  <td id= "days">{{displayDays}}</td>
-                  <td id= "hours">{{displayHours}}</td>
-                  <td id= "minutes">{{displayMinutes}}</td>
-                  <td id= "seconds">{{displaySeconds}}</td>
-              </tr>
-              <tr>
-                  <td>Days</td>
-                  <td>Hours</td>
-                  <td>Minutes</td>
-                  <td>Seconds</td>
-              </tr>
-          </table>
-      </body>
+  <div class="container">
+      <h3>Time Remaining</h3>
+    <div class="countdownContainer">
+        <div class="time">
+            <h4 id= "days">{{displayDays}}</h4>
+            <p>Days</p>
+        </div>
+        <div class="time">
+            <h4 id= "hours">{{displayHours}}</h4>
+            <p>Hours</p>
+        </div>
+        <div class="time">
+            <h4 id= "minutes">{{displayMinutes}}</h4>
+            <p>Minutes</p>
+        </div>
+        <div class="time">
+            <h4 id= "seconds">{{displaySeconds}}</h4>
+            <p>Seconds</p>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -110,12 +107,6 @@ export default {
                 // what's left is seconds
                 var seconds = Math.floor(delta % 60);  
 
-               
-                console.log(days);
-                console.log(hours);
-                console.log(minutes);
-                console.log(seconds);
-       
                 this.displayMinutes = minutes < 10 ? "0" + minutes : minutes;
                 this.displaySeconds = seconds < 10 ? "0" + seconds : seconds;
                 this. displayHours = hours <  10 ? "0" + hours : hours;
@@ -128,23 +119,39 @@ export default {
 </script>
 
 <style scope>
-body{
-    background: #f6f6f6;
-}
-.countdownContainer {
+/* .countdownContainer {
     text-align: center;
     background: #ddd;
     border: 1px, solid #999;
     padding: 10px;
     box-shadow: 0 0 5px 3px #ccc; 
+} */
+
+.container {
+    border: 2px solid var(--color-primary);
+    padding: 1rem;
 }
 
-.info {
-    font-size: 30px;
+.countdownContainer {
+    padding: 0.5rem 0rem;
+    display: flex;
+    align-content: center;
+    justify-content: space-evenly;
 }
 
 tr {
     height: auto;
 }
 
+.countdownContainer h4 {
+    font-size: 1.4rem;
+}
+
+.time {
+    flex-grow: 1;
+    flex-basis: 1;
+    flex-shrink: 0;
+    width: 5rem;
+    text-align: center;
+}
 </style>

@@ -10,7 +10,7 @@
         </div>
         <div class="cardsContainer">
             <h2>Completed Games</h2>
-            <!-- TODO: add filter for completed games -->
+            <game-card v-for="game in finished" v-bind:key="game.id" v-bind:game="game"/>
         </div>
         <div class="cardsContainer">
             <h2>Rejected Games</h2>
@@ -63,7 +63,20 @@ export default {
                     }
                 }
                 return pending;  
-            }
+            },
+            finished() {
+                let finished = [];
+                for (let i = 0; i < this.$store.state.games.length; i++) {
+                    for (let j = 0; j < this.$store.state.players.length; j++) {
+                        if (this.$store.state.games[i].id == this.$store.state.players[j].game_id &&
+                        this.$store.state.user.id == this.$store.state.players[j].user_id
+                        && this.$store.state.players[j].game_status == 'Finished') {
+                            finished.push(this.$store.state.games[i]);
+                        }
+                    }       
+                }
+                return finished;
+            },
     }
 }
 </script>

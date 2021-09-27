@@ -1,6 +1,8 @@
 <template>
   <div id="header">
-      <h1>Virtual Stock Market</h1>
+      <router-link v-bind:to="{name: 'home'}" class="title">
+          <h1>Virtual Stock Market</h1>
+        </router-link>
       <div class="links">
         <router-link v-bind:to="{ name: 'home' }">Home</router-link>
         <router-link v-if="$store.state.user.username" id="logoutLink" to="/logout">Log Out</router-link>
@@ -47,5 +49,9 @@ export default {
         display: flex;
         justify-content: space-around;
         flex-grow: 0.5;
+    }
+
+    .title:hover {
+        border-bottom: 2px solid transparent;
     }
 </style>

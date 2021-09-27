@@ -3,7 +3,6 @@ package com.techelevator.model;
 import java.math.BigDecimal;
 
 public class StockInfo {
-    // TODO: create model for the stock info we want to get from the external API
     private String stockSymbol;
     private String companyName;
     private BigDecimal currentPrice;

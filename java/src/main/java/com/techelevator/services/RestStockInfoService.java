@@ -53,9 +53,9 @@ public class RestStockInfoService implements StockInfoService {
         topTen.add(getStockInfo("MSFT"));
         topTen.add(getStockInfo("NVDA"));
         topTen.add(getStockInfo("FDX"));
-        topTen.add(getStockInfo("MRNA"));
-        topTen.add(getStockInfo("ADBE"));
-        topTen.add(getStockInfo("AMD"));
+        topTen.add(getStockInfo("NFLX"));
+        topTen.add(getStockInfo("KO"));
+        topTen.add(getStockInfo("TGT"));
         return topTen;
     }
 

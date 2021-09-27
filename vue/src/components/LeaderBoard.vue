@@ -1,11 +1,10 @@
 <template>
-<div class = "LeaderBoard">
-  <h3 class="title">Leaderboard!</h3>
+<div class = "leaderboard">
+  <h3 class="title">Leaderboard</h3>
    
   <p class="body"></p>
   <div v-for="player in playerList" v-bind:key="player.id">
-    <div>{{player.username}} : {{player.availableFunds}}</div>
-    <div></div>
+    <p>{{player.username}} : {{player.availableFunds}}</p>
   </div>
 
   <!-- <div class='playerCard' v-for='player in playerList'>
@@ -62,10 +61,8 @@ export default {
 </script>
 
 <style>
-.title{
-  color: pink;
-}
-.LeaderBoard{
+.leaderboard{
   border-style: solid;
+  padding: 1rem;
 }
 </style>

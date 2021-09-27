@@ -39,10 +39,11 @@ export default {
 
 <style scoped>
     .stock {
-        border: 1px solid var(--color-primary);
+        /* border-bottom: 1px solid var(--color-primary); */
+        border-top: 1px solid var(--color-primary);
         display: flex;
         justify-content: space-between;
-        padding: 1rem;
+        padding: 0.3rem  1rem;
         align-items: center;
     }
 

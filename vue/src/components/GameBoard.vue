@@ -2,15 +2,12 @@
   <div id="main">
     <div id = "game" v-if="gameOver == false">
         <h1 class = "boardTitle">{{ game.name }} Dashboard</h1>
-
         <div class="flex">
+            <portfolio-holdings v-bind:gameId="gameId" class="portfolio container"></portfolio-holdings>
+            <trade-stocks class="trade container"></trade-stocks>
           <div>
-            <portfolio-holdings v-bind:gameId="gameId" class="portfolio"></portfolio-holdings>
-          </div>
-          <trade-stocks class="trade"></trade-stocks>
-          <div>
-            <countdown-timer v-bind:gameId="gameId"></countdown-timer>
-            <leader-board v-bind:gameId="gameId"></leader-board>
+            <countdown-timer v-bind:gameId="gameId" class="container"></countdown-timer>
+            <leader-board v-bind:gameId="gameId" class="container"></leader-board>
           </div>
 
         </div>
@@ -76,7 +73,11 @@ export default {
 
 </script>
 
-<style scope>
+<style scoped>
+  * {
+    color: var(--background-color);
+  }
+
   #main {
     padding: 2rem var(--padding);
   }
@@ -97,5 +98,14 @@ export default {
   .boardTitle {
     margin-bottom: 1rem;
     text-align: center;
+    color: var(--color-primary);
+  }
+
+  .container {
+    border: none;
+    background-color: var(--color-lighter);
+    margin: 0.3rem;
+    border-radius: var(--border-radius);
+    color: var(--background-color);
   }
 </style>

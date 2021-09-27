@@ -70,10 +70,7 @@ data() {
 }
 </script>
 
-<style>
-h2 {
-  font-size: 3rem;
-}
+<style scope>
 
 #createGame > * {
   display: flex;

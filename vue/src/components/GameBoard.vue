@@ -72,7 +72,7 @@ export default {
           this.gameOver = true;
           return;
         }
-      }, 1000);
+      }, 60000);
     })   
   }
 }

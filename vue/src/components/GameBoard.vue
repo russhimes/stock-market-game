@@ -12,7 +12,6 @@
             <countdown-timer v-bind:gameId="gameId"></countdown-timer>
             <leader-board v-bind:gameId="gameId"></leader-board>
           </div>
-
         </div>
     </div>
     <div v-else>

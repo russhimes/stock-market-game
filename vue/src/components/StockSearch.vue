@@ -24,6 +24,7 @@ export default {
     methods: {
         retrieveSearch(searchTerm) {
             this.searched = true;
+            this.searchResult = {};
             stockService.getSearchInfo(searchTerm).then(response => {
                 console.log(response);
                 if(response.status >=200 && response.status < 300) {

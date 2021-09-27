@@ -159,8 +159,6 @@ public class RestStockInfoService implements StockInfoService {
             BigDecimal thisStockValue = stockInfo.getCurrentPrice().multiply(new BigDecimal(stock.getTotal_shares()).setScale(2, RoundingMode.HALF_UP));
             stocksValue = stocksValue.add(thisStockValue);
         }
-        player.setAvailable_funds(availableFunds.add(stocksValue));
-        playerDao.updatePlayer(player);
     }
 
 

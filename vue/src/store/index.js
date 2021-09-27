@@ -44,6 +44,7 @@ export default new Vuex.Store({
       axios.defaults.headers.common = {};
     },
     ADD_GAME(state, game) {
+      game.isFinished = false;
       state.games.push(game);
     },
     ADD_PLAYER(state, player) {
@@ -61,6 +62,13 @@ export default new Vuex.Store({
     },
     SET_ACTIVE_GAME(state, game_id) {
       state.activeGameId = game_id;
-    }
+    },
+    UPDATE_GAME(state, game) {
+      for (let i = 0; i < state.games.length; i++) {
+        if (game.id == state.games[i].id) {
+          state.games[i] = game;
+        }
+      }
+    } 
   }
 })

@@ -21,6 +21,7 @@ export default {
         }
     },
     created() {
+        const timer = setInterval (() => {
         playerService.getPlayersByGame(this.gameId).then(result => {
             for (let i = 0; i < result.data.length; i++) {
                 if (result.data[i].game_status != "Finished") {
@@ -39,9 +40,12 @@ export default {
                         this.winnerInfo[i].username = userResult.data.username;
                     })
                 }
+                clearInterval(timer);
+                return;
             }
         });
-    }
+        }, 500);
+    }   
 
 }
 </script>

@@ -45,6 +45,7 @@ export default {
         end_date: "",
         end_time: ""
       },
+      gameOver: false
     }
   },
   created() {
@@ -58,15 +59,18 @@ export default {
         this.game.end_time = result.data.end_time;
         // console.log(this.game);
       }
-    });   
-  },
-  computed: {
-    gameOver() {
-      const now = new Date();
-      const end = new Date(this.game.end_date + 'T' + this.game.end_time + '.000Z'); 
-      if (end - now < 0) return true;
-      else return false;
-    }
+    }).then(() => {
+      const timer = setInterval(() => {
+        const now = new Date();
+        const end = new Date(this.game.end_date + 'T' + this.game.end_time + '.000Z'); 
+        const distance = end.getTime() - now.getTime();
+        if (distance < 0) {
+          clearInterval(timer);
+          this.gameOver = true;
+          return;
+        }
+      }, 1000);
+    })   
   }
 }
   

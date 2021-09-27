@@ -2,9 +2,12 @@
   <div id="stockSearch">
       <input type="text" id="searchText" v-model="searchTerm" />
       <button v-on:click="retrieveSearch(searchTerm)">Search</button>
-      <router-link class="resultsList" v-for="searchResult in searchResults" v-bind:key="searchResult.id" :to="{name: 'stock-info', params: {ticker: searchResult.stockSymbol}}">
-        {{searchResult.description}} ({{searchResult.stockSymbol}})
+      <router-link class="resultsList" v-if="searchResult.companyName" :to="{name: 'stock-info', params: {ticker: searchResult.stockSymbol}}">
+        {{searchResult.companyName}} (${{searchResult.currentPrice}})
       </router-link>
+      <p id="errorText" v-if="!(searchResult.companyName) && searched">
+          Could not find that company.  Please enter a valid stock ticker symbol.
+      </p>
   </div>
 </template>
 
@@ -14,17 +17,18 @@ export default {
     data() {
         return {
             searchTerm: "",
-            searchResults: []
+            searchResult: {},
+            searched: false
         }
     },
     methods: {
         retrieveSearch(searchTerm) {
-            this.searchResults = [];
+            this.searched = true;
+            this.searchResult = {};
             stockService.getSearchInfo(searchTerm).then(response => {
+                console.log(response);
                 if(response.status >=200 && response.status < 300) {
-                    for (let i = 0; i < response.data.length; i++) {
-                        this.searchResults.push(response.data[i]);
-                    }
+                    this.searchResult = response.data;
                 }
             }).catch(error => {
                 console.log(error.data);
@@ -84,5 +88,8 @@ export default {
     button:hover {
         border: 2px solid var(--color-green);
         background-color: var(--color-green);
+    }
+    #errorText {
+        color: red;
     }
 </style>

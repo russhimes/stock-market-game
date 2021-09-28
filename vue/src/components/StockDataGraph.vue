@@ -104,7 +104,6 @@ export default {
             let begin; 
             let value;
             
-            console.log(this.timescale);
             if(this.timescale == 'day') {
                 value = 5;
                 begin = new Date(today.getFullYear(), today.getMonth(), today.getDate())

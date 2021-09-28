@@ -7,6 +7,8 @@
 
   </div>
 
+    <leader-chart class="leaderChart" v-bind:gameId="gameId"/>
+
   <!-- <div class='playerCard' v-for='player in playerList'>
     {{ player.name }}
   </div> -->
@@ -15,11 +17,16 @@
 
 <script>
 import playerService from '../services/PlayerService.js'
+//import userService from '../services/UserService.js'
+import LeaderChart from '../components/LeaderChart'
 import stockService from '../services/StockService.js'
 //import CountdownTimer from '../components/CountdownTimer';
 
 export default {
     name: 'leader-board',
+    components: {
+      LeaderChart,
+    },
     data(){
       return {
         playerList: [],

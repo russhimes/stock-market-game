@@ -1,7 +1,7 @@
 <template>
-<div>
-  <v-chart class="chart" :option ="option" />
-</div>
+  <div class="container">
+    <v-chart class="chart" :option ="option" />
+  </div>
 </template>
 
 <script>
@@ -90,7 +90,7 @@ export default {
         },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
+          formatter: "{a} <br/>{b} : ${c}"
         },
         legend: {
             orient: "horizontal",
@@ -99,8 +99,18 @@ export default {
                 
         },
         textStyle: {
-          fontSize: 8
+          fontSize: 8,
+          fontFamily: 'Poppins',
+          color: '#eee',
         },
+        axisPointer: {
+            show: true,
+            snap: true,
+            label: {
+                fontFamily: 'Poppins',
+            }
+        },
+        backgroundColor: '#454545',
         xAxis: {
             type: 'category',
             fontSize: 8,
@@ -120,9 +130,10 @@ export default {
             min: minValue,
             max: maxValue,
             axisLabel: {
-              show: true,
+              show: false,
               interval: 10000
-            }
+            }, 
+            position: 'right',
 
         },
         series: seriesValues
@@ -165,10 +176,24 @@ export default {
 </script>
 
 <style scoped>
-.chart {
-  padding: 5px;
-  max-height: 38vh;
-  max-width: 25vw;
-}
+  .chart {
+    /* padding: 5px;
+    max-height: 38vh;
+    max-width: 25vw; */
+    width: 100vw;
+    height: 100%;
+  }
+  
+  .chart div {
+    width: 400px;
+    height: 250px;
+  }
+
+  .container {
+    width: 400px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+  }
 
 </style>

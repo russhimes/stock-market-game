@@ -30,6 +30,7 @@ public class JdbcPlayerDao implements PlayerDao {
 
         while(results.next()) {
             players.add(mapResultToPlayer(results));
+
         }
 
 
@@ -38,15 +39,17 @@ public class JdbcPlayerDao implements PlayerDao {
 
     @Override
     public List<Player> getPlayersByGame(int game_id) {
-        String sql = "SELECT id, user_id, game_id, available_funds, game_status " +
-                "FROM game_players " +
+        String sql = "SELECT id, game_players.user_id, game_id, available_funds, game_status, username " +
+                "FROM game_players JOIN users ON users.user_id = game_players.user_id " +
                 "WHERE game_id = ?";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, game_id);
         List<Player> players = new ArrayList<>();
 
         while(results.next()) {
-            players.add(mapResultToPlayer(results));
+            Player player = mapResultToPlayer(results);
+            player.setUsername(results.getString("username"));
+            players.add(player);
         }
 
         return players;

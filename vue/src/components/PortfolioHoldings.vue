@@ -8,7 +8,7 @@
       </div>
       <div class="buyingPower">
         <h4>Buying Power: </h4>
-        <p> ${{ player.availableFunds.toFixed(2) }} </p>
+        <p> ${{ player.availableFunds}} </p>
 
       </div>
       </div>
@@ -36,6 +36,7 @@ export default {
     playerService.getPlayerByGame(this.gameId) 
       .then(response => {
         this.player = response.data;
+        this.player.availableFunds = this.player.availableFunds.toFixed(2);
         stockService.getPlayerStocks(this.player.id)
           .then(response => {
             this.stocks = response.data.filter(stock => {

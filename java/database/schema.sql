@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS users CASCADE;
 DROP SEQUENCE IF EXISTS seq_user_id;
 DROP TABLE IF EXISTS games CASCADE;
 DROP TABLE IF EXISTS game_players CASCADE;
+DROP TABLE IF EXISTS player_history CASCADE;
 DROP TABLE IF EXISTS stocks CASCADE;
 DROP TABLE IF EXISTS trades CASCADE;
 
@@ -44,6 +45,16 @@ CREATE TABLE game_players (
         
         CONSTRAINT FK_game_players_users FOREIGN KEY(user_id) REFERENCES users(user_id),
         CONSTRAINT FK_game_players_games FOREIGN KEY(game_id) REFERENCES games(id)
+);
+
+CREATE TABLE player_history (
+        id serial PRIMARY KEY,
+        player_id int NOT NULL,
+        date date NOT NULL,
+        time time NOT NULL,
+        portfolio_value decimal(15, 2) NOT NULL,
+        
+        CONSTRAINT FK_player_history_players FOREIGN KEY(player_id) REFERENCES game_players(id) 
 );
 
 --contains stocks that are currently held by players

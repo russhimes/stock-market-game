@@ -1,6 +1,6 @@
 <template>
   <div id="main">
-    <div id = "game" v-if="gameOver == false">
+    <div id = "game" v-if="gameFinished == false">
         <h1 class = "boardTitle">{{ game.name }} Dashboard</h1>
         <div class="flex">
             <portfolio-holdings v-bind:gameId="gameId" class="portfolio container"></portfolio-holdings>
@@ -24,6 +24,7 @@ import TradeStocks from './TradeStocks.vue'
 import CountdownTimer from '../components/CountdownTimer'
 import GameService from '../services/GamesService'
 import GameOver from './GameOver.vue'
+import PlayerService from '../services/PlayerService'
 
 // timer
 // pass game id to timer comp via props 
@@ -44,7 +45,7 @@ export default {
         end_date: "",
         end_time: ""
       },
-      gameOver: false
+      gameFinished: false
     }
   },
   created() {
@@ -59,13 +60,19 @@ export default {
         // console.log(this.game);
       }
     }).then(() => {
+      PlayerService.getPlayerByGame(this.game.id).then(result => {
+        if (result.data.game_status == 'Finished') {
+          this.gameOver = true;
+        }
+      })
+    }).then(() => {
       const timer = setInterval(() => {
         const now = new Date();
         const end = new Date(this.game.end_date + 'T' + this.game.end_time + '.000Z'); 
         const distance = end.getTime() - now.getTime();
         if (distance < 0) {
           clearInterval(timer);
-          this.gameOver = true;
+          this.gameFinished = true;
           return;
         }
       }, 1000);

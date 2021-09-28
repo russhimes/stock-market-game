@@ -50,10 +50,12 @@ data() {
 // create date/ time object then convert and move back to seperate objs
   methods: {
     convertTimetoUTC(){
-        let moment = (this.game.end_date + 'T' + this.game.end_time + '.000Z');
+       /* let moment = (this.game.end_date + 'T' + this.game.end_time + '.000Z');
         let utc_offset = moment.getTimezoneOffset();
         moment.setMinutes(moment.getMinutes() + utc_offset)
-        console.log(this.game)
+        console.log(this.game)*/
+        console.log(this.game.end_date);
+        console.log(this.game.end_time);
     },
 
     createGame() {

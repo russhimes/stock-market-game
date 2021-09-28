@@ -30,7 +30,7 @@ public class JdbcTradeDao implements TradeDao {
         String sql = "SELECT trades.id, trades.stock_id, stock_name, shares_traded, buy_or_sell, price, entered_in, date, time " +
                 "FROM trades JOIN stocks ON stock_id = stocks.id " +
                 "WHERE player_id = ? ";
-        
+
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, playerId);
         List<TradeHistory> tradeList = new ArrayList<>();
 

@@ -43,7 +43,7 @@
             <button v-on:click="sellStocks()" v-bind:class="{ 'invalidTransaction' : !validSellTransaction }" v-if="stock.total_shares> 0">Sell</button>
         </div>
   </div>
-          <stock-data-graph></stock-data-graph>
+          <stock-data-graph v-bind:ticker="stockTicker"></stock-data-graph>
         <router-link v-bind:to="{ name: 'game', params: {id: $store.state.activeGameId}}">Back to Game Board</router-link>
 </div>
 </template>

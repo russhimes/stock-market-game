@@ -189,6 +189,6 @@ public class RestStockInfoService implements StockInfoService {
         }
         return data;
     }
-    
+
 
 }

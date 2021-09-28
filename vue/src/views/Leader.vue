@@ -15,14 +15,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   #leader {
     display: flex;
     flex-direction: column;
     margin: 0;
-  }
-  .leaderChart {
-    min-height: 50%;
-    min-width: 100%;
   }
 </style>

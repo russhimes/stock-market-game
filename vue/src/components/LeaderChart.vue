@@ -158,17 +158,17 @@ export default {
               }
             });
         }
-      }, 12000);
+      }, 60000);
     }
   }
 }
 </script>
 
-<style>
-    .chart {
-        min-height: 400px;
-        min-width: 400px;
-        padding: 10px;
-    }
+<style scoped>
+.chart {
+  padding: 5px;
+  max-height: 38vh;
+  max-width: 25vw;
+}
 
 </style>

@@ -3,6 +3,7 @@ package com.techelevator.dao;
 import com.techelevator.model.Player;
 import com.techelevator.model.Stock;
 import com.techelevator.model.Trade;
+import com.techelevator.model.TradeHistory;
 
 import java.util.List;
 
@@ -14,6 +15,6 @@ public interface TradeDao {
 
     void createTrade(Trade trade);
 
-    public List<Trade> tradeHistory(int playerId);
+    public List<TradeHistory> tradeHistory(int playerId);
 
 }

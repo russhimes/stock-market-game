@@ -4,11 +4,11 @@
       <h3 class= "holdingsTitle">Your Position</h3>
       <div class="portfolioValue">
         <h4>Total Portfolio Value: </h4>
-        <p> ${{ portfolioValue }} </p>
+        <p> ${{ decimalPortfolioValue }} </p>
       </div>
       <div class="buyingPower">
         <h4>Buying Power: </h4>
-        <p> ${{ player.availableFunds}} </p>
+        <p> ${{ availableFunds}} </p>
 
       </div>
       </div>
@@ -32,40 +32,44 @@ export default {
     return {
       player: {},
       stocks: [],
-      portfolioValue: 0,
+      portfolioValue: 0
+    }
+  },
+  computed: {
+    availableFunds() {
+      return Number(this.player.availableFunds).toFixed(2);
+    },
+    decimalPortfolioValue() {
+      return Number(this.portfolioValue).toFixed(2);
     }
   },
   created() {
     playerService.getPlayerByGame(this.gameId) 
       .then(response => {
         this.player = response.data;
-        this.player.availableFunds = this.player.availableFunds.toFixed(2);
         stockService.getPlayerStocks(this.player.id)
           .then(response => {
             this.stocks = response.data.filter(stock => {
               return stock.total_shares > 0;
             })
-            // let i =
-            this.portfolioValue =  Number(this.getPortfolioValue()).toFixed(2);
-          })
+          }).then(() => {
+            this.getPortfolioValue();
+          });
 
       })
   },
-  computed: {
-  },
   methods: {
     getPortfolioValue() {
-      let portfolioValue = this.player.availableFunds;
-      for(let stock of this.stocks) {
-        let shares = stock.total_shares;
-        let stock_ticker = stock.stock_ticker;
+      this.portfolioValue = this.player.availableFunds;
+      for(let i = 0; i <  this.stocks.length; i++) {
+        let shares = this.stocks[i].total_shares;
+        let stock_ticker = this.stocks[i].stock_ticker;
         stockService.getStockInfo(stock_ticker)
           .then(response => {
             let currentValue = response.data.currentPrice;
-            portfolioValue += (currentValue * shares);
+            this.portfolioValue = this.portfolioValue + (currentValue * shares);
           })
       }
-      return Number(portfolioValue);
     }
   }
 

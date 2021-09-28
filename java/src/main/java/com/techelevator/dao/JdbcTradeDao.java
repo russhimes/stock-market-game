@@ -11,6 +11,8 @@ import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 @Component
@@ -19,6 +21,23 @@ public class JdbcTradeDao implements TradeDao {
 
     public JdbcTradeDao(DataSource datasource) {
         this.jdbcTemplate = new JdbcTemplate(datasource);
+    }
+
+
+
+    public List<Trade> tradeHistory(int playerId){
+        String sql = "SELECT stock_name, shares_traded, buy_or_sell, price, entered_in, date, time " +
+                " FROM trades JOIN stocks ON trades.stock_id = stocks.id " +
+                "WHERE stocks.player_id = ? ";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, playerId);
+        List<Trade> tradeList = new ArrayList<>();
+
+        while(results.next()){
+            tradeList.add(mapResultToTrade(results));
+        }
+        return tradeList;
+
     }
 
     public void buyTrade(Trade trade, Player player) {

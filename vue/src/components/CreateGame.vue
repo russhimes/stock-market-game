@@ -58,7 +58,7 @@ data() {
 
     createGame() {
       // call converision method
-     this.convertTimetoUTC()
+    // this.convertTimetoUTC()
   
       gamesService.createGame(this.game)
       .then(response => {

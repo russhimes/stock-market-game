@@ -1,5 +1,7 @@
 <template>
+<div>
   <v-chart class="chart" :option ="option" />
+</div>
 </template>
 
 <script>
@@ -28,15 +30,63 @@ export default {
     VChart
   },
   provide: {
-    [THEME_KEY]: "dark"
+    [THEME_KEY]: "dark",
+    series: 2
   },
   data() {
     return {
-      playerHistories: [],
-      option: {
+      players: [],
+      playerHistories: []
+    }
+  },
+  computed: {
+      sortedPlayerHistories() {
+        let returnArray = this.playerHistories;
+        returnArray.sort((a,b) => {
+          const aDate = new Date(a.localDate + 'T' + a.localTime + '.000Z');
+          const bDate = new Date(b.localDate + 'T' + b.localTime + '.000Z');
+          return aDate.getTime() -bDate.getTime();
+      });
+      return returnArray;
+      },
+        
+      option() {
+        let usernames = [];
+        let seriesValues = [];
+        let xValues = [];
+        let minValue = 1000000000;
+        let maxValue = 0;
+          if (this.sortedPlayerHistories) {
+            for (let i = 0; i < this.players.length; i++) {
+              usernames.push(this.players[i].username);
+              let currentSeries = {
+                name: this.players[i].username,
+                type: "line",
+              }
+              let dataValue = [];
+              for (let j = 0; j < this.sortedPlayerHistories.length; j++) {
+                if (this.players[i].id == this.sortedPlayerHistories[j].playerId) {
+                  if (this.sortedPlayerHistories[j].portfolioValue > maxValue) {
+                    maxValue = this.sortedPlayerHistories[j].portfolioValue;
+                  }
+                  if (this.sortedPlayerHistories[j].portfolioValue < minValue) {
+                    minValue = this.sortedPlayerHistories[j].portfolioValue;
+                  }
+                  dataValue.push(this.sortedPlayerHistories[j].portfolioValue);
+                    let date = this.sortedPlayerHistories[j].localTime;
+                    if(!xValues.includes(date)) xValues.push(date);
+                }
+              }
+              currentSeries.data = dataValue;
+              seriesValues.push(currentSeries);
+            }
+          minValue = minValue - 4000;
+          maxValue = maxValue + 4000;
+          }
+        return {
         title: {
           text: "Leader Stats",
-          left: "center"
+          left: "right"
         },
         tooltip: {
           trigger: "item",
@@ -45,84 +95,80 @@ export default {
         legend: {
             orient: "horizontal",
             left: "left",
-            data: this.returnLegendData()
+            data: usernames
+                
+        },
+        textStyle: {
+          fontSize: 8
         },
         xAxis: {
             type: 'category',
-            name: 'Time',
-            data: this.times
+            fontSize: 8,
+            data: xValues,
+            axisLine: {show: true},
+            axisTick: {show: true},
+            axisLabel: {
+              show: true,
+              interval: 25
+            }
+
         },
         yAxis: {
             type: 'value',
-            name: 'numbers'
+            name: 'Portfolio Value',
+            fontSize: 8,
+            min: minValue,
+            max: maxValue,
+            axisLabel: {
+              show: true,
+              interval: 10000
+            }
+
         },
-        series: this.returnData()
+        series: seriesValues
       }
     }
   },
   props: ['gameId'],
   created() {
     playerService.getPlayersByGame(this.gameId).then(response => {
-        this.playerHistories = [];
+        this.players = [];
         for (let i = 0; i < response.data.length; i++) {
-            this.playerHistories.push([]);
-            this.playerHistories[i].id  = response.data[i].id
-            this.playerHistories[i].username = response.data[i].username;
+            this.players.push(response.data[i]);
         }
     }).then(() => {
-            for (let i = 0; i < this.playerHistories.length; i++) {
-                playerHistoryService.getHistoryByPlayerId(this.playerHistories[i].id)
-                .then((response) => {
-                    this.playerHistories[i].data = response.data;
-                    console.log("I think this is the issue");
-                });
-            }    
-        });
-    },
-    methods: {
-        returnLegendData() {const timer = setInterval(() => {
-            console.log(this.playerHistories);
-            let usernames = [];
-            if (this.playerHistories) {
-                for (let i = 0; i < this.playerHistories.length; i++) {
-                    usernames.push(this.playerHistories[i].username);
-                    console.log(usernames);
-                }
-                clearInterval(timer);
-                return usernames;
-            }
-         }, 300)},
-        returnData() { const timer = setInterval(() => {
-            let test = false;
-            if(test) clearInterval(timer);
-            test = true;
-            return [ {
-                name: "user",
-                type: "line",
-                data: [
-                    1111,
-                    1548,
-                    1632
-                ]
-            },
-            {
-            name: "admin",
-            type: "line",
-            data: [
-              335,
-              234,
-              135,
-            ]
-            }];
-        }, 300)}
+        for (let i = 0; i < this.players.length; i++) {
+          playerHistoryService.getHistoryByPlayerId(this.players[i].id)
+            .then((response) => {
+              for (let j = 0; j < response.data.length; j++) {
+                this.playerHistories.push(response.data[j]);
+              }
+            });
+        }  
+    })
+  },
+  watch: {
+    countdown: function() {
+      setTimeout(() => {
+        for (let i = 0; i < this.players.length; i++) {
+          playerHistoryService.getHistoryByPlayerId(this.players[i].id)
+            .then((response) => {
+              for (let j = 0; j < response.data.length; j++) {
+                this.playerHistories.push(response.data[j]);
+              }
+            });
+        }
+      }, 60000);
     }
+  }
 }
 </script>
 
-<style>
-    .chart {
-        height: 100%;
-        width: 100%;
-    }
+<style scoped>
+.chart {
+  padding: 5px;
+  max-height: 38vh;
+  max-width: 25vw;
+}
 
 </style>

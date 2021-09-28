@@ -15,6 +15,7 @@
     <div v-if="gameFinished== true">
       <game-over v-bind:gameId="gameId"/>
     </div>
+    <trade-history></trade-history>
     </div>
     <div v-else>
       <p>loading</p>
@@ -30,6 +31,7 @@ import CountdownTimer from '../components/CountdownTimer'
 import GameService from '../services/GamesService'
 import GameOver from './GameOver.vue'
 import PlayerService from '../services/PlayerService'
+import TradeHistory from './TradeHistory.vue'
 
 // timer
 // pass game id to timer comp via props 
@@ -39,7 +41,7 @@ import PlayerService from '../services/PlayerService'
 // pass to countdown timer using v-bind (follow line 5)
 // inside of countdown have props to accept games to access information 
 export default {
-  components: { LeaderBoard, PortfolioHoldings, TradeStocks, CountdownTimer, GameOver},
+  components: { LeaderBoard, PortfolioHoldings, TradeStocks, CountdownTimer, GameOver, TradeHistory},
   data() {
     return {
       gameId: this.$route.params.id,

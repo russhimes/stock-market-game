@@ -1,16 +1,24 @@
 <template>
 <div class="history">
-  <h1>View Trade History</h1>
+  <h2>Trade History</h2>
   <div v-for="trade in tradeHistory" v-bind:key="trade.id">
-  <div class="row">
-      <p> ${{trade.stock_name }} </p> 
-    <p> {{trade.shares_traded }} </p>
-      <p> {{trade.buy_or_sell}} </p>
-      <p> {{trade.price }} </p>
-      <p> {{trade.entered_in }} </p>
-      <p> {{trade.date}} </p>
-      <p> {{trade.time }} </p>
-</div>
+  <table>
+      <tr>
+          <th>Date</th>
+          <th>Stock</th>
+          <th>Shares</th>
+          <th>Price</th>
+          <th>Position</th>
+      </tr>
+      <tr>
+          <td>{{trade.date}} <br>{{trade.time }} </td>
+        
+          <td>{{trade.stock_name }}</td>
+          <td>{{trade.shares_traded }}</td>
+          <td>{{trade.price }}</td>
+          <td>{{trade.buy_or_sell}}</td>
+      </tr>
+  </table>
    </div>  
   </div>
 </template>
@@ -36,6 +44,10 @@ export default {
 <style scoped>
 div {
     color: black;
-  
+}
+td {
+    font-size: 10px;
+    text-align: center;
+   
 }
 </style>

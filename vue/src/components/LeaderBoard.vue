@@ -2,8 +2,8 @@
 <div class = "leader-board">
   <h3 class="title">Leaderboard</h3>
 
-  <div v-for="player in playerList" v-bind:key="player.id">
-    <p>{{player.username}} : ${{player.availableFunds.toFixed(2)}}</p>
+  <div v-for="player, index in playerList" v-bind:key="player.id">
+    <p>Rank {{index + 1}} : {{player.username}} : ${{player.availableFunds.toFixed(2)}}</p>
   </div>
 
   <!-- <div class='playerCard' v-for='player in playerList'>
@@ -22,7 +22,8 @@ export default {
     data(){
       return {
         playerList: [],
-        sorted : []
+        sorted : [],
+        counter: 0
       }
     },
     created(){

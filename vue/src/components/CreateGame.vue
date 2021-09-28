@@ -12,7 +12,7 @@
         <input type="date" id="endDate" v-model="game.end_date"/>
         </div>
         <div>
-        <label>End Time:</label>
+        <label>End Time (UTC):</label>
         <input type="time" id="endTime"  v-model="game.end_time"/> 
 
         <!-- v-on:click="convertTimetoUTC()" -->
@@ -106,7 +106,7 @@ h2 {
 
 label {
        box-sizing: border-box;
-       width: 100px;
+       width: 150px;
        display: inline-block;
        margin: 0.5rem;    
 }

@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.techelevator.dao.PlayerDao;
 import com.techelevator.dao.StockDao;
-import com.techelevator.model.Player;
-import com.techelevator.model.SearchInfo;
-import com.techelevator.model.Stock;
-import com.techelevator.model.StockInfo;
+import com.techelevator.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -162,7 +159,7 @@ public class RestStockInfoService implements StockInfoService {
     }
 
     @Override
-    public List<Double> getHistoricalStockData(String symbol, String resolution, String from, String to) {
+    public List<StockInfoDataPoint> getHistoricalStockData(String symbol, String resolution, String from, String to) {
         String url = BASE_URL + "stock/candle?symbol=" + symbol + "&resolution=" + resolution + "&from=" + from +
                 "&to=" + to + "&token=" + apiKey;
 
@@ -175,14 +172,17 @@ public class RestStockInfoService implements StockInfoService {
                 String.class
         );
 
-        List<Double> data = new ArrayList<>();
+        List<StockInfoDataPoint> data = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
             JsonNode jsonNode = objectMapper.readTree(result.getBody());
             JsonNode root = jsonNode.path("c");
             for(int i = 0; i < root.size(); i++) {
-                data.add(root.path(i).asDouble());
+                double value = root.path(i).asDouble();
+                long timestamp = jsonNode.path("t").path(i).asLong();
+                StockInfoDataPoint dp = new StockInfoDataPoint(value, timestamp);
+                data.add(dp);
             }
         } catch (JsonProcessingException e) {
             e.printStackTrace();

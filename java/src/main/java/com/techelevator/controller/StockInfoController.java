@@ -5,6 +5,7 @@ import com.techelevator.dao.PlayerDao;
 import com.techelevator.model.Player;
 import com.techelevator.model.SearchInfo;
 import com.techelevator.model.StockInfo;
+import com.techelevator.model.StockInfoDataPoint;
 import com.techelevator.services.StockInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -37,8 +38,8 @@ public class StockInfoController {
     }
 
     @RequestMapping(path="/candle/{symbol}/{resolution}/{from}/{to}", method=RequestMethod.GET)
-    public List<Double> getHistoricalStockData(@PathVariable String symbol, @PathVariable String resolution,
-                                               @PathVariable String from, @PathVariable String to) {
+    public List<StockInfoDataPoint> getHistoricalStockData(@PathVariable String symbol, @PathVariable String resolution,
+                                                           @PathVariable String from, @PathVariable String to) {
         return stockInfoService.getHistoricalStockData(symbol, resolution, from, to);
     }
 

@@ -1,9 +1,10 @@
 <template>
 <div class = "leader-board">
   <h3 class="title">Leaderboard</h3>
-
+  
   <div v-for="player, index in playerList" v-bind:key="player.id">
     <p>Rank {{index + 1}} : {{player.username}} : ${{player.portfolioValue.toFixed(2)}}</p>
+
   </div>
 
   <!-- <div class='playerCard' v-for='player in playerList'>
@@ -30,9 +31,7 @@ export default {
     created(){
       // first thing that happens when component loads 
       // taking data returned from getAllPlayers() and saving into our playerList
-      
-      //since this is the leaderboard page and the only use will be sorting, I just implemented it in the created 
-      //portion, will need to do some work to get player names to show, and maybe stocks owned/shares owned
+    
       playerService.getPlayersByGame(this.gameId).then(
           (response) => {
             this.playerList = response.data;

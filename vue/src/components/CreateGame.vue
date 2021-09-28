@@ -99,9 +99,11 @@ data() {
   height: 90vh;
 } 
 
+
 h2 {
   padding-top: 70px;
   margin: 0.5rem;
+  text-align: center;
 }
 
 label {

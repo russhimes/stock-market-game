@@ -11,7 +11,6 @@
       </div>
       
       <games-list />
-      
     </div>
   </div>
 </template>
@@ -72,10 +71,14 @@ export default {
     overflow: visible;
   }
 
+  span {
+    height: auto;
+  }
+
   .icon, .text {
     color: var(--background-color);
     position: relative;
-    left: 4.5rem;
+    left: 4rem;
     transition: 0.2s;
   }
 

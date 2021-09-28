@@ -35,4 +35,22 @@ public class StockInfoController {
     public List<SearchInfo> getSearchInfo(@PathVariable String searchTerm) {
         return stockInfoService.getSearchInfo(searchTerm);
     }
+
+    @RequestMapping(path="/candle/{symbol}/{resolution}/{from}/{to}", method=RequestMethod.GET)
+    public List<Double> getHistoricalStockData(@PathVariable String symbol, @PathVariable String resolution,
+                                               @PathVariable String from, @PathVariable String to) {
+        return stockInfoService.getHistoricalStockData(symbol, resolution, from, to);
+    }
+
+    //I think this will run hourly based on the @Scheduled documentation
+    //Optimization: If we have more than 30 stocks to update this will currently crash.
+    //              Could ask it to wait a minute if we get a 400 error from finnhub.
+   /* @Scheduled(cron = "0 0 * * * *")
+    public void updateBalances() {
+        List<Player> players = playerDao.getAllPlayers();
+        int counter = 0;
+        for (Player player : players) {
+            stockInfoService.getPortfolioValue(player.getId());
+        }
+    }*/
 }

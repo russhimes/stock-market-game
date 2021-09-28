@@ -6,6 +6,7 @@ import com.techelevator.dao.TradeDao;
 import com.techelevator.model.Player;
 import com.techelevator.model.Stock;
 import com.techelevator.model.Trade;
+import com.techelevator.model.TradeHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class TradeController {
     }
 
     @RequestMapping(path="/tradehistory/{playerId}", method = RequestMethod.GET)
-    public List<Trade> tradeHistory(@PathVariable int playerId) {
+    public List<TradeHistory> tradeHistory(@PathVariable int playerId) {
         return tradeDao.tradeHistory(playerId);
     }
 

@@ -148,5 +148,47 @@ public class RestStockInfoService implements StockInfoService {
         return searchInfoList;
     }
 
+    @Override
+    public void getPortfolioValue(int playerId) {
+        Player player = playerDao.getPlayerById(playerId);
+        BigDecimal availableFunds = player.getAvailableFunds();
+        List<Stock> stocks = stockDao.getStocksByPlayerId(playerId);
+        BigDecimal stocksValue = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
+        for (Stock stock : stocks) {
+            StockInfo stockInfo = getStockInfo(stock.getStock_ticker());
+            BigDecimal thisStockValue = stockInfo.getCurrentPrice().multiply(new BigDecimal(stock.getTotal_shares()).setScale(2, RoundingMode.HALF_UP));
+            stocksValue = stocksValue.add(thisStockValue);
+        }
+    }
+
+    @Override
+    public List<Double> getHistoricalStockData(String symbol, String resolution, String from, String to) {
+        String url = BASE_URL + "stock/candle?symbol=" + symbol + "&resolution=" + resolution + "&from=" + from +
+                "&to=" + to + "&token=" + apiKey;
+
+        HttpEntity<String> httpEntity = new HttpEntity<>("");
+
+        ResponseEntity<String> result = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                httpEntity,
+                String.class
+        );
+
+        List<Double> data = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            JsonNode jsonNode = objectMapper.readTree(result.getBody());
+            JsonNode root = jsonNode.path("c");
+            for(int i = 0; i < root.size(); i++) {
+                data.add(root.path(i).asDouble());
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
 
 }

@@ -40,7 +40,7 @@ public class SchedulingService  {
     public void addTaskToScheduler(int id, Runnable task, Date runningDate) {
         ScheduledFuture<?> scheduledTask = scheduler.schedule(task, runningDate);
         jobsMap.put(id, scheduledTask);
-        System.out.println(jobsMap.get(id).toString() + " Date: " + runningDate);
+       // System.out.println(jobsMap.get(id).toString() + " Date: " + runningDate);
     }
 
     public void removeTaskFromScheduler(int id) {
@@ -65,7 +65,7 @@ public class SchedulingService  {
             if (!isFinished) {
                 LocalDateTime dateTime = LocalDateTime.of(game.getEnd_date(), game.getEnd_time());
                 Date date = Date.from(dateTime.atZone(TimeZone.getTimeZone("UTC").toZoneId()).toInstant());
-                System.out.println(game.getId());
+              //  System.out.println(game.getId());
                 endGameService.setGame(game);
                 addTaskToScheduler(game.getId(), endGameService, date);
             }

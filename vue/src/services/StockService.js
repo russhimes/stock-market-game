@@ -19,7 +19,7 @@ export default{
            credentials: 'same-origin',
           });
           return value;
-        //return axios.get(`/stockifo/search/${searchTerm}`);
+        //return axios.get(`/stockinfo/search/${searchTerm}`);
     },
     getPlayerStocks(playerId) {
         return axios.get(`/player/${playerId}/stocks`);
@@ -29,6 +29,9 @@ export default{
     },
     createStock(stock) {
         return axios.post(`/stocks`, stock);
+    },
+    getHistoricalStockData(symbol, resolution, from, to) {
+        return axios.get(`/candle/${symbol}/${resolution}/${from}/${to}`);
     }
 
 }

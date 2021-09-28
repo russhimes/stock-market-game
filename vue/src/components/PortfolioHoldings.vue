@@ -12,6 +12,7 @@
 
       </div>
       </div>
+      <!-- <trade-history></trade-history> -->
       <stock-list v-bind:stocks="stocks"></stock-list>
       </div>
 </template>
@@ -20,9 +21,11 @@
 import playerService from "../services/PlayerService";
 import stockService from "../services/StockService";
 import StockList from "../components/StockList"
+// import TradeHistory from './TradeHistory.vue';
 export default {
   components: {
     StockList,
+    // TradeHistory,
   },
   props: ['gameId'],
   data() {

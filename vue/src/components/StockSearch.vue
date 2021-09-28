@@ -1,12 +1,15 @@
 <template>
   <div id="stockSearch">
       <div class="input">
-        <input type="text" id="searchText" v-model="searchTerm" />
+        <input type="text" id="searchText" v-model="searchTerm" v-on:keyup.enter="retrieveSearch(searchTerm)"/>
         <button v-on:click="retrieveSearch(searchTerm)">Search</button>
       </div>
-      <router-link class="resultsList" v-if="searchResult.companyName" :to="{name: 'stock-info', params: {ticker: searchResult.stockSymbol}}">
-        {{searchResult.companyName}} (${{searchResult.currentPrice}})
-      </router-link>
+      <div v-if="searchResult.companyName" class="results">
+        <router-link class="resultsList" :to="{name: 'stock-info', params: {ticker: searchResult.stockSymbol}}">
+            {{searchResult.companyName}} (${{searchResult.currentPrice}})
+        </router-link>
+        <button v-on:click="closeResults" class="closeButton">x</button>
+      </div>
       <p id="errorText" v-if="!(searchResult.companyName) && searched">
           Could not find that company.  Please enter a valid stock ticker symbol.
       </p>
@@ -27,14 +30,21 @@ export default {
         retrieveSearch(searchTerm) {
             this.searched = true;
             this.searchResult = {};
-            stockService.getSearchInfo(searchTerm).then(response => {
+            stockService.getSearchInfo(searchTerm.toUpperCase()).then(response => {
                 console.log(response);
                 if(response.status >=200 && response.status < 300) {
                     this.searchResult = response.data;
+                    this.searchTerm = "";
                 }
             }).catch(error => {
                 console.log(error.data);
             });
+        },
+
+        closeResults() {
+            this.searched = false;
+            this.searchResult = {};
+
         }
     }
 
@@ -46,10 +56,9 @@ export default {
         display: flex;
         flex-direction:row;
         text-decoration: none;
-        background-color: var(--background-color);
-        padding: 1rem;
-        margin: 0.5rem 0;
-        border-radius: var(--border-radius);
+        color: var(--background-color);
+        /* padding: 1rem; */
+        margin: 2rem 0;
     }
 
     #stockSearch {
@@ -67,15 +76,15 @@ export default {
         border: none;
         background-color: transparent;
         border-bottom: 2px solid var(--background-color);
-        margin: 0 1rem;
+        margin-right: 1rem;
         transition: 0.4s;
         color: var(--background-color);
         font-size: 1rem;
+        padding: 0.5rem;
     }
 
     input:focus, input:hover {
         outline: none;
-        border-bottom: 2px solid var(--color-green);
         color: var(--background-color);
         font-size: 1rem;
     }
@@ -98,5 +107,23 @@ export default {
 
     #errorText {
         color: var(--color-red);
+    }
+
+    .closeButton {
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+    }
+
+    .closeButton:hover {
+        border: 2px solid var(--color-red);
+        color: var(--color-red);
+        background-color: transparent;
+    }
+
+    .results {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 </style>

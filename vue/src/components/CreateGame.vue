@@ -58,7 +58,7 @@ data() {
 
     createGame() {
       // call converision method
-     this.convertTimetoUTC()
+     //this.convertTimetoUTC()
   
       gamesService.createGame(this.game)
       .then(response => {
@@ -89,7 +89,7 @@ data() {
    
 </script>
 
-<style>
+<style scoped>
  .container {
   display: flex;
   align-content: center;

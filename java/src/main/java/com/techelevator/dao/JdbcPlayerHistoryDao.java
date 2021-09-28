@@ -47,7 +47,7 @@ public class JdbcPlayerHistoryDao implements PlayerHistoryDao{
         return playerHistories;
     }
 
-    @Scheduled(cron = "0 */2 * * * *")
+    @Scheduled(cron = "0 */10 * * * *")
     public void createAllPlayerHistories() {
         List<Player> players = playerDao.getAllPlayers();
         for (Player player : players) {

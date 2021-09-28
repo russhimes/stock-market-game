@@ -63,7 +63,7 @@ public class RestStockInfoService implements StockInfoService {
     public StockInfo getStockInfo(String stockSymbol) {
         LocalTime retrievedTime = retrieveTimeMap.get(stockSymbol);
         if (retrievedTime != null) {
-            if (retrievedTime.until(LocalTime.now(), ChronoUnit.MINUTES) <=10) {
+            if (retrievedTime.until(LocalTime.now(), ChronoUnit.MINUTES) < 10) {
                 return stockInfoMap.get(stockSymbol);
             }
         }

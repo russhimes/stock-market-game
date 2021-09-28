@@ -135,7 +135,7 @@ public class RestStockInfoService implements StockInfoService {
             JsonNode root = jsonNode.path("data");
             System.out.println(jsonNode.asText());
             int count;
-            if (Integer.parseInt(jsonNode.path("count").asText()) > 10)  count = 10;
+            if (Integer.parseInt(jsonNode.path("count").asText()) > 10) count = 10;
             else count = Integer.parseInt(jsonNode.path("count").asText());
             for (int i = 0; i < count; i++) {
                 description = jsonNode.path("result").get(i).path("description").asText();
@@ -146,19 +146,6 @@ public class RestStockInfoService implements StockInfoService {
             e.printStackTrace();
         }
         return searchInfoList;
-    }
-
-    @Override
-    public void getPortfolioValue(int playerId) {
-        Player player = playerDao.getPlayerById(playerId);
-        BigDecimal availableFunds = player.getAvailableFunds();
-        List<Stock> stocks = stockDao.getStocksByPlayerId(playerId);
-        BigDecimal stocksValue = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
-        for (Stock stock : stocks) {
-            StockInfo stockInfo = getStockInfo(stock.getStock_ticker());
-            BigDecimal thisStockValue = stockInfo.getCurrentPrice().multiply(new BigDecimal(stock.getTotal_shares()).setScale(2, RoundingMode.HALF_UP));
-            stocksValue = stocksValue.add(thisStockValue);
-        }
     }
 
 

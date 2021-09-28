@@ -50,6 +50,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+#gameOver{
+    color: black;
+}
 
 </style>

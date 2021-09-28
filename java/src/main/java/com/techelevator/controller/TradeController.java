@@ -28,7 +28,7 @@ public class TradeController {
         tradeDao.buyTrade(trade, player);
     }
 
-    @RequestMapping(path="/tradehistory", method = RequestMethod.GET)
+    @RequestMapping(path="/tradehistory/{playerId}", method = RequestMethod.GET)
     public List<Trade> tradeHistory(@PathVariable int playerId) {
         return tradeDao.tradeHistory(playerId);
     }

@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="big-container">
 
   <div class="container">
       <div class="info">
@@ -21,7 +21,7 @@
       <div class="value">
             <div class="flex">
                 <p>Currrent Price: ${{currentPrice}}</p>
-                <p>Percent Change: <span v-bind:class="{ 'red' : percentChange < 0, 'green' : percentChange >= 0 }"> {{percentChange}}% </span></p>
+                <p>Day Change: <span v-bind:class="{ 'red' : percentChange < 0, 'green' : percentChange >= 0 }"> {{percentChange}}% </span></p>
             </div>
         </div>
         <div class="tradeButton"> 
@@ -55,7 +55,7 @@
             </div>
         </div>
   </div>
-        <router-link v-bind:to="{ name: 'game', params: {id: $store.state.activeGameId}}">Back to Game Board</router-link>
+    <router-link v-bind:to="{ name: 'game', params: {id: $store.state.activeGameId}}">Back to Game Board</router-link>
 </div>
 </template>
 
@@ -251,6 +251,14 @@ export default {
 </script>
 
 <style scoped>
+    .big-container {
+        width: 50vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: auto;
+    }
+
     .container {
         display: flex;
         flex-direction: column;
@@ -260,7 +268,7 @@ export default {
         border-radius: var(--border-radius);
         color: var(--background-color);
         width: 50vw;
-        margin: var(--padding) auto;
+        margin: var(--padding) auto 0 auto;
         justify-content: center;
     }
 
@@ -340,7 +348,7 @@ export default {
     .green {
         color: var(--color-green);
     }
-
+/* 
     .chartContainer {
         width: 100%;
         display: flex;
@@ -351,7 +359,7 @@ export default {
     .chart {
         width: 500px;
         height: 280px;
-    }
+    } */
 
     
     input {
@@ -407,5 +415,18 @@ export default {
     .buttons button {
         margin: 0.3rem auto;
         width: 100%;
+    }
+
+    a {
+        text-transform: uppercase;
+        margin: 2rem;
+        padding: 0.5rem;
+        flex-grow: 0;
+        border-bottom: 0;
+    }
+
+    a:hover {
+        border-bottom: 0;
+        color: var(--color-green);
     }
 </style>

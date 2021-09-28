@@ -1,5 +1,6 @@
 <template>
   <div id="main">
+    <div v-if="isLoading == false">
     <div id = "game" v-if="gameFinished == false">
         <h1 class = "boardTitle">{{ game.name }} Dashboard</h1>
         <div class="flex">
@@ -11,8 +12,12 @@
           </div>
         </div>
     </div>
-    <div v-else>
+    <div v-if="gameFinished== true">
       <game-over v-bind:gameId="gameId"/>
+    </div>
+    </div>
+    <div v-else>
+      <p>loading</p>
     </div>
   </div>
 </template>
@@ -45,7 +50,8 @@ export default {
         end_date: "",
         end_time: ""
       },
-      gameFinished: false
+      gameFinished: false,
+      isLoading: true
     }
   },
   created() {
@@ -62,10 +68,11 @@ export default {
     }).then(() => {
       PlayerService.getPlayerByGame(this.game.id).then(result => {
         if (result.data.game_status == 'Finished') {
-          this.gameOver = true;
+          this.gameFinished = true;
         }
       })
     }).then(() => {
+      if (this.gameFinished == false) {
       const timer = setInterval(() => {
         const now = new Date();
         const end = new Date(this.game.end_date + 'T' + this.game.end_time + '.000Z'); 
@@ -75,9 +82,14 @@ export default {
           this.gameFinished = true;
           return;
         }
-      }, 1000);
+      }, 100);
+      }
     })   
-  }
+  },
+  mounted() {
+    setTimeout(() => {
+    this.isLoading = false;
+  }, 500)}
 }
   
 

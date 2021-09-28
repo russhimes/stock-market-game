@@ -1,10 +1,12 @@
 <template>
   <div id="gameOver">
-      <h2> Game Over! </h2>
-      <h3 v-if="winnerCalculated">{{winnerInfo[0].username}} WINS!</h3>
-      <leader-board v-if="winnerCalculated" v-bind:gameId="gameId"/>
-      <p v-else>Calculating Winner</p>
-    </div>
+      <div v-if="winnerCalculated == true">
+        <h2> Game Over! </h2>
+        <h3>{{winnerInfo[0].username}} WINS!</h3>
+        <leader-board v-bind:gameId="gameId"/>
+      </div>
+      <p v-else>loading</p>
+  </div>
 </template>
 
 <script>
@@ -21,8 +23,17 @@ export default {
         }
     },
     created() {
+        this.checkWinner().then(() => {
         const timer = setInterval (() => {
-        playerService.getPlayersByGame(this.gameId).then(result => {
+            this.checkWinner();
+            clearInterval(timer);
+            return;
+        }, 100)
+        })
+    },
+    methods: {
+        checkWinner() {
+            let result = playerService.getPlayersByGame(this.gameId).then(result => {
             for (let i = 0; i < result.data.length; i++) {
                 if (result.data[i].game_status != "Finished") {
                     this.winnerCalculated = false;
@@ -40,11 +51,11 @@ export default {
                         this.winnerInfo[i].username = userResult.data.username;
                     })
                 }
-                clearInterval(timer);
-                return;
             }
-        });
-        }, 500);
+            return result;
+            });
+            return result;
+        }
     }   
 
 }

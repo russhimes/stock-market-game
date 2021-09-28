@@ -14,11 +14,9 @@ public interface StockInfoService {
     StockInfo getStockInfo(String stockSymbol);
 
     List<SearchInfo> getSearchInfo(String searchTerm);
-<<<<<<< HEAD
 
     void getPortfolioValue(int playerId);
 
     List<Double> getHistoricalStockData(String symbol, String resolution, String from, String to);
-=======
->>>>>>> e7ad4deaf46f0ded8279682f0d8aa685aebe98c5
+
 }

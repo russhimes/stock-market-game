@@ -12,7 +12,7 @@ import {
   TooltipComponent,
   LegendComponent
 } from "echarts/components";
-import VChart, { THEME_KEY } from "vue-echarts";
+import VChart from "vue-echarts";
 // import { ref, defineComponent } from "vue";
 
 use([
@@ -28,37 +28,57 @@ export default {
     commponents: {
         VChart,
     },
-    provide: {
-        [THEME_KEY]: "dark"
-    },
+    props: ['ticker'],
     data() {
         return {
             option: {
                  title: {
-                    text: "Stock",
-                    left: "center"
+                    text: this.ticker + " Stock Value",
+                    left: "center",
+                    textStyle: {
+                        fontSize: 24,
+                        fontFamily: 'Poppins',
+                        color: '#211a1e',
+                    }
                 },
                 xAxis: {
                     type: 'category',
                     data: this.getWeekDates(),
+                    show: false,
                 },
                 yAxis: {
                     type: 'value',
                     yAxisIndex: 1,
                     min: '',
                     max: '',
-                    name: 'Value',
+                    // name: 'Value',
+                    // nameTextStyle: {
+                    //     fontFamily: 'Poppins',
+                    //     fontSize: 20,
+                    // }
+                },
+                axisPointer: {
+                    show: true,
+                    snap: true,
+                    label: {
+                        fontFamily: 'Poppins',
+                    }
                 },
                 series: [
                     {
-                    data: "",
-                    type: 'line'
+                        data: [],
+                        type: 'line',
+                        color: '#ff4f79',
                     }
-                ]
+                ],
+                backgroundColor: '#eeeeee',
+                textStyle: {
+                    color: '#211a1e',
+                    fontFamily: 'Poppins',
                 }
+            }
         }
     },
-
     methods: {
         getWeekDates() {
             let today = new Date();
@@ -69,7 +89,7 @@ export default {
  
             let data = [];
 
-            stockService.getHistoricalStockData('AAPL', 60, unixTsLastWeek, unixTsToday)
+            stockService.getHistoricalStockData(this.ticker, 60, unixTsLastWeek, unixTsToday)
                 .then(result => {
                     this.option.series[0].data = result.data;
                     let length = this.option.series[0].data.length;
@@ -78,7 +98,7 @@ export default {
 
                     let dateValue = lastWeek;
                     for(let i = 0; i < length; i++) {
-                        data.push(i);
+                        // data.push(i);
                         let currentValue = this.option.series[0].data[i];
                         if(currentValue < minValue) {
                             minValue = currentValue;
@@ -88,6 +108,8 @@ export default {
                         dateValue = new Date(dateValue.getFullYear(), dateValue.getMonth(),
                             dateValue.getDate(), dateValue.getHours() + 1, dateValue.getMinutes(), 
                             dateValue.getSeconds(), dateValue.getMilliseconds());
+
+                        data.push(dateValue.toString().substring(0, 24));
                     }
 
                     minValue = Math.floor(minValue);
@@ -95,12 +117,20 @@ export default {
                     
                     this.option.yAxis.min = minValue;
                     this.option.yAxis.max = maxValue;
+                 
+                    this.setColor(this.option.series[0].data[0], this.option.series[0].data[this.option.series[0].data.length-1]);
+
                 })
 
             return data;
         },
+        setColor(startValue, endValue) {
+            if(endValue > startValue) {
+                this.option.series[0].color =  '#9bc53d';
+            }
+        }
+    },
 
-    }
     
 
 }

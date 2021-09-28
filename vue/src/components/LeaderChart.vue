@@ -30,8 +30,7 @@ export default {
     VChart
   },
   provide: {
-    [THEME_KEY]: "dark",
-    series: 2
+    [THEME_KEY]: "dark"
   },
   data() {
     return {
@@ -167,6 +166,8 @@ export default {
 <style scoped>
 .chart {
   padding: 5px;
+  min-height: 500px;
+  min-width: 500px;
   max-height: 38vh;
   max-width: 25vw;
 }

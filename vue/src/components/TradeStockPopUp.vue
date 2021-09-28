@@ -13,7 +13,7 @@
         <div class="value">
             <h3>Current Value</h3>
             <p>Currrent Price: ${{currentPrice}}</p>
-            <p>Percent Change: {{percentChange}}%</p>
+            <p>Percent Change: <span v-bind:class="{ 'red' : percentChange < 0, 'green' : percentChange >= 0 }"> {{percentChange}}% </span></p>
         </div>
         <div class="your-position">
             <h3>Your Position</h3>
@@ -21,6 +21,9 @@
             <p>Market Value: ${{marketValue}} </p>
             <p>Buying Power: ${{ buyingPower }}</p>
         </div>
+      </div>
+      <div class="chartContainer">
+        <stock-data-graph v-bind:ticker="stockTicker"></stock-data-graph>
       </div>
       <button v-on:click="toggleTrade = !toggleTrade">Trade</button>
         <div v-if="toggleTrade">
@@ -43,7 +46,6 @@
             <button v-on:click="sellStocks()" v-bind:class="{ 'invalidTransaction' : !validSellTransaction }" v-if="stock.total_shares> 0">Sell</button>
         </div>
   </div>
-          <stock-data-graph v-bind:ticker="stockTicker"></stock-data-graph>
         <router-link v-bind:to="{ name: 'game', params: {id: $store.state.activeGameId}}">Back to Game Board</router-link>
 </div>
 </template>
@@ -234,7 +236,6 @@ export default {
 
             return stockService.createStock(stock);
         }
-
     }
 
 }
@@ -317,4 +318,26 @@ export default {
         background-color: var(--color-red);
         border: 2px solid var(--color-red);
     }
+
+    .red {
+        color: var(--color-red);
+    }
+
+    .green {
+        color: var(--color-green);
+    }
+
+    .chartContainer {
+        width: 100%;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+    }
+
+    .chart {
+        width: 500px;
+        height: 330px;
+    }
+           
+
 </style>

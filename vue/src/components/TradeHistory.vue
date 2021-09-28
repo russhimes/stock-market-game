@@ -1,17 +1,25 @@
 <template>
 <div class="history">
-  <h1>View Trade History</h1>
-  <div v-for="trade in tradeHistory" :key="trade.id"></div>
-  <div class="row">
-      <p> {{trade.stock_name }} </p>
-      <p> {{trade.shares_traded }} </p>
-      <p> {{trade.buy_or_sell}} </p>
-      <p> {{trade.price }} </p>
-      <p> {{trade.entered_in }} </p>
-      <p> {{trade.date}} </p>
-      <p> {{trade.time }} </p>
-
-  </div>
+  <h2>Trade History</h2>
+  <div v-for="trade in tradeHistory" v-bind:key="trade.id">
+  <table>
+      <tr>
+          <th>Date</th>
+          <th>Stock</th>
+          <th>Shares</th>
+          <th>Price</th>
+          <th>Position</th>
+      </tr>
+      <tr>
+          <td>{{trade.date}} <br>{{trade.time }} </td>
+        
+          <td>{{trade.stock_name }}</td>
+          <td>{{trade.shares_traded }}</td>
+          <td>{{trade.price }}</td>
+          <td>{{trade.buy_or_sell}}</td>
+      </tr>
+  </table>
+   </div>  
   </div>
 </template>
 
@@ -25,7 +33,7 @@ export default {
     },
 
     created(){
-        TradeService.getTradeHistory(this.player.id)
+        TradeService.getTradeHistory(this.$store.state.currentPlayerId)
         .then((response) => {
             this.tradeHistory = response.data;
         })
@@ -36,6 +44,10 @@ export default {
 <style scoped>
 div {
     color: black;
-  
+}
+td {
+    font-size: 10px;
+    text-align: center;
+   
 }
 </style>

@@ -1,4 +1,5 @@
 <template>
+<div class="container">
   <div>
     <h1>Invite Users</h1>
     <div class="invited">
@@ -9,8 +10,8 @@
     </div>
     <table>
       <th>
-        <td>ID</td>
-        <td>Username</td>
+        <td class="title">ID</td>
+        <td class="title">Username</td>
       </th>
       <tr v-for="user in users" v-bind:key="user.id">
         <td>{{ user.id }}</td>
@@ -20,6 +21,7 @@
         <router-link tag="button" to="/">Finished Inviting Players</router-link>
       </tr>
     </table>
+  </div>
   </div>
 </template>
 
@@ -74,6 +76,52 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.container {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 90vh;
+  }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 2px;
+  text-align: center;
+  }
+
+td {
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 6px;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+ul li {
+  font-size: 1.2rem;
+  margin: 0.5rem;
+}
+
+button{
+    font-size: 1.2rem;
+    padding: 0.4rem 2rem;
+    margin: 1rem;
+    border: 2px solid var(--background-color);
+    background-color: transparent;
+    border-radius: 4rem;
+    cursor: pointer;
+    transition: 0.4s;
+    width: auto; 
+    border-color: white;
+}
+
+button:hover {
+        border: 2px solid var(--color-green);
+        background-color: var(--color-green);
+    }
 
 </style>

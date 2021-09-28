@@ -1,4 +1,6 @@
 <template>
+
+<div class = "container">
   <div id="register" class="text-center">
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
@@ -37,6 +39,7 @@
         Create Account
       </button>
     </form>
+  </div>
   </div>
 </template>
 
@@ -90,4 +93,82 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.container {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 90vh;
+  }
+
+  #register {
+    padding: var(--padding);
+    margin: auto;
+    border-radius: var(--border-radius);
+    color: var(--background-color);
+    background-color: var(--color-lighter);
+    width: 50vw;
+    text-align: center;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }
+
+  a {
+    color: var(--background-color);
+    margin: 1rem;
+    font-size: 1.2rem;
+  }
+
+  #username, #password, #confirmPassword {
+    border: none;
+    background-color: var(--color-lighter);
+    border-bottom: 2px solid var(--background-color);
+    transition: 0.4s;
+    color: var(--background-color);
+    font-size: 1rem;
+    margin: 0.5rem;
+    width: 100%;
+  }
+
+  input:focus, input:hover {
+      background-color: var(--color-lighter);
+      outline: none;
+      border-bottom: 2px solid var(--color-green);
+      color: var(--background-color);
+      font-size: 1rem;
+  }
+
+  input {
+    padding: 8px;
+  }
+
+  .form-register {
+    display: flex;
+    flex-grow: 0.4;
+    flex-direction: column;
+  }
+
+  label {
+    margin: 1rem;
+    font-size: 1.2rem;
+  }
+
+button {
+    font-size: 1.2rem;
+    padding: 0.4rem 2rem;
+    color: var(--background-color);
+    border: 2px solid var(--background-color);
+    background-color: transparent;
+    border-radius: 4rem;
+    cursor: pointer;
+    transition: 0.4s;
+    text-transform: uppercase;
+    width: auto;
+}
+
+    button:hover {
+        border: 2px solid var(--color-green);
+        background-color: var(--color-green);
+    }
+</style>

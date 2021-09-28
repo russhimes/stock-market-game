@@ -142,8 +142,7 @@ export default {
     margin: 1rem;
     font-size: 1.2rem;
   }
-
-  button {
+button {
     font-size: 1.2rem;
     padding: 0.4rem 2rem;
     color: var(--background-color);
@@ -160,4 +159,5 @@ export default {
         border: 2px solid var(--color-green);
         background-color: var(--color-green);
     }
+  
 </style>

@@ -43,6 +43,7 @@
             <button v-on:click="sellStocks()" v-bind:class="{ 'invalidTransaction' : !validSellTransaction }" v-if="stock.total_shares> 0">Sell</button>
         </div>
   </div>
+          <stock-data-graph></stock-data-graph>
         <router-link v-bind:to="{ name: 'game', params: {id: $store.state.activeGameId}}">Back to Game Board</router-link>
 </div>
 </template>
@@ -50,7 +51,12 @@
 <script>
 import stockService from '../services/StockService'
 import tradeService from '../services/TradeService'
+import StockDataGraph from '../components/StockDataGraph';
+
 export default {
+    components: {
+        StockDataGraph
+    },
     data(){
         return {
             stockTicker: this.$route.params.ticker,

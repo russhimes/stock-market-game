@@ -111,7 +111,7 @@ export default {
     text-align: center;
     display: flex;
     align-content: center;
-    justify-content: center;
+    justify-content: center
   }
 
   a {

@@ -10,12 +10,14 @@
             <countdown-timer v-bind:gameId="gameId" class="container"></countdown-timer>
             <leader-board v-bind:gameId="gameId" class="container"></leader-board>
           </div>
+
         </div>
+            <trade-history></trade-history>
     </div>
     <div v-if="gameFinished== true">
       <game-over v-bind:gameId="gameId"/>
     </div>
-    <trade-history></trade-history>
+    
     </div>
     <div v-else>
       <p>loading</p>

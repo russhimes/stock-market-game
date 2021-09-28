@@ -1,9 +1,10 @@
 <template>
 <div class = "leader-board">
   <h3 class="title">Leaderboard</h3>
+  
+  <div v-for="player, index in playerList" v-bind:key="player.id">
+    <p>Rank {{index + 1}} : {{player.username}} : ${{player.portfolioValue.toFixed(2)}}</p>
 
-  <div v-for="player, index in playerList" v-bind:key="index">
-    <p>Rank {{index + 1}} : {{player.username}} : ${{player.availableFunds.toFixed(2)}}</p>
   </div>
 
     <leader-chart class="leaderChart" v-bind:gameId="gameId"/>
@@ -16,8 +17,9 @@
 
 <script>
 import playerService from '../services/PlayerService.js'
-import userService from '../services/UserService.js'
+//import userService from '../services/UserService.js'
 import LeaderChart from '../components/LeaderChart'
+import stockService from '../services/StockService.js'
 //import CountdownTimer from '../components/CountdownTimer';
 
 export default {
@@ -29,6 +31,7 @@ export default {
       return {
         playerList: [],
         sorted : [],
+        stocks : [],
         counter: 0
       }
     },
@@ -38,21 +41,28 @@ export default {
     
       playerService.getPlayersByGame(this.gameId).then(
           (response) => {
-            console.log(this.gameId);
             this.playerList = response.data;
             this.playerlist = this.playerList.sort((a,b) => {
               return b.availableFunds - a.availableFunds
             })
-          for (let i = 0; i < this.playerList.length; i++) {
-            userService.getUserById(this.playerList[i].user_id).then(userResponse => {
-              this.playerList[i].username = userResponse.data.username;
-            })
+        }).then(() => {
+          for(let i = 0; i < this.playerList.length; i++) {
+            stockService.getPlayerStocks(this.playerList[i].id)
+            .then(response => {
+              let playerStocks = response.data.filter(stock => {
+                return stock.total_shares > 0;
+              }); 
+              for (let j = 0; j < playerStocks.length; j++) {
+                this.stocks.push(playerStocks[j]);
+              }
+            }).then(() => {
+              this.getPortfolioValue(i);
+            });
           }
         })
-      
       .catch(
-        (error) => console.log(error)
-      );
+        (error) => {console.log(error)
+        });
     },
     props:  ["gameId"],
     computed: {
@@ -60,6 +70,24 @@ export default {
       //   if()
       // }
 
+  },
+  methods: {
+    getPortfolioValue(index) {
+      this.playerList[index].portfolioValue = this.playerList[index].availableFunds;
+      console.log(this.playerList[index]);
+      for(let i = 0; i <  this.stocks.length; i++) {
+        if (this.playerList[index].id == this.stocks[i].player_id) {
+          let shares = this.stocks[i].total_shares;
+          let stock_ticker = this.stocks[i].stock_ticker;
+          stockService.getStockInfo(stock_ticker)
+          .then(response => {
+            let currentValue = response.data.currentPrice;
+            this.playerList[index].portfolioValue = this.playerList[index].portfolioValue + (currentValue * shares);
+            console.log(this.playerList[index].portfolioValue);
+          })
+        }
+      }
+    }
   }
 }
 

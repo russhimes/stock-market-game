@@ -38,7 +38,7 @@ export default {
                     textStyle: {
                         fontSize: 24,
                         fontFamily: 'Poppins',
-                        color: '#211a1e',
+                        color: '#eee',
                     }
                 },
                 xAxis: {
@@ -71,9 +71,9 @@ export default {
                         color: '#ff4f79',
                     }
                 ],
-                backgroundColor: '#eeeeee',
+                backgroundColor: '#454545',
                 textStyle: {
-                    color: '#211a1e',
+                    color: '#eee',
                     fontFamily: 'Poppins',
                 }
             }
@@ -138,7 +138,7 @@ export default {
 
 <style>
     .chart {
-        width: 100vw;
+        width: 100vh;
         height: 100vh;
     }
 

@@ -6,10 +6,12 @@ import com.techelevator.dao.TradeDao;
 import com.techelevator.model.Player;
 import com.techelevator.model.Stock;
 import com.techelevator.model.Trade;
+import com.techelevator.model.TradeHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -25,6 +27,11 @@ public class TradeController {
     @RequestMapping(path="/trade/buy", method = RequestMethod.POST)
     public void buyTrade(@RequestBody Trade trade, @RequestBody Player player) {
         tradeDao.buyTrade(trade, player);
+    }
+
+    @RequestMapping(path="/tradehistory/{playerId}", method = RequestMethod.GET)
+    public List<TradeHistory> tradeHistory(@PathVariable int playerId) {
+        return tradeDao.tradeHistory(playerId);
     }
 
     @RequestMapping(path="/trade/sell", method = RequestMethod.POST)

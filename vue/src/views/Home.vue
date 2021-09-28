@@ -33,6 +33,7 @@ export default {
           if (this.$store.state.games[j].id == game.id) isInList = true;
         }
         if (!isInList) {
+          
           this.$store.commit("ADD_GAME", game);
           playerService.getPlayersByGame(game.id)
           .then(playerResponse => {

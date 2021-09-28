@@ -135,7 +135,7 @@ public class RestStockInfoService implements StockInfoService {
             JsonNode root = jsonNode.path("data");
             System.out.println(jsonNode.asText());
             int count;
-            if (Integer.parseInt(jsonNode.path("count").asText()) > 10)  count = 10;
+            if (Integer.parseInt(jsonNode.path("count").asText()) > 10) count = 10;
             else count = Integer.parseInt(jsonNode.path("count").asText());
             for (int i = 0; i < count; i++) {
                 description = jsonNode.path("result").get(i).path("description").asText();
@@ -189,6 +189,6 @@ public class RestStockInfoService implements StockInfoService {
         }
         return data;
     }
-
+    
 
 }

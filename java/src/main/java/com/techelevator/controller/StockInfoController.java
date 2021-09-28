@@ -15,7 +15,6 @@ import java.util.List;
 
 @RestController
 @CrossOrigin (origins="*")
-@EnableScheduling
 public class StockInfoController {
     @Autowired
     private StockInfoService stockInfoService;

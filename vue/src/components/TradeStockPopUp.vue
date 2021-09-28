@@ -9,41 +9,50 @@
             <h3>{{ companyName }}</h3>
         </div>
       </div>
-      <div class="flex">
-        <div class="value">
-            <h3>Current Value</h3>
-            <p>Currrent Price: ${{currentPrice}}</p>
-            <p>Percent Change: <span v-bind:class="{ 'red' : percentChange < 0, 'green' : percentChange >= 0 }"> {{percentChange}}% </span></p>
-        </div>
-        <div class="your-position">
-            <h3>Your Position</h3>
-            <p>Shares: {{ stock.total_shares }}</p>
+        <div class="flex">
+            <h3>Your Position: </h3>  
+            <p> {{ stock.total_shares }} Share{{ stock.total_shares != 1 ? "s" : ""}}</p>
             <p>Market Value: ${{marketValue}} </p>
-            <p>Buying Power: ${{ buyingPower }}</p>
         </div>
-      </div>
+        
       <div class="chartContainer">
         <stock-data-graph v-bind:ticker="stockTicker"></stock-data-graph>
       </div>
-      <button v-on:click="toggleTrade = !toggleTrade">Trade</button>
-        <div v-if="toggleTrade">
-            <label for="amount">Amount:</label>
-            <input type="number" name="amount" id="amount" v-model="amount">
-            
-            <select name="entryType" id="entryType" v-model="entryType">
-                <option value="Shares">Shares</option>
-                <option value="Dollars">Dollars</option>
-            </select>
-
-            <div v-if="entryType === 'Shares'">
-                <p>Estimated Value: ${{ estimatedCost }}</p>
+      <div class="value">
+            <div class="flex">
+                <p>Currrent Price: ${{currentPrice}}</p>
+                <p>Percent Change: <span v-bind:class="{ 'red' : percentChange < 0, 'green' : percentChange >= 0 }"> {{percentChange}}% </span></p>
             </div>
-            <div v-else>
-                <p>Number of Stocks: {{ estimatedNumberOfStocks }}</p>
+        </div>
+        <div class="tradeButton"> 
+            <button v-on:click="toggleTrade = !toggleTrade">{{ !toggleTrade ? "Trade" : "Cancel"}}</button>
+        </div>
+        <div v-if="toggleTrade" class="flex">
+            <div class="tradeDetails">
+                <div>
+                    <p>Buying Power: ${{ buyingPower.toFixed(2) }}</p>
+                </div>
+                <div>
+                    <label for="amount">Amount:</label>
+                    <input type="number" name="amount" id="amount" v-model="amount">
+                    <select name="entryType" id="entryType" v-model="entryType">
+                        <option value="Shares">Shares</option>
+                        <option value="Dollars">Dollars</option>
+                    </select>
+                </div>
+
+                <div v-if="entryType === 'Shares'">
+                    <p>Estimated Value: ${{ estimatedCost }}</p>
+                </div>
+                <div v-else>
+                    <p>Number of Stocks: {{ estimatedNumberOfStocks }}</p>
+                </div>
             </div>
 
-            <button v-on:click="buyStocks()" v-bind:class="{ 'invalidTransaction' : !validBuyTransaction }">Buy</button>
-            <button v-on:click="sellStocks()" v-bind:class="{ 'invalidTransaction' : !validSellTransaction }" v-if="stock.total_shares> 0">Sell</button>
+            <div class="buttons">
+                <button v-on:click="buyStocks()" v-bind:class="{ 'invalidTransaction' : !validBuyTransaction }">Buy</button>
+                <button v-on:click="sellStocks()" v-bind:class="{ 'invalidTransaction' : !validSellTransaction }" v-if="stock.total_shares> 0">Sell</button>
+            </div>
         </div>
   </div>
         <router-link v-bind:to="{ name: 'game', params: {id: $store.state.activeGameId}}">Back to Game Board</router-link>
@@ -255,12 +264,12 @@ export default {
         justify-content: center;
     }
 
-
-
     .info {
         display: flex;
         align-items: center;
-        justify-content: center
+        justify-content: flex-start;
+        width: 500px;
+        margin-bottom: 2rem;
     }
 
     .info img {
@@ -273,10 +282,6 @@ export default {
         font-size: 1.2rem;
     }
 
-    .info {
-        margin-bottom: 4rem;
-    }
-
     .company h3 {
         font-size: 2.6rem;
     }
@@ -284,15 +289,21 @@ export default {
     .flex {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 3rem;
+        align-items: center;
     }
 
     .flex h3 {
         text-align: left;
     }
 
+    .tradeButton {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+
     button {
-        padding: 0.2rem 2rem;
+        padding: 0.4rem 2rem;
         color: var(--background-color);
         border: 2px solid var(--background-color);
         background-color: transparent;
@@ -300,8 +311,8 @@ export default {
         cursor: pointer;
         transition: 0.4s;
         text-transform: uppercase;
-        width: 50%;
-        margin: auto;
+        width: 100%;
+        margin: 2rem 0;
     }
 
     button:hover {
@@ -312,11 +323,14 @@ export default {
     .invalidTransaction {
         background-color: var(--color-red);
         border: 2px solid var(--color-red);
+        pointer-events: none;
+        opacity: 0.85;
     }
 
     .invalidTransaction:hover {
         background-color: var(--color-red);
         border: 2px solid var(--color-red);
+        pointer-events: none;
     }
 
     .red {
@@ -336,8 +350,62 @@ export default {
 
     .chart {
         width: 500px;
-        height: 330px;
+        height: 280px;
     }
-           
 
+    
+    input {
+        border: none;
+        background-color: transparent;
+        border-bottom: 2px solid var(--background-color);
+        margin-right: 1rem;
+        transition: 0.4s;
+        color: var(--background-color);
+        font-size: 1rem;
+        width: 4rem;
+    }
+
+    input:focus, input:hover {
+        outline: none;
+        color: var(--background-color);
+        font-size: 1rem;
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    /* .tradeDetails {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    } */
+    .tradeDetails div {
+        margin: 1rem 0 0 0;
+        height: 2rem;
+    }
+
+    label {
+        padding-right: 1rem;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        align-self: flex-end;
+    }
+
+    .buttons button {
+        margin: 0.3rem auto;
+        width: 100%;
+    }
 </style>

@@ -33,6 +33,7 @@ export default {
         return {
             option: {
                  title: {
+                     show: false,
                     text: this.ticker + " Stock Value",
                     left: "center",
                     textStyle: {

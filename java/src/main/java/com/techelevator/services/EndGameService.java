@@ -42,22 +42,25 @@ public class EndGameService implements Runnable  {
     public void run() {
         List<Player> players = playerDao.getPlayersByGame(game.getId());
         for (Player player : players) {
-            player.setGame_status("Finished");
-            List<Stock> stocks = stockDao.getStocksByPlayerId(player.getId());
-            for (Stock stock : stocks) {
-                Trade trade = new Trade(stock.getId(), stock.getTotal_shares(), "sell",
-                        stockInfoService.getStockInfo(stock.getStock_ticker()).getCurrentPrice(), "shares",
-                        LocalDate.now(), LocalTime.now());
-                stock.setTotal_shares(stock.getTotal_shares() -trade.getShares_traded());
-                player.setAvailable_funds(player.getAvailableFunds().
-                        add(trade.getPrice().
-                                multiply(new BigDecimal(trade.getShares_traded()).setScale(2, RoundingMode.HALF_UP))));
-                stockDao.updateStock(stock);
-                tradeDao.createTrade(trade);
-                schedulingService.removeTaskFromScheduler(game.getId());
+            if(!player.getGame_status().equals("Rejected")) {
+                player.setGame_status("Finished");
 
+                List<Stock> stocks = stockDao.getStocksByPlayerId(player.getId());
+                for (Stock stock : stocks) {
+                    Trade trade = new Trade(stock.getId(), stock.getTotal_shares(), "sell",
+                            stockInfoService.getStockInfo(stock.getStock_ticker()).getCurrentPrice(), "shares",
+                            LocalDate.now(), LocalTime.now());
+                    stock.setTotal_shares(stock.getTotal_shares() -trade.getShares_traded());
+                    player.setAvailable_funds(player.getAvailableFunds().
+                            add(trade.getPrice().
+                                    multiply(new BigDecimal(trade.getShares_traded()).setScale(2, RoundingMode.HALF_UP))));
+                    stockDao.updateStock(stock);
+                    tradeDao.createTrade(trade);
+                    schedulingService.removeTaskFromScheduler(game.getId());
+
+                }
+                playerDao.updatePlayer(player);
             }
-            playerDao.updatePlayer(player);
         }
     }
 

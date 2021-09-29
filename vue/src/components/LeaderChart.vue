@@ -145,7 +145,9 @@ export default {
     playerService.getPlayersByGame(this.gameId).then(response => {
         this.players = [];
         for (let i = 0; i < response.data.length; i++) {
+          if(response.data[i].game_status != 'Rejected') {
             this.players.push(response.data[i]);
+          }
         }
     }).then(() => {
         for (let i = 0; i < this.players.length; i++) {

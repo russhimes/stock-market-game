@@ -49,7 +49,7 @@ export default {
         align-items: center;
         transition: 0.4s;
         height: 150px;
-      margin: 0.4rem 1rem;
+        margin: 0.4rem 1rem;
 
 }
 

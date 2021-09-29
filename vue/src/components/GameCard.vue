@@ -180,4 +180,5 @@ export default {
     /* .countdown-timer .seconds {
         display: none;
     } */
+
 </style>

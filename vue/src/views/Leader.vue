@@ -1,16 +1,18 @@
 <template>
 <div id="leader">
   <leader-board v-bind:gameId="gameId"/>
-  <!-- <leader-chart class="leaderChart" v-bind:gameId="gameId"/> -->
+  <div>
+    <leader-chart class="leaderChart" v-bind:gameId="gameId"/>
+  </div> 
   </div>
 </template>
 
 <script>
 import LeaderBoard from '../components/LeaderBoard.vue'
-// import LeaderChart from '../components/LeaderChart.vue'
+import LeaderChart from '../components/LeaderChart.vue'
 export default {
   components: { LeaderBoard, 
-  // LeaderChart
+  LeaderChart
   },
   props: ["gameId"]
 
@@ -22,9 +24,5 @@ export default {
     display: flex;
     flex-direction: column;
     /* margin: 0; */
-  }
-  .leaderChart{
-    min-width: 500px;
-    min-height: 500px;
   }
 </style>

@@ -9,7 +9,7 @@
         </div>
         <div>
         <label>End Date:</label>
-        <input type="date" id="endDate" v-model="game.end_date"/>
+        <input type="date" min="currentDate" id="endDate" v-model="game.end_date"/>
         </div>
         <div>
         <label>End Time (UTC):</label>
@@ -17,15 +17,7 @@
 
         <!-- v-on:click="convertTimetoUTC()" -->
         </div>
-        <!-- <div>
-          <label for="timezone">Time Zone</label>
-          <select name="timezone" id="timezone">
-            <option v-on:click="convertCdtTime()" value="CDT">CDT</option>
-            <option v-on:click="convertEdtTime()" value="EDT">EDT</option>
-            <option v-on:click="convertMdtTime()" value="MDT">MDT</option>
-            <option v-on:click="convertPdtTime()" value="PDT">PDT</option>
-        </select>
-        </div> -->
+        
         <button type="submit">Submit</button>
       </form>
 </div>
@@ -54,8 +46,7 @@ data() {
         let utc_offset = moment.getTimezoneOffset();
         moment.setMinutes(moment.getMinutes() + utc_offset)
         console.log(this.game)*/
-        console.log(this.game.end_date);
-        console.log(this.game.end_time);
+      
     },
 
     createGame() {

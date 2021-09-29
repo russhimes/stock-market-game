@@ -126,30 +126,35 @@ export default {
     box-shadow: 0 0 5px 3px #ccc; 
 } */
 
-.container {
-    padding: 1rem;
-}
+    .container {
+        padding: 1rem;
+    }
 
-.countdownContainer {
-    padding: 0.5rem 0rem;
-    display: flex;
-    align-content: center;
-    justify-content: space-evenly;
-}
+    .countdownContainer {
+        padding: 0.5rem 0rem;
+        display: flex;
+        align-content: center;
+        justify-content: space-evenly;
+        margin-bottom: 1rem;
+    }
 
-tr {
-    height: auto;
-}
+    tr {
+        height: auto;
+    }
 
-.countdownContainer h4 {
-    font-size: 1.4rem;
-}
+    .countdownContainer h4 {
+        font-size: 1.4rem;
+    }
 
-.time {
-    flex-grow: 1;
-    flex-basis: 1;
-    flex-shrink: 0;
-    width: 5rem;
-    text-align: center;
-}
+    .time {
+        flex-grow: 1;
+        flex-basis: 1;
+        flex-shrink: 0;
+        width: 5rem;
+        text-align: center;
+    }
+
+    h3 {
+        margin: 1rem;
+    }
 </style>

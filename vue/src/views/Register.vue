@@ -18,26 +18,28 @@
         autofocus
       />
       <label for="password" class="sr-only">Password</label>
-      <input
-        type="password"
-        id="password"
-        class="form-control"
-        placeholder="Password"
-        v-model="user.password"
-        required
-      />
-      <input
-        type="password"
-        id="confirmPassword"
-        class="form-control"
-        placeholder="Confirm Password"
-        v-model="user.confirmPassword"
-        required
-      />
-      <router-link :to="{ name: 'login' }">Have an account?</router-link>
+      <div class="flex">
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          placeholder="Password"
+          v-model="user.password"
+          required
+        />
+        <input
+          type="password"
+          id="confirmPassword"
+          class="form-control"
+          placeholder="Confirm Password"
+          v-model="user.confirmPassword"
+          required
+        />
+      </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
       </button>
+      <router-link :to="{ name: 'login' }">Have an account?</router-link>
     </form>
   </div>
   </div>
@@ -111,13 +113,23 @@ export default {
     text-align: center;
     display: flex;
     align-content: center;
-    justify-content: center
+    justify-content: center;
   }
 
   a {
     color: var(--background-color);
     margin: 1rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    border-bottom: 0;
+  }
+  
+  a:hover {
+    border-bottom: 0;
+    text-decoration: underline;
+  }
+
+  .flex {
+    display: flex;
   }
 
   #username, #password, #confirmPassword {
@@ -141,6 +153,7 @@ export default {
 
   input {
     padding: 8px;
+    margin: 0;
   }
 
   .form-register {
@@ -150,11 +163,12 @@ export default {
   }
 
   label {
-    margin: 1rem;
+    margin: 0;
     font-size: 1.2rem;
+    margin-top: 8px;
   }
 
-button {
+  button {
     font-size: 1.2rem;
     padding: 0.4rem 2rem;
     color: var(--background-color);
@@ -165,10 +179,11 @@ button {
     transition: 0.4s;
     text-transform: uppercase;
     width: auto;
-}
+    margin-top: 1.4rem;
+  }
 
-    button:hover {
-        border: 2px solid var(--color-green);
-        background-color: var(--color-green);
-    }
+  button:hover {
+      border: 2px solid var(--color-green);
+      background-color: var(--color-green);
+  }
 </style>

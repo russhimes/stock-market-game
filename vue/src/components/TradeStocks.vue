@@ -1,10 +1,5 @@
 <template>
 <div class="main">
-    <!-- load data pulled into table  -->
-    <!-- need to make it dyanamic - need to build out logic -->
-    <!-- create component stock information with option buy and sell 
-    pop up w logic on how much you can buy/ sell 
-    form submission at the bottom to search and show results here  -->
     <div class="wrapper">
         <h3>Make a Trade</h3>
         <div class="scroll">

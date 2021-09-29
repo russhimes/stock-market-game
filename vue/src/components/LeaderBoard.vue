@@ -1,8 +1,7 @@
 <template>
 <div class = "leader-board">
-  <h3 class="title">Leaderboard</h3>
 
-  <div>
+  <div class="container">
     <table>
       <tr v-for="player in leaderBoardInfo" v-bind:key="player.id">
         <td class="rank">{{player.rank}}</td>
@@ -121,7 +120,7 @@ export default {
 
 <style>
   .leader-board{
-    padding: 1rem;
+    padding-bottom: 1rem;
   }
 
   tr {
@@ -130,15 +129,15 @@ export default {
 
   table {
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 0 2rem;
   }
 
   td{
-    width: 40%;
+    width: 50%;
     text-align: left;
   }
 
   .rank {
-    width: 20%;
+    width: 25%;
   }
 </style>

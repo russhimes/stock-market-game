@@ -24,11 +24,6 @@
 import GameCard from '../components/GameCard.vue'
 export default {
     components: {GameCard},  
-    data() {
-        return {
-            finished: [],
-        }
-    },
     computed: {
             rejected() {
                 let rejected = [];
@@ -69,6 +64,19 @@ export default {
                     }
                 }
                 return pending;  
+            },
+            finished() {
+                let finished = [];
+                for (let i = 0; i < this.$store.state.games.length; i++) {
+                    for (let j = 0; j < this.$store.state.players.length; j++) {
+                        if (this.$store.state.games[i].id == this.$store.state.players[j].game_id &&
+                        this.$store.state.user.id == this.$store.state.players[j].user_id
+                        && this.$store.state.players[j].game_status == 'Finished') {
+                            finished.push(this.$store.state.games[i]);
+                        }
+                    }       
+                }
+                return finished;
             }
     },
     created() {
@@ -86,25 +94,9 @@ export default {
                         const now = new Date();
                         const end = new Date(game.end_date + 'T' + game.end_time + '.000Z'); 
                         if (end.getTime() - now.getTime() < 0) {
-                            for (let j = 0; j < this.accepted.length; j++) {
-                                if (this.accepted[j].id == game.id) {
-                                    this.accepted.splice(j,1);
-                                }
-                            }  
-                            for (let j = 0; j < this.pending.length; j++) {
-                                if (this.pending[j].id == game.id) {
-                                    this.pending.splice(j,1);
-                                }
-                            }
-                            for (let j = 0; j < this.rejected.length; j++) {
-                                if (this.rejected[j].id == game.id) {
-                                    this.rejected.splice(j,1);
-                                }
-                            }
                             game.isFinished = true;
                             this.$store.commit("UPDATE_GAME", game);
-                            this.finished.push(this.$store.state.games[i]);
-                        } 
+                        }
                       
                     }
                 }

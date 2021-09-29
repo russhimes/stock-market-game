@@ -8,8 +8,8 @@
           <input type="text" id="gameName" v-model="game.name"/>
         </div>
         <div>
-          <label>End Date:</label>
-          <input type="date" id="endDate" v-model="game.end_date"/>
+        <label>End Date:</label>
+        <input type="date" min="currentDate" id="endDate" v-model="game.end_date"/>
         </div>
         <div>
         <label>End Time (UTC):</label>
@@ -45,8 +45,7 @@ data() {
         let utc_offset = moment.getTimezoneOffset();
         moment.setMinutes(moment.getMinutes() + utc_offset)
         console.log(this.game)*/
-        console.log(this.game.end_date);
-        console.log(this.game.end_time);
+      
     },
 
     createGame() {

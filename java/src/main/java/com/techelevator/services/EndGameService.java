@@ -42,7 +42,7 @@ public class EndGameService implements Runnable  {
     public void run() {
         List<Player> players = playerDao.getPlayersByGame(game.getId());
         for (Player player : players) {
-            if(!player.getGame_status().equals("Rejected")) {
+            if(player.getGame_status().equals("Accepted")) {
                 player.setGame_status("Finished");
 
                 List<Stock> stocks = stockDao.getStocksByPlayerId(player.getId());
@@ -59,6 +59,10 @@ public class EndGameService implements Runnable  {
                     schedulingService.removeTaskFromScheduler(game.getId());
 
                 }
+                playerDao.updatePlayer(player);
+            }
+            else {
+                player.setGame_status("Rejected");
                 playerDao.updatePlayer(player);
             }
         }

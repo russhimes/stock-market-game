@@ -86,7 +86,22 @@ export default {
                         const now = new Date();
                         const end = new Date(game.end_date + 'T' + game.end_time + '.000Z'); 
                         if (end.getTime() - now.getTime() < 0) {
-                            this.finished.push(this.$store.state.games[i]);  
+                            for (let j = 0; j < this.accepted.length; j++) {
+                                if (this.accepted[j].id == game.id) {
+                                    this.accepted.splice(j,1);
+                                }
+                            }  
+                            for (let j = 0; j < this.pending.length; j++) {
+                                if (this.pending[j].id == game.id) {
+                                    this.pending.splice(j,1);
+                                }
+                            }
+                            for (let j = 0; j < this.rejected.length; j++) {
+                                if (this.rejected[j].id == game.id) {
+                                    this.rejected.splice(j,1);
+                                }
+                            }
+                            this.finished.push(this.$store.state.games[i]);
                         } 
                       
                     }

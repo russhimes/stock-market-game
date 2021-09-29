@@ -28,6 +28,7 @@ export default {
     gamesService.getAllGames().then((response) => {
       for (let i = 0; i < response.data.length; i++) {
         let game = response.data[i];
+        game.isFinshed = false;
         let isInList = false;
         for (let j = 0; j < this.$store.state.games.length; j++) {    
           if (this.$store.state.games[j].id == game.id) isInList = true;

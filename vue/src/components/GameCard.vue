@@ -31,7 +31,7 @@ export default {
     components: {
         LeaderBoard, CountdownTimer
     },
-    props: ["game"],
+    props: ["gameId"],
     data() {
         return {
             player: {
@@ -41,8 +41,25 @@ export default {
                 availableFunds: "",
                 game_status: ""
             },
-            gameOrganizer: "",
+            gameOrganizer: ""
         }
+    },
+    computed: {
+        game() {
+            let game = {};
+            for (let i = 0; i < this.$store.state.games.length; i++) {
+                if (this.gameId == this.$store.state.games[i].id) {
+                    game = this.$store.state.games[i];
+                }
+            }
+            return game;
+        },
+    },
+    beforeUpdate() {
+      if (this.game.isFinished == true) {
+          this.player.game_status = "Finished";
+          this.$store.commit("UPDATE_PLAYER_STATUS", this.player);
+      }  
     },
     methods: {
         acceptGame(){
@@ -61,6 +78,7 @@ export default {
                 }
             });
         },
+        
         updateCurrentPlayer() {
             this.$store.commit('SET_CURRENT_PLAYER', this.player.id);
             this.$store.commit('SET_ACTIVE_GAME', this.game.id);

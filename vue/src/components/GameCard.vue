@@ -61,8 +61,14 @@ export default {
     },
     beforeUpdate() {
       if (this.game.isFinished == true) {
-          this.player.game_status = "Finished";
-          this.$store.commit("UPDATE_PLAYER_STATUS", this.player);
+          if (this.player.game_status == "Accepted") {
+            this.player.game_status = "Finished";
+            this.$store.commit("UPDATE_PLAYER_STATUS", this.player);
+          }
+          else {
+              this.player.game_status = "Rejected";
+              this.$store.commit("UPDATE_PLAYER_STATUS", this.player);
+          }
       }  
     },
     methods: {

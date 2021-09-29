@@ -2,25 +2,24 @@
 <div class = "leader-board">
   <h3 class="title">Leaderboard</h3>
 
-  <div v-for="player in leaderBoardInfo" v-bind:key="player.id">
-    <p>{{player.rank}} - {{player.username}} : ${{player.portfolioValue}}</p>
+  <div>
+    <table>
+      <tr v-for="player in leaderBoardInfo" v-bind:key="player.id">
+        <td class="rank">{{player.rank}}</td>
+        <td>{{player.username}}</td>
+        <td>${{player.portfolioValue}}</td>
+      </tr>
+    </table>
+    <!-- <p>{{player.rank}} - {{player.username}} : ${{player.portfolioValue}}</p> -->
 
   </div>
-
-   
-
-  <!-- <div class='playerCard' v-for='player in playerList'>
-    {{ player.name }}
-  </div> -->
 </div>
 </template>
 
 <script>
 import playerService from '../services/PlayerService.js'
 //import userService from '../services/UserService.js'
-//import LeaderChart from '../components/LeaderChart'
 import stockService from '../services/StockService.js'
-//import CountdownTimer from '../components/CountdownTimer';
 
 export default {
     name: 'leader-board',
@@ -45,7 +44,7 @@ export default {
           (response) => {
             this.playerList = response.data;
             this.playerlist = this.playerList.sort((a,b) => {
-              return b.availableFunds - a.availableFunds
+              return a.availableFunds - b.availableFunds
             })
         }).then(() => {
           for(let i = 0; i < this.playerList.length; i++) {
@@ -123,5 +122,22 @@ export default {
 <style>
   .leader-board{
     padding: 1rem;
+  }
+
+  tr {
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
+    padding: 1rem 2rem;
+  }
+
+  td{
+    width: 40%;
+  }
+
+  .rank {
+    width: 20%;
   }
 </style>

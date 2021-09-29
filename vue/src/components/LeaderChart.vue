@@ -79,17 +79,18 @@ export default {
               currentSeries.data = dataValue;
               seriesValues.push(currentSeries);
             }
-          minValue = minValue - 4000;
-          maxValue = maxValue + 4000;
+          minValue = minValue - 250;
+          maxValue = maxValue + 250;
           }
         return {
         title: {
+          show: false,
           text: "Leader Stats",
           left: "right"
         },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b} : ${c}"
+          formatter: "<strong>{a}</strong> <br/>{b} : ${c}"
         },
         legend: {
             orient: "horizontal",
@@ -120,7 +121,6 @@ export default {
               show: true,
               interval: 25
             }
-
         },
         yAxis: {
             type: 'value',
@@ -135,7 +135,8 @@ export default {
             position: 'right',
 
         },
-        series: seriesValues
+        series: seriesValues,
+        color: ['#FF4F79', '#5438DC', '#C0D8E0', '#9BC53D', '#BBB6DF']
       }
     }
   },

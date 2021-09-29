@@ -45,7 +45,7 @@ export default {
         margin-bottom: 0.5rem;
         display: flex;
         justify-content: space-between;
-        padding: 0.3rem  1rem;
+        padding: 0.3rem 1rem;
         align-items: center;
         transition: 0.4s;
     }

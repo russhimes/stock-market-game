@@ -118,15 +118,17 @@ button {
     cursor: pointer;
     transition: 0.4s;
     text-transform: uppercase;
-    width: auto;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+    width: auto;  
+  
 }
 
     button:hover {
         border: 2px solid var(--color-green);
         background-color: var(--color-green);
+    }
+
+    .portfolioButton {
+      text-align: center;
     }
 
 </style>

@@ -3,7 +3,10 @@
     <router-link class="gameCard" v-on:click.native="updateCurrentPlayer()" id="gameLink" tag="button" v-if="player.game_status == 'Accepted'" v-bind:to="{name: 'game', params: {id: game.id}}">
       <h3 id="gameName">{{game.name}}</h3>
       <countdown-timer v-bind:gameId="game.id" class="countdown-timer"></countdown-timer>
-      <leader-board v-bind:gameId="game.id" class="leaderboard"/>
+      <div class="leaderboard">
+          <h3>Leaderboard</h3>
+        <leader-board v-bind:gameId="game.id"/>
+      </div>
     </router-link>
 <div class="gameCard" v-if="player.game_status == 'Pending'">
     <h3 id="gameName">{{game.name}}</h3>
@@ -13,7 +16,10 @@
 </div>
 <router-link class="gameCard" v-on:click.native="updateCurrentPlayer()" id="gameLink" tag="button" v-if="player.game_status == 'Finished'" v-bind:to="{name: 'game', params: {id: game.id}}">
       <h3 id="gameName">{{game.name}}</h3>
-      <leader-board v-bind:gameId="game.id" class="leaderboard"/>
+     <div class="leaderboard">
+          <h3>Leaderboard</h3>
+        <leader-board v-bind:gameId="game.id"/>
+      </div>
 </router-link>
 <div class="gameCard" v-if="player.game_status == 'Rejected'">
     <h3 id="gameName">{{game.name}}</h3>
@@ -148,7 +154,7 @@ export default {
 
     .leaderboard {
         border: 0;
-        padding: 1rem 0;
+        padding: 0;
         text-align: center;
         background-color: white;
         border-radius: var(--border-radius);
@@ -159,6 +165,7 @@ export default {
     .leaderboard h3, .countdown-timer h3 {
         font-size: 1rem;
         padding: 0.5rem;
+        margin-bottom: 0;
     }
 
     .countdown-timer {

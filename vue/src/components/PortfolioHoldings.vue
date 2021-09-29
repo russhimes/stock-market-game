@@ -9,6 +9,7 @@
       <div class="buyingPower">
         <h4>Buying Power: </h4>
         <p> ${{ availableFunds}} </p>
+
         <!-- new -->
       <div class="portfolioButton">
         <button v-on:click="toggleHistory = !toggleHistory">{{ !toggleHistory ? "Trade History" : "Portfolio Holdings"}}</button>
@@ -21,10 +22,13 @@
             
 
             <!--end new -->
-      </div>
-      </div>
       
+      <div v-else>
       <stock-list v-bind:stocks="stocks"></stock-list>
+      </div>
+      </div>
+      </div>
+
       
       </div>
 </template>
@@ -44,7 +48,8 @@ export default {
     return {
       player: {},
       stocks: [],
-      portfolioValue: 0
+      portfolioValue: 0,
+      toggleHistory:  false
     }
   },
   computed: {
@@ -101,5 +106,26 @@ export default {
 .portfolioValue, .buyingPower {
   margin: 0.4rem 1rem;
 }
+
+button {
+    font-size: 1rem;
+    padding: 0.4rem 2rem;
+    color: var(--background-color);
+    border: 2px solid var(--background-color);
+    background-color: transparent;
+    border-radius: 4rem;
+    cursor: pointer;
+    transition: 0.4s;
+    text-transform: uppercase;
+    width: auto;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+    button:hover {
+        border: 2px solid var(--color-green);
+        background-color: var(--color-green);
+    }
 
 </style>

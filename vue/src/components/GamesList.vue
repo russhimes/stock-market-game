@@ -24,6 +24,11 @@
 import GameCard from '../components/GameCard.vue'
 export default {
     components: {GameCard},  
+    data() {
+        return {
+            finished: [],
+        }
+    },
     computed: {
             rejected() {
                 let rejected = [];
@@ -51,7 +56,7 @@ export default {
                 }
                 return accepted;
             },
-            pending() {
+            pending() { 
                 let pending = [];
                 for (let i = 0; i < this.$store.state.games.length; i++) {
                     for (let j = 0; j < this.$store.state.players.length; j++) {
@@ -59,25 +64,34 @@ export default {
                         this.$store.state.user.id == this.$store.state.players[j].user_id
                         && this.$store.state.players[j].game_status == 'Pending') {
                             pending.push(this.$store.state.games[i]);
+                            
                         }
                     }
                 }
                 return pending;  
-            },
-            finished() {
-                let finished = [];
+            }
+    },
+    created() {
+        setInterval(() => {
                 for (let i = 0; i < this.$store.state.games.length; i++) {
-                    for (let j = 0; j < this.$store.state.players.length; j++) {
-                        if (this.$store.state.games[i].id == this.$store.state.players[j].game_id &&
-                        this.$store.state.user.id == this.$store.state.players[j].user_id
-                        && this.$store.state.players[j].game_status == 'Finished') {
-                            finished.push(this.$store.state.games[i]);
+                    let game = this.$store.state.games[i];
+                    let isInList = false;
+                    for (let j = 0; j < this.finished.length; j++) {
+                        if (this.finished[j].id == game.id) {
+                            isInList = true;
+                            break;
                         }
-                    }       
+                    }
+                    if (!isInList) {
+                        const now = new Date();
+                        const end = new Date(game.end_date + 'T' + game.end_time + '.000Z'); 
+                        if (end.getTime() - now.getTime() < 0) {
+                            this.finished.push(this.$store.state.games[i]);  
+                        } 
+                      
+                    }
                 }
-                return finished;
-            },
-    }
+            }, 1000)}
 }
 </script>
 

@@ -66,24 +66,23 @@ export default {
     },
     props:  ["gameId"],
     computed: {
-      // filteredList(){
-      //   if()
-      // }
       leaderBoardInfo() {
         let leaderBoard = [];
         let counter = 1;
 
+
         for (let i = 0; i < this.playerList.length; i++) {
           for (let j = 0; j < this.portfolioValue.length; j++) {
-            if (this.portfolioValue[j].id == this.playerList[i].id) {
+            if (this.portfolioValue[j].id == this.playerList[i].id && this.playerList[i].game_status != "Rejected") {
               leaderBoard.push({
                 username: this.playerList[i].username,
                 portfolioValue: this.portfolioValue[j].value.toFixed(2),
                 rank: counter
               });
+              counter++;
             }
           }
-          counter++;
+
         }
         return leaderBoard;
       }

@@ -10,9 +10,7 @@
             <countdown-timer v-bind:gameId="gameId" class="container"></countdown-timer>
             <leader-board v-bind:gameId="gameId" class="container"></leader-board>
           </div>
-
         </div>
-            <!-- <trade-history></trade-history> -->
     </div>
     <div v-if="gameFinished== true">
       <game-over v-bind:gameId="gameId"/>
@@ -22,6 +20,7 @@
     <div v-else>
       <p>loading</p>
     </div>
+    <router-link v-bind:to="{ name: 'home' }">Back to all games</router-link>
   </div>
 </template>
 
@@ -133,5 +132,9 @@ export default {
     margin: 0.3rem;
     border-radius: var(--border-radius);
     color: var(--background-color);
+  }
+
+  a {
+    color: var(--color-lighter);
   }
 </style>

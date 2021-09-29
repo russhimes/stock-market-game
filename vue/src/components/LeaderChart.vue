@@ -79,8 +79,8 @@ export default {
               currentSeries.data = dataValue;
               seriesValues.push(currentSeries);
             }
-          minValue = minValue - 500;
-          maxValue = maxValue + 500;
+          minValue = minValue - 250;
+          maxValue = maxValue + 250;
           }
         return {
         title: {

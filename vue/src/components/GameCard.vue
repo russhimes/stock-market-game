@@ -2,16 +2,19 @@
 <div>
     <router-link class="gameCard" v-on:click.native="updateCurrentPlayer()" id="gameLink" tag="button" v-if="player.game_status == 'Accepted'" v-bind:to="{name: 'game', params: {id: game.id}}">
       <h3 id="gameName">{{game.name}}</h3>
-      <!-- <p id="gameEnd">Game ends on {{game.end_date}}, {{game.end_time}}</p> -->
       <countdown-timer v-bind:gameId="game.id" class="countdown-timer"></countdown-timer>
       <leader-board v-bind:gameId="game.id" class="leaderboard"/>
     </router-link>
-<div class="gameCard" v-else>
+<div class="gameCard" v-if="player.game_status == 'Pending'">
     <h3 id="gameName">{{game.name}}</h3>
       <p id="gameEnd">Invited By: {{gameOrganizer}}</p>
-      <a id="acceptButton" class="cardButton" v-if="player.game_status == 'Pending'" v-on:click="acceptGame()">Accept Invite</a>
-      <a id="rejectButton" class="cardButton" v-if="player.game_status == 'Pending'" v-on:click="rejectGame()">Reject Invite</a>
+      <a id="acceptButton" class="cardButton" v-on:click="acceptGame()">Accept Invite</a>
+      <a id="rejectButton" class="cardButton" v-on:click="rejectGame()">Reject Invite</a>
 </div>
+<router-link class="gameCard" v-on:click.native="updateCurrentPlayer()" id="gameLink" tag="button" v-if="player.game_status == 'Finished'" v-bind:to="{name: 'game', params: {id: game.id}}">
+      <h3 id="gameName">{{game.name}}</h3>
+      <leader-board v-bind:gameId="game.id" class="leaderboard"/>
+    </router-link>
 
 </div>
 

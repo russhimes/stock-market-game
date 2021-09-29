@@ -6,21 +6,13 @@
     <p>{{player.rank}} - {{player.username}} : ${{player.portfolioValue}}</p>
 
   </div>
-
-   
-
-  <!-- <div class='playerCard' v-for='player in playerList'>
-    {{ player.name }}
-  </div> -->
 </div>
 </template>
 
 <script>
 import playerService from '../services/PlayerService.js'
 //import userService from '../services/UserService.js'
-//import LeaderChart from '../components/LeaderChart'
 import stockService from '../services/StockService.js'
-//import CountdownTimer from '../components/CountdownTimer';
 
 export default {
     name: 'leader-board',
@@ -45,7 +37,7 @@ export default {
           (response) => {
             this.playerList = response.data;
             this.playerlist = this.playerList.sort((a,b) => {
-              return b.availableFunds - a.availableFunds
+              return a.availableFunds - b.availableFunds
             })
             console.log(this.playerList);
         }).then(() => {

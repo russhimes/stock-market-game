@@ -1,25 +1,13 @@
 <template>
 <div class="historyContainer">
-  <h2>Trade History</h2>
- <table>
-     <tr>
-         <th>Date</th>
-          <th>Stock</th>
-          <th>Shares</th>
-          <th>Price</th>
-          <th>Position</th>
-     </tr>
- </table>
+  
   <div class= "history" v-for="trade in tradeHistory" v-bind:key="trade.id">
-  <table>
-      <tr class = "row">
-          <td>{{trade.date}} <br>{{trade.time }} </td>
-          <td>{{trade.stock_name }}</td>
-          <td>{{trade.shares_traded }}</td>
-          <td>{{trade.price }}</td>
-          <td>{{trade.buy_or_sell}}</td>
-      </tr>
-  </table>
+      <h3>{{trade.stock_name }}</h3>
+      <h5>{{trade.date}}</h5>
+      <h5>{{trade.time }}</h5>
+      <h4>Position: {{trade.buy_or_sell}}</h4>
+      <h4>Shares: {{trade.shares_traded }} </h4>
+      <h4>Price: ${{trade.price }} </h4>
    </div>  
   </div>
 </template>
@@ -44,7 +32,7 @@ export default {
 
 <style scoped>
 
-.historyContainer {
+/* .historyContainer {
 display: flex;
         flex-direction: column;
         padding: 3rem;
@@ -73,9 +61,28 @@ div {
 td {
     font-size: 12px;
     text-align: center;
+} */
+
+.historyContainer{
+     background-color: var(--background-color);
+        color: var(--color-primary);
+        border-radius: var(--border-radius);
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        padding: 0.3rem  1rem;
+        align-items: center;
+        transition: 0.4s;
 }
 
+ h3 {
+        padding: 0.4rem 0;
+        text-align: center;
+    }
 
+    .historyContainer:hover {
+        background-color: white;
+    }
    
 
 </style>

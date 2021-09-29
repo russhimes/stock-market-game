@@ -3,7 +3,10 @@
     <router-link class="gameCard" v-on:click.native="updateCurrentPlayer()" id="gameLink" tag="button" v-if="player.game_status == 'Accepted'" v-bind:to="{name: 'game', params: {id: game.id}}">
       <h3 id="gameName">{{game.name}}</h3>
       <countdown-timer v-bind:gameId="game.id" class="countdown-timer"></countdown-timer>
-      <leader-board v-bind:gameId="game.id" class="leaderboard"/>
+      <div class="leaderboard">
+          <h3>Leaderboard</h3>
+        <leader-board v-bind:gameId="game.id"/>
+      </div>
     </router-link>
 <div class="gameCard" v-if="player.game_status == 'Pending'">
     <h3 id="gameName">{{game.name}}</h3>
@@ -13,7 +16,10 @@
 </div>
 <router-link class="gameCard" v-on:click.native="updateCurrentPlayer()" id="gameLink" tag="button" v-if="player.game_status == 'Finished'" v-bind:to="{name: 'game', params: {id: game.id}}">
       <h3 id="gameName">{{game.name}}</h3>
-      <leader-board v-bind:gameId="game.id" class="leaderboard"/>
+     <div class="leaderboard">
+          <h3>Leaderboard</h3>
+        <leader-board v-bind:gameId="game.id"/>
+      </div>
 </router-link>
 <div class="gameCard" v-if="player.game_status == 'Rejected'">
     <h3 id="gameName">{{game.name}}</h3>
@@ -35,7 +41,7 @@ export default {
     components: {
         LeaderBoard, CountdownTimer
     },
-    props: ["game"],
+    props: ["gameId"],
     data() {
         return {
             player: {
@@ -45,8 +51,31 @@ export default {
                 availableFunds: "",
                 game_status: ""
             },
-            gameOrganizer: "",
+            gameOrganizer: ""
         }
+    },
+    computed: {
+        game() {
+            let game = {};
+            for (let i = 0; i < this.$store.state.games.length; i++) {
+                if (this.gameId == this.$store.state.games[i].id) {
+                    game = this.$store.state.games[i];
+                }
+            }
+            return game;
+        },
+    },
+    beforeUpdate() {
+      if (this.game.isFinished == true) {
+          if (this.player.game_status == "Accepted") {
+            this.player.game_status = "Finished";
+            this.$store.commit("UPDATE_PLAYER_STATUS", this.player);
+          }
+          else {
+              this.player.game_status = "Rejected";
+              this.$store.commit("UPDATE_PLAYER_STATUS", this.player);
+          }
+      }  
     },
     methods: {
         acceptGame(){
@@ -65,6 +94,7 @@ export default {
                 }
             });
         },
+        
         updateCurrentPlayer() {
             this.$store.commit('SET_CURRENT_PLAYER', this.player.id);
             this.$store.commit('SET_ACTIVE_GAME', this.game.id);
@@ -148,7 +178,7 @@ export default {
 
     .leaderboard {
         border: 0;
-        padding: 1rem 0;
+        padding: 0;
         text-align: center;
         background-color: white;
         border-radius: var(--border-radius);
@@ -159,6 +189,7 @@ export default {
     .leaderboard h3, .countdown-timer h3 {
         font-size: 1rem;
         padding: 0.5rem;
+        margin-bottom: 0;
     }
 
     .countdown-timer {

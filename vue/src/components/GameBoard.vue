@@ -17,9 +17,9 @@
     </div>
     
     </div>
-    <div v-else>
+    <!-- <div v-else>
       <p>loading</p>
-    </div>
+    </div> -->
     <router-link v-bind:to="{ name: 'home' }">Back to all games</router-link>
   </div>
 </template>

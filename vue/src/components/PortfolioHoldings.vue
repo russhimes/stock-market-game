@@ -9,7 +9,6 @@
       <div class="buyingPower">
         <h4>Buying Power: </h4>
         <p> ${{ availableFunds}} </p>
-
         <!-- new -->
       <div class="portfolioButton">
         <button v-on:click="toggleHistory = !toggleHistory">{{ !toggleHistory ? "Trade History" : "Portfolio Holdings"}}</button>
@@ -19,20 +18,14 @@
         <trade-history></trade-history>
         </div>
         </div>
-            
-
             <!--end new -->
-      
       <div v-else>
       <stock-list v-bind:stocks="stocks"></stock-list>
       </div>
       </div>
       </div>
-
-      
       </div>
 </template>
-
 <script>
 import playerService from "../services/PlayerService";
 import stockService from "../services/StockService";
@@ -72,7 +65,6 @@ export default {
           }).then(() => {
             this.getPortfolioValue();
           });
-
       })
   },
   methods: {
@@ -89,25 +81,20 @@ export default {
       }
     }
   }
-
 }
 </script>
-
 <style scoped >
 .holdingsTitle{
   margin: 1rem;
 }
-
 .holdings{
   border-style: solid;
   padding: 1rem;
   width: 30%;
 }
-
 .portfolioValue, .buyingPower {
   margin: 0.4rem 1rem;
 }
-
 button {
     font-size: 0.8rem;
     padding: 0.4rem 2rem;
@@ -119,16 +106,13 @@ button {
     transition: 0.4s;
     text-transform: uppercase;
     width: auto;  
-  
 }
-
     button:hover {
         border: 2px solid var(--color-green);
         background-color: var(--color-green);
     }
-
     .portfolioButton {
       text-align: center;
     }
-
 </style>
+

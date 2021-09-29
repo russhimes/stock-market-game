@@ -9,11 +9,23 @@
       <div class="buyingPower">
         <h4>Buying Power: </h4>
         <p> ${{ availableFunds}} </p>
+        <!-- new -->
+      <div class="portfolioButton">
+        <button v-on:click="toggleHistory = !toggleHistory">{{ !toggleHistory ? "Trade History" : "Portfolio Holdings"}}</button>
+      </div>
+      <div v-if="toggleHistory" class="flex">
+        <div class="tradeHistory">
+        <trade-history></trade-history>
+        </div>
+        </div>
+            
 
+            <!--end new -->
       </div>
       </div>
-      <!-- <trade-history></trade-history> -->
+      
       <stock-list v-bind:stocks="stocks"></stock-list>
+      
       </div>
 </template>
 
@@ -21,11 +33,11 @@
 import playerService from "../services/PlayerService";
 import stockService from "../services/StockService";
 import StockList from "../components/StockList"
-// import TradeHistory from './TradeHistory.vue';
+import TradeHistory from './TradeHistory.vue';
 export default {
   components: {
     StockList,
-    // TradeHistory,
+    TradeHistory,
   },
   props: ['gameId'],
   data() {

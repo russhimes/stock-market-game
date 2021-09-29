@@ -84,7 +84,6 @@ export default {
           .then(response => {
             let currentValue = response.data.currentPrice;
             this.playerList[index].portfolioValue = this.playerList[index].portfolioValue + (currentValue * shares);
-            console.log(this.playerList[index].portfolioValue);
           })
         }
       }

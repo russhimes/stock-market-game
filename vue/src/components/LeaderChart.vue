@@ -176,22 +176,20 @@ export default {
 
 <style scoped>
   .chart {
-    /* padding: 5px;
-    max-height: 38vh;
-    max-width: 25vw; */
-    width: 100vw;
-    height: 100%;
+    padding: 1rem;
+    width: 25vw;
+    height: 20vw;
   }
   
   .chart div {
-    width: 400px;
-    height: 250px;
+    width: 25vw;
+    height: 20vw;
   }
 
   .container {
-    width: 400px;
-    height: 250px;
+    width: 100%;
     display: flex;
+    align-content: center;
     justify-content: center;
   }
 

@@ -79,11 +79,20 @@ export default {
 <style scoped>
 
 .container {
-    padding: 2rem;
+    padding: var(--padding);
     display: flex;
     align-content: center;
     justify-content: center;
     height: 90vh;
+  }
+
+  .invite {
+    padding: var(--padding);
+    margin: auto;
+    border-radius: var(--border-radius);
+    color: var(--background-color);
+    background-color: var(--color-lighter);
+    width: 50vw;
   }
 
 table {
@@ -92,7 +101,7 @@ table {
   border-collapse: collapse;
   border-spacing: 2px;
   text-align: center;
-  width: 115%;
+  width: 113%;
   margin-left: -10%; 
   }
 
@@ -100,6 +109,10 @@ td {
   font-size: 1.2rem;
   text-align: center;
   padding: 6px;
+}
+
+th {
+  width: 25%;
 }
 
 tr {
@@ -119,7 +132,8 @@ ul li {
 button{
     font-size: 1.2rem;
     padding: 0.4rem 2rem;
-    margin: 1rem;
+    margin: 1.5rem;
+    color: var(--background-color);
     border: 2px solid var(--background-color);
     background-color: transparent;
     border-radius: 4rem;
@@ -128,6 +142,7 @@ button{
     width: auto; 
     border-color: var(--color-green);
     white-space:pre;
+    margin-top: 0rem;
 }
 
 button:hover {

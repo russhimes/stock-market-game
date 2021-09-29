@@ -135,6 +135,7 @@ export default {
 
   td{
     width: 40%;
+    text-align: left;
   }
 
   .rank {

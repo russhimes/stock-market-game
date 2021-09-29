@@ -37,8 +37,8 @@
           required
         />
       </div>
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
       <button type="submit">Sign in</button>
+      <router-link :to="{ name: 'register' }">Need an account?</router-link>
     </form>
   </div>
 </div>
@@ -105,14 +105,23 @@ export default {
 
   a {
     color: var(--background-color);
+    border-bottom: 0;
+    font-size: 1rem;
+    margin: 1rem;
+  }
+
+  a:hover {
+    border-bottom: 0;
+    text-decoration: underline;
   }
 
   #username, #password {
+    appearance: none !important;
     border: none;
-    background-color: var(--color-lighter);
-    border-bottom: 2px solid var(--background-color);
+    background-color: var(--color-lighter) !important;
+    border-bottom: 2px solid var(--background-color) !important;
     transition: 0.4s;
-    color: var(--background-color);
+    color: var(--background-color) !important;
     padding: 0.5rem 1rem;
     font-size: 1rem;
     margin: 0.5rem;
@@ -133,31 +142,29 @@ export default {
   }
 
   label {
-    margin: 1rem;
+    margin: 0;
     padding: 2rem;
     font-size: 1.2rem;
+    text-align: left;
   }
 
-  a {
-    margin: 1rem;
-    font-size: 1.2rem;
+  button {
+      font-size: 1.2rem;
+      padding: 0.4rem 2rem;
+      color: var(--background-color);
+      border: 2px solid var(--background-color);
+      background-color: transparent;
+      border-radius: 4rem;
+      cursor: pointer;
+      transition: 0.4s;
+      text-transform: uppercase;
+      width: auto;
+      margin-top: 1.4rem;
   }
-button {
-    font-size: 1.2rem;
-    padding: 0.4rem 2rem;
-    color: var(--background-color);
-    border: 2px solid var(--background-color);
-    background-color: transparent;
-    border-radius: 4rem;
-    cursor: pointer;
-    transition: 0.4s;
-    text-transform: uppercase;
-    width: auto;
-}
 
-    button:hover {
-        border: 2px solid var(--color-green);
-        background-color: var(--color-green);
-    }
+  button:hover {
+      border: 2px solid var(--color-green);
+      background-color: var(--color-green);
+  }
   
 </style>

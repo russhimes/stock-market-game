@@ -24,10 +24,10 @@
                 <p>Day Change: <span v-bind:class="{ 'red' : percentChange < 0, 'green' : percentChange >= 0 }"> {{percentChange}}% </span></p>
             </div>
         </div>
-        <div class="tradeButton"> 
+        <div class="largeButton"> 
             <button v-on:click="toggleTrade = !toggleTrade">{{ !toggleTrade ? "Trade" : "Cancel"}}</button>
         </div>
-        <div v-if="toggleTrade" class="flex">
+        <div v-if="toggleTrade" class="flex tradeToggle">
             <div class="tradeDetails">
                 <div>
                     <p>Buying Power: ${{ buyingPower.toFixed(2) }}</p>
@@ -54,8 +54,10 @@
                 <button v-on:click="sellStocks()" v-bind:class="{ 'invalidTransaction' : !validSellTransaction }" v-if="stock.total_shares> 0">Sell</button>
             </div>
         </div>
+        <div class="back">
+            <router-link v-bind:to="{ name: 'game', params: {id: $store.state.activeGameId}}">Back to Game Board</router-link>
+        </div>
   </div>
-    <router-link v-bind:to="{ name: 'game', params: {id: $store.state.activeGameId}}">Back to Game Board</router-link>
 </div>
 </template>
 
@@ -263,7 +265,7 @@ export default {
         display: flex;
         flex-direction: column;
         padding: 4rem;
-        margin: var(--padding);
+        padding-bottom: 1rem;
         background-color: var(--color-lighter);
         border-radius: var(--border-radius);
         color: var(--background-color);
@@ -304,10 +306,18 @@ export default {
         text-align: left;
     }
 
-    .tradeButton {
+    .largeButton {
         display: flex;
         align-items: flex-end;
         justify-content: flex-end;
+    }
+
+    select {
+        background-color: var(--color-lighter);
+        color: var(--background-color);
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
     }
 
     button {
@@ -320,7 +330,7 @@ export default {
         transition: 0.4s;
         text-transform: uppercase;
         width: 100%;
-        margin: 2rem 0;
+        margin: 1rem 0;
     }
 
     button:hover {
@@ -332,7 +342,7 @@ export default {
         background-color: var(--color-red);
         border: 2px solid var(--color-red);
         pointer-events: none;
-        opacity: 0.85;
+        opacity: 0.75;
     }
 
     .invalidTransaction:hover {
@@ -348,19 +358,6 @@ export default {
     .green {
         color: var(--color-green);
     }
-/* 
-    .chartContainer {
-        width: 100%;
-        display: flex;
-        align-content: center;
-        justify-content: center;
-    }
-
-    .chart {
-        width: 500px;
-        height: 280px;
-    } */
-
     
     input {
         border: none;
@@ -371,6 +368,7 @@ export default {
         color: var(--background-color);
         font-size: 1rem;
         width: 4rem;
+        text-align: center;
     }
 
     input:focus, input:hover {
@@ -391,12 +389,10 @@ export default {
         -moz-appearance: textfield;
     }
 
-    /* .tradeDetails {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    } */
+    .tradeToggle {
+        margin-bottom: 2rem;
+    }
+
     .tradeDetails div {
         margin: 1rem 0 0 0;
         height: 2rem;
@@ -410,6 +406,8 @@ export default {
         display: flex;
         flex-direction: column;
         align-self: flex-end;
+        flex-grow: 1;
+        margin-left: 5rem;
     }
 
     .buttons button {
@@ -417,16 +415,31 @@ export default {
         width: 100%;
     }
 
+    .back {
+        display: flex;
+        justify-content: flex-start;
+    }
+
     a {
-        text-transform: uppercase;
-        margin: 2rem;
-        padding: 0.5rem;
-        flex-grow: 0;
-        border-bottom: 0;
+        color: var(--background-color);
+        text-align: center;
+        padding: 0.2rem;
+        color: var(--background-color);
+        background-color: transparent;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        transition: 0.4s;
+        margin: 0;
+        margin-top: 1rem;
+        font-size: 0.8rem;
     }
 
     a:hover {
+        border-bottom: 2px solid var(--background-color);
+    }
+
+    /* a:hover {
         border-bottom: 0;
         color: var(--color-green);
-    }
+    } */
 </style>

@@ -26,7 +26,9 @@
             <option v-on:click="convertPdtTime()" value="PDT">PDT</option>
         </select>
         </div> -->
+        <div class="button">
         <button type="submit">Submit</button>
+        </div>
       </form>
 </div>
 </div>

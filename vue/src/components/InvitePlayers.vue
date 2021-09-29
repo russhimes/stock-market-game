@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-  <div>
+  <div class="invite">
     <h1>Invite Users</h1>
     <div class="invited">
       <h2>Invited</h2>
@@ -79,6 +79,7 @@ export default {
 <style scoped>
 
 .container {
+    padding: 2rem;
     display: flex;
     align-content: center;
     justify-content: center;
@@ -86,15 +87,24 @@ export default {
   }
 
 table {
+  display: flex;
+  flex-direction: column;
   border-collapse: collapse;
   border-spacing: 2px;
   text-align: center;
+  width: 115%;
+  margin-left: -10%; 
   }
 
 td {
   font-size: 1.2rem;
   text-align: center;
   padding: 6px;
+}
+
+tr {
+  display: flex;
+  flex-direction: row;
 }
 
 h1, h2 {
@@ -116,7 +126,8 @@ button{
     cursor: pointer;
     transition: 0.4s;
     width: auto; 
-    border-color: white;
+    border-color: var(--color-green);
+    white-space:pre;
 }
 
 button:hover {

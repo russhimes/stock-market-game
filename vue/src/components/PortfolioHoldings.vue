@@ -101,6 +101,7 @@ export default {
 .holdings{
   border-style: solid;
   padding: 1rem;
+  width: 30%;
 }
 
 .portfolioValue, .buyingPower {
@@ -108,7 +109,7 @@ export default {
 }
 
 button {
-    font-size: 1rem;
+    font-size: 0.8rem;
     padding: 0.4rem 2rem;
     color: var(--background-color);
     border: 2px solid var(--background-color);

@@ -66,7 +66,7 @@ export default new Vuex.Store({
     UPDATE_GAME(state, game) {
       for (let i = 0; i < state.games.length; i++) {
         if (game.id == state.games[i].id) {
-          state.games[i] = game;
+          Vue.set (state.games, i, game);
         }
       }
     } 

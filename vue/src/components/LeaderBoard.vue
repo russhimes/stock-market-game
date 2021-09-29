@@ -2,7 +2,7 @@
 <div class = "leader-board">
   <h3 class="title">Leaderboard</h3>
 
-  <div v-for="player in playerList" v-bind:key="player.id">
+  <div v-for="player in leaderBoardInfo" v-bind:key="player.id">
     <p>{{player.username}} : ${{player.portfolioValue}}</p>
 
   </div>
@@ -70,12 +70,24 @@ export default {
       // filteredList(){
       //   if()
       // }
-
+      leaderBoardInfo() {
+        let leaderBoard = [];
+        let counter = 1;
+        for (let i = 0; i < this.playerList; i++) {
+          console.log(leaderBoard[i]);
+          leaderBoard.push({
+            username: this.playerList[i].username,
+            portfolioValue: this.playerList[i].portfolioValue,
+            rank: counter
+          });
+          counter++;
+        }
+        return leaderBoard;
+      }
   },
   methods: {
     getPortfolioValue(index) {
       this.playerList[index].portfolioValue = this.playerList[index].availableFunds;
-      console.log(this.playerList[index]);
       for(let i = 0; i <  this.stocks.length; i++) {
         if (this.playerList[index].id == this.stocks[i].player_id) {
           let shares = this.stocks[i].total_shares;
@@ -84,7 +96,6 @@ export default {
           .then(response => {
             let currentValue = response.data.currentPrice;
             this.playerList[index].portfolioValue = this.playerList[index].portfolioValue + (currentValue * shares);
-            console.log(this.playerList[index].portfolioValue);
           })
         }
       }

@@ -1,9 +1,10 @@
 <template>
 <div class = "leader-board">
   <h3 class="title">Leaderboard</h3>
-  
-  <div v-for="player, index in playerList" v-bind:key="player.id">
-    <p>Rank {{index + 1}} : {{player.username}} : ${{player.portfolioValue.toFixed(2)}}</p>
+
+  <div v-for="player in playerList" v-bind:key="player.id">
+    <p>{{player.username}} : ${{player.portfolioValue}}</p>
+
   </div>
 
    
@@ -31,7 +32,8 @@ export default {
         playerList: [],
         sorted : [],
         stocks : [],
-        counter: 0
+        counter: 0,
+        activePlayer: {}
       }
     },
     created(){
@@ -86,7 +88,7 @@ export default {
           })
         }
       }
-    }
+    },
   }
 }
 

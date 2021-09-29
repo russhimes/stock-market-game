@@ -60,8 +60,12 @@ public class RestStockInfoService implements StockInfoService {
     public StockInfo getStockInfo(String stockSymbol) {
         LocalTime retrievedTime = retrieveTimeMap.get(stockSymbol);
         if (retrievedTime != null) {
-            if (retrievedTime.until(LocalTime.now(), ChronoUnit.MINUTES) < 10) {
+            if (ChronoUnit.MINUTES.between(retrievedTime, LocalTime.now()) < 10) {
                 return stockInfoMap.get(stockSymbol);
+            }
+            else {
+                retrieveTimeMap.remove(stockSymbol);
+                stockInfoMap.remove(stockSymbol);
             }
         }
         HttpEntity<String> httpEntity = new HttpEntity<>("");

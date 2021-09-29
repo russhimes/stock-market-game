@@ -23,4 +23,8 @@ export default {
     flex-direction: column;
     /* margin: 0; */
   }
+  .leaderChart{
+    min-width: 500px;
+    min-height: 500px;
+  }
 </style>

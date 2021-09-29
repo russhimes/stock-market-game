@@ -30,8 +30,7 @@ export default {
     VChart
   },
   provide: {
-    [THEME_KEY]: "dark",
-    series: 2
+    [THEME_KEY]: "dark"
   },
   data() {
     return {

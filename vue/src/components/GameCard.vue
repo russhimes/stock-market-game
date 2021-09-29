@@ -47,7 +47,6 @@ export default {
     methods: {
         acceptGame(){
             this.player.game_status = 'Accepted'
-            console.log(this.player.user_id);
             playerService.update(this.player).then(response => {
                 if (response.status) {
                     this.$store.commit("UPDATE_PLAYER_STATUS", this.player);
@@ -80,7 +79,6 @@ export default {
             .then(response => {
                 this.gameOrganizer = response.data.username;
             })
-            console.log(this.game);
     }
 }
 

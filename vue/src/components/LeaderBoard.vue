@@ -2,8 +2,15 @@
 <div class = "leader-board">
   <h3 class="title">Leaderboard</h3>
 
-  <div v-for="player in leaderBoardInfo" v-bind:key="player.id">
-    <p>{{player.rank}} - {{player.username}} : ${{player.portfolioValue}}</p>
+  <div>
+    <table>
+      <tr v-for="player in leaderBoardInfo" v-bind:key="player.id">
+        <td class="rank">{{player.rank}}</td>
+        <td>{{player.username}}</td>
+        <td>${{player.portfolioValue}}</td>
+      </tr>
+    </table>
+    <!-- <p>{{player.rank}} - {{player.username}} : ${{player.portfolioValue}}</p> -->
 
   </div>
 </div>
@@ -39,7 +46,6 @@ export default {
             this.playerlist = this.playerList.sort((a,b) => {
               return a.availableFunds - b.availableFunds
             })
-            console.log(this.playerList);
         }).then(() => {
           for(let i = 0; i < this.playerList.length; i++) {
             stockService.getPlayerStocks(this.playerList[i].id)
@@ -91,7 +97,6 @@ export default {
       this.portfolioValue.push({
         value: this.playerList[index].availableFunds,
         id: this.playerList[index].id});
-      console.log(this.portfolioValue);
       if(this.portfolioValue[index]) clearInterval(timer);
       for(let i = 0; i <  this.stocks.length; i++) {
         if (this.playerList[index].id == this.stocks[i].player_id) {
@@ -117,5 +122,22 @@ export default {
 <style>
   .leader-board{
     padding: 1rem;
+  }
+
+  tr {
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
+    padding: 1rem 2rem;
+  }
+
+  td{
+    width: 40%;
+  }
+
+  .rank {
+    width: 20%;
   }
 </style>

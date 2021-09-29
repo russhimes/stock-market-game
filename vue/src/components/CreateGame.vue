@@ -1,35 +1,26 @@
 <template>
-<div class="container">
-<div id="createGame">
-  <h2>Create Game</h2>
-      <form id="createGame" @submit.prevent="createGame">
+  <div class="container">
+    <div id="createGame">
+      <h2>Create Game</h2>
+      <form @submit.prevent="createGame">
         <div>
           <label>Name:</label>
           <input type="text" id="gameName" v-model="game.name"/>
         </div>
         <div>
-        <label>End Date:</label>
-        <input type="date" id="endDate" v-model="game.end_date"/>
+          <label>End Date:</label>
+          <input type="date" id="endDate" v-model="game.end_date"/>
         </div>
         <div>
         <label>End Time (UTC):</label>
-        <input type="time" id="endTime"  v-model="game.end_time"/> 
-
-        <!-- v-on:click="convertTimetoUTC()" -->
+          <input type="time" id="endTime"  v-model="game.end_time"/> 
         </div>
-        <!-- <div>
-          <label for="timezone">Time Zone</label>
-          <select name="timezone" id="timezone">
-            <option v-on:click="convertCdtTime()" value="CDT">CDT</option>
-            <option v-on:click="convertEdtTime()" value="EDT">EDT</option>
-            <option v-on:click="convertMdtTime()" value="MDT">MDT</option>
-            <option v-on:click="convertPdtTime()" value="PDT">PDT</option>
-        </select>
-        </div> -->
-        <button type="submit">Submit</button>
+        <div class="button-container">
+          <button type="submit">Submit</button>
+        </div>
       </form>
-</div>
-</div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -92,44 +83,74 @@ data() {
 </script>
 
 <style scoped>
- .container {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  height: 90vh;
-} 
+  .container {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  } 
 
+  #createGame {
+    background-color: var(--color-lighter);
+    border-radius: var(--border-radius);
+    margin: var(--padding) auto;
+    padding: var(--padding);
+    color: var(--background-color);
+  }
 
-h2 {
-  padding-top: 70px;
-  margin: 0.5rem;
-  text-align: center;
-}
+  h2 {
+    margin: 0.5rem;
+    text-align: center;
+  }
 
-label {
-       box-sizing: border-box;
-       width: 150px;
-       display: inline-block;
-       margin: 0.5rem;    
-}
+  label {
+    box-sizing: border-box;
+    width: 150px;
+    display: inline-block;
+    margin: 0.5rem;    
+  }
 
+  .button-container{
+    display: flex;
+  }
 
-button{
+  button{
     font-size: 1.2rem;
     padding: 0.4rem 2rem;
-    margin: 1rem;
     border: 2px solid var(--background-color);
     background-color: transparent;
     border-radius: 4rem;
     cursor: pointer;
     transition: 0.4s;
     width: auto; 
-    border-color: white;
-}
+    margin: 2rem auto 0 auto;
+    color: var(--background-color);
+    width: 100%;
+  }
 
-button:hover {
-        border: 2px solid var(--color-green);
-        background-color: var(--color-green);
-    }
+  button:hover {
+    border: 2px solid var(--color-green);
+    background-color: var(--color-green);
+  }
+
+  input {
+      border: none;
+      background-color: transparent;
+      border-bottom: 2px solid var(--background-color);
+      transition: 0.4s;
+      color: var(--background-color);
+      font-size: 1rem;
+      text-align: center;
+      margin: 0.5rem;
+  }
+
+  input:focus, input:hover {
+      outline: none;
+      color: var(--background-color);
+      font-size: 1rem;
+  }
+
+  ::-webkit-calendar-picker-indicator {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
+  }
 
 </style>

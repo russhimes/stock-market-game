@@ -17,11 +17,11 @@
               <label for="history">History</label>
     </div>
   </div>
+
   <leader-board v-bind:gameId="gameId" v-if="leaderView=='rankings'" class="rankings"/>
   <div v-else>
     <leader-chart class="leaderChart" v-bind:gameId="gameId"/>
   </div> 
-
 
 
       </div>
@@ -116,8 +116,8 @@ export default {
     .toggle {
         display: flex;
         justify-content: space-evenly;
-        margin-right: 35%;
-        margin-left: 35%;
+        margin-right: 37%;
+        margin-left: 37%;
         padding-top: 1rem;
     }
  .toggle label {
@@ -145,5 +145,9 @@ export default {
 
     .toggle {
         text-align: center;
+    }
+
+    #rankings {
+        width: 50px;
     }
 </style>

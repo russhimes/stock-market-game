@@ -3,7 +3,7 @@
   <h3 class="title">Leaderboard</h3>
 
   <div v-for="player in leaderBoardInfo" v-bind:key="player.id">
-    <p>{{player.username}} : ${{player.portfolioValue}}</p>
+    <p>{{player.rank}} - {{player.username}} : ${{player.portfolioValue}}</p>
 
   </div>
 
@@ -30,6 +30,7 @@ export default {
     data(){
       return {
         playerList: [],
+        portfolioValue: [],
         sorted : [],
         stocks : [],
         counter: 0,
@@ -46,6 +47,7 @@ export default {
             this.playerlist = this.playerList.sort((a,b) => {
               return b.availableFunds - a.availableFunds
             })
+            console.log(this.playerList);
         }).then(() => {
           for(let i = 0; i < this.playerList.length; i++) {
             stockService.getPlayerStocks(this.playerList[i].id)
@@ -73,21 +75,32 @@ export default {
       leaderBoardInfo() {
         let leaderBoard = [];
         let counter = 1;
-        for (let i = 0; i < this.playerList; i++) {
-          console.log(leaderBoard[i]);
-          leaderBoard.push({
-            username: this.playerList[i].username,
-            portfolioValue: this.playerList[i].portfolioValue,
-            rank: counter
-          });
+
+        for (let i = 0; i < this.playerList.length; i++) {
+          for (let j = 0; j < this.portfolioValue.length; j++) {
+            if (this.portfolioValue[j].id == this.playerList[i].id) {
+              leaderBoard.push({
+                username: this.playerList[i].username,
+                portfolioValue: this.portfolioValue[j].value,
+                rank: counter
+              });
+            }
+          }
           counter++;
         }
         return leaderBoard;
       }
   },
   methods: {
-    getPortfolioValue(index) {
-      this.playerList[index].portfolioValue = this.playerList[index].availableFunds;
+    getPortfolioValue(index) {let timer = setInterval(() => {
+      for (let i = 0; i < this.portfolioValue.length; i++) {
+        if (this.portfolioValue[i].id == this.playerList[index].id) return;
+      }
+      this.portfolioValue.push({
+        value: this.playerList[index].availableFunds,
+        id: this.playerList[index].id});
+      console.log(this.portfolioValue);
+      if(this.portfolioValue[index]) clearInterval(timer);
       for(let i = 0; i <  this.stocks.length; i++) {
         if (this.playerList[index].id == this.stocks[i].player_id) {
           let shares = this.stocks[i].total_shares;
@@ -95,11 +108,15 @@ export default {
           stockService.getStockInfo(stock_ticker)
           .then(response => {
             let currentValue = response.data.currentPrice;
-            this.playerList[index].portfolioValue = this.playerList[index].portfolioValue + (currentValue * shares);
-          })
+            for (let j = 0; j < this.portfolioValue.length; j++) {
+              if (this.portfolioValue[j].id == this.playerList[index].id){
+                this.portfolioValue[j].value += (currentValue * shares);
+              }
+            }
+          });
         }
       }
-    },
+    }, 300)}
   }
 }
 

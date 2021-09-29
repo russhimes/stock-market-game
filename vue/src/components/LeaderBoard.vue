@@ -4,10 +4,9 @@
   
   <div v-for="player, index in playerList" v-bind:key="player.id">
     <p>Rank {{index + 1}} : {{player.username}} : ${{player.portfolioValue.toFixed(2)}}</p>
-
   </div>
 
-    <leader-chart class="leaderChart" v-bind:gameId="gameId"/>
+   
 
   <!-- <div class='playerCard' v-for='player in playerList'>
     {{ player.name }}
@@ -18,14 +17,14 @@
 <script>
 import playerService from '../services/PlayerService.js'
 //import userService from '../services/UserService.js'
-import LeaderChart from '../components/LeaderChart'
+//import LeaderChart from '../components/LeaderChart'
 import stockService from '../services/StockService.js'
 //import CountdownTimer from '../components/CountdownTimer';
 
 export default {
     name: 'leader-board',
     components: {
-      LeaderChart,
+     // LeaderChart,
     },
     data(){
       return {

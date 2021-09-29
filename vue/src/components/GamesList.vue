@@ -23,7 +23,7 @@
 <script>
 import GameCard from '../components/GameCard.vue'
 export default {
-    components: {GameCard},  
+    components: {GameCard},
     computed: {
             rejected() {
                 let rejected = [];
@@ -96,11 +96,24 @@ export default {
                         if (end.getTime() - now.getTime() < 0) {
                             game.isFinished = true;
                             this.$store.commit("UPDATE_GAME", game);
+                            for (let j = 0; j < this.accepted.length; j++) {
+                                if (game.id == this.accepted[j].id) {
+                                    this.finished.push(game);
+                                    this.accepted.splice(j,1);
+                                }
+                            }
+                            for (let j = 0; j < this.pending.length; j++) {
+                                if (game.id == this.pending[j].id) {
+                                    this.rejected.push(game);
+                                    this.pending.splice(j,1);
+                                }
+                            }
                         }
                       
                     }
                 }
-            }, 1000)}
+            }, 1000)
+        }
 }
 </script>
 

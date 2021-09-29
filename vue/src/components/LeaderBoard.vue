@@ -81,7 +81,7 @@ export default {
             if (this.portfolioValue[j].id == this.playerList[i].id) {
               leaderBoard.push({
                 username: this.playerList[i].username,
-                portfolioValue: this.portfolioValue[j].value,
+                portfolioValue: this.portfolioValue[j].value.toFixed(2),
                 rank: counter
               });
             }

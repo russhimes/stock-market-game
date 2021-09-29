@@ -2,19 +2,19 @@
     <div class="gamesList">
         <div class="cardsContainer">
             <h2>Active Games</h2>
-            <game-card v-for="game in accepted" v-bind:key="game.id" v-bind:game="game"/>
+            <game-card v-for="game in accepted" v-bind:key="game.id" v-bind:gameId="game.id"/>
         </div>
         <div class="cardsContainer">
             <h2>Pending Invites</h2>
-            <game-card v-for="game in pending" v-bind:key="game.id" v-bind:game="game"/>
+            <game-card v-for="game in pending" v-bind:key="game.id" v-bind:gameId="game.id"/>
         </div>
         <div class="cardsContainer">
             <h2>Completed Games</h2>
-            <game-card v-for="game in finished" v-bind:key="game.id" v-bind:game="game"/>
+            <game-card v-for="game in finished" v-bind:key="game.id" v-bind:gameId="game.id"/>
         </div>
         <div class="cardsContainer">
             <h2>Rejected Games</h2>
-            <game-card v-for="game in rejected" v-bind:key="game.id" v-bind:game="game"/>
+            <game-card v-for="game in rejected" v-bind:key="game.id" v-bind:gameId="game.id"/>
         </div>
 
     </div>
@@ -101,6 +101,8 @@ export default {
                                     this.rejected.splice(j,1);
                                 }
                             }
+                            game.isFinished = true;
+                            this.$store.commit("UPDATE_GAME", game);
                             this.finished.push(this.$store.state.games[i]);
                         } 
                       

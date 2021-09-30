@@ -6,7 +6,7 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     </head>
-      <the-header />
+      <the-header id="header"/>
     <router-view />
   </div>
 </template>
@@ -87,6 +87,9 @@ export default {
   height: 10px;
 }
 
+  #header {
+    z-index: 800;
+  }
 /* Track */
 ::-webkit-scrollbar-track {
   background: var(--color-lighter);

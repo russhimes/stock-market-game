@@ -295,7 +295,7 @@
 </script>
 
 <style>
-#app {
+#App {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -308,7 +308,7 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  top: 0;
+  top: 6vh;
   left: 0;
   z-index: -1;
 }

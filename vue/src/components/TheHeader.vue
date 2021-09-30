@@ -32,6 +32,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         padding: 1.4rem var(--padding);
+        z-index: 800;
     }
 
     h1 {

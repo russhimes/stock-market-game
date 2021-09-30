@@ -9,7 +9,8 @@
           <td class="title">Username</td>
           <td class="button"></td>
         </th> -->
-        <tr v-for="user in users" v-bind:key="user.id">
+        <p v-if="users.length == 0">There are no other players you can invite.</p>
+        <tr v-else v-for="user in users" v-bind:key="user.id">
           <td>{{ user.id }}</td>
           <td> {{ user.username }}</td>
           <button v-if="!user.invited" v-on:click="inviteUser(user)">Invite</button>
@@ -58,10 +59,11 @@ export default {
             if(player.user_id == user.id) {
               user.invited = true;
               this.invitedUsers.push(user.username);
+              let index = this.users.indexOf(user);
+              this.users.splice(index, 1);
             }
           }
         })
-        console.log(result);
       })
     })
   },

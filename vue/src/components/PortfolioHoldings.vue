@@ -31,7 +31,7 @@
 <script>
 import playerService from "../services/PlayerService";
 import stockService from "../services/StockService";
-import StockList from "../components/StockList"
+import StockList from "../components/StockList";
 import TradeHistory from './TradeHistory.vue';
 export default {
   components: {

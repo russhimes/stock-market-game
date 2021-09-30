@@ -1,25 +1,31 @@
 <template>
-  <div id="gameOver">
- <div id="App">
-       <winner-confetti></winner-confetti>
-       </div>
-      <div v-if="winnerCalculated == true">
-        <!-- <h2 class = "title"> Game Over </h2> -->
-        <h1>{{winnerInfo[0].username}} WINS!</h1>
-        <h3>Leaderboard</h3>
-     <div class="finalContainer">
-     <div class="rank">
-         <h4>Final Ranking</h4>
-        <leader-board v-bind:gameId="gameId"/>
+    <div>
+        <loading-page class="loading-page" v-if="!winnerCalculated"/>
+        <div v-else>
+            <div id="gameOver" >
+                <div id="App">
+                    <winner-confetti></winner-confetti>
+                </div>
+                <div>
+                    <!-- <h2 class = "title"> Game Over </h2> -->
+                    <h1>{{winnerInfo[0].username}} WINS!</h1>
+                    <h3>Leaderboard</h3>
+                <div class="finalContainer">
+                <div class="rank">
+                    <h4>Final Ranking</h4>
+                    <leader-board v-bind:gameId="gameId"/>
+                    </div>
+                <div class="history">
+                    <h4>Trading History</h4>
+                    <leader-chart class="leaderChart" v-bind:gameId="gameId"/>
+                </div>
+                </div>
+                </div>
+                
+            </div>
+            <router-link class="back" v-bind:to="{ name: 'home' }">Back to all games</router-link>
         </div>
-    <div class="history">
-        <h4>Trading History</h4>
-         <leader-chart class="leaderChart" v-bind:gameId="gameId"/>
     </div>
-    </div>
-      </div>
-      <img src="../assets/chart.gif" id="chartGif" v-else />
-  </div>
 </template>
 <script>
 import playerService from '../services/PlayerService.js'
@@ -29,9 +35,10 @@ import LeaderChart from '../components/LeaderChart.vue'
 import Vue from 'vue'
 import Particles from "particles.vue";
 import WinnerConfetti from '../components/WinnerConfetti'
+import LoadingPage from '../components/LoadingPage'
 Vue.use(Particles);
 export default {
-    components: {LeaderBoard, LeaderChart, WinnerConfetti},
+    components: {LeaderBoard, LeaderChart, WinnerConfetti, LoadingPage},
     props: ["gameId"],
     data() {
         return {
@@ -88,12 +95,11 @@ export default {
     border-radius: var(--border-radius);
     color: var(--background-color);
     align-items: center; 
-}
- #gameOver {
     display: flex;
     flex-direction: column;
     margin: 0;
   }
+
 .finalContainer {
     display: inline-block; 
     width: 700px; 
@@ -118,10 +124,17 @@ export default {
     }
     #App{
         position: absolute;
+        height: 1px;
         z-index: 100;
     }
   h1 {
       text-transform: uppercase;
       margin-top: 1.5rem;
+  }
+
+  .loading-page{
+      background-color: transparent;
+      margin: 0;
+      padding: 0;
   }
 </style>

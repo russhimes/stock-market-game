@@ -7,6 +7,7 @@
       <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     </head>
       <the-header id="header"/>
+      <!-- <loading-page></loading-page> -->
     <router-view />
   </div>
 </template>
@@ -15,6 +16,7 @@
 <script>
 
 import TheHeader from './components/TheHeader.vue'
+// import LoadingPage from './components/LoadingPage.vue'
 export default {
   components: { TheHeader },
   

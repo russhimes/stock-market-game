@@ -1,6 +1,7 @@
 <template>
-  <div id="main">
-    <div v-if="isLoading == false">
+<div>
+  <div id="main" v-if="isLoading == false">
+    <div>
     <div id = "game" v-if="gameFinished == false">
       <div class="flex header"> 
         <h1 class = "boardTitle">{{ game.name }} Dashboard</h1>
@@ -17,17 +18,16 @@
             <leader-board v-bind:gameId="gameId" class="container"></leader-board>
           </div>
         </div>
+        <router-link class="back" v-bind:to="{ name: 'home' }">Back to all games</router-link>
     </div>
     <div v-if="gameFinished== true">
       <game-over v-bind:gameId="gameId"/>
     </div>
     
     </div>
-    <div v-else>
-      <img src="../assets/chart.gif" id = "chartGif"/>
-      <router-link class="back" v-bind:to="{ name: 'home' }">Back to all games</router-link>
-    </div>
   </div>
+    <loading-page v-else class="loading-page"/>
+</div>
 </template>
 
 <script>
@@ -38,6 +38,7 @@ import CountdownTimer from '../components/CountdownTimer'
 import GameService from '../services/GamesService'
 import GameOver from './GameOver.vue'
 import PlayerService from '../services/PlayerService'
+import LoadingPage from './LoadingPage.vue'
 // import TradeHistory from './TradeHistory.vue'
 
 // timer
@@ -48,7 +49,7 @@ import PlayerService from '../services/PlayerService'
 // pass to countdown timer using v-bind (follow line 5)
 // inside of countdown have props to accept games to access information 
 export default {
-  components: { LeaderBoard, PortfolioHoldings, TradeStocks, CountdownTimer, GameOver},
+  components: { LeaderBoard, PortfolioHoldings, TradeStocks, CountdownTimer, GameOver, LoadingPage},
   data() {
     return {
       gameId: this.$route.params.id,
@@ -98,7 +99,7 @@ export default {
   mounted() {
     setTimeout(() => {
     this.isLoading = false;
-  }, 1800)}
+  }, 500)}
 }
   
 
@@ -199,14 +200,12 @@ export default {
     font-size: 2rem;
   }
 
-.back {
-  margin: 1rem;
-}
+  .back {
+    margin: 1rem;
+  }
 
-#chartGif {
-  display: block;
-  height: 30vh;
-  width: 30vw;
-  margin: auto;
-}
+  .loading-page {
+    margin: 0;
+    padding: 0;
+  }
 </style>

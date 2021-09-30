@@ -48,6 +48,21 @@ export default {
           this.users.push( { id: user.id, username: user.username, invited: false });
         }
       })
+    }).then(() => {
+      // check if user has already been invited to game
+      playerService.getPlayersByGame(this.$route.params.id).then(result => {
+        console.log("users"  + this.users);
+        result.data.forEach(player => {
+          for(let user of this.users) {
+            // 
+            if(player.user_id == user.id) {
+              user.invited = true;
+              this.invitedUsers.push(user.username);
+            }
+          }
+        })
+        console.log(result);
+      })
     })
   },
   methods: {

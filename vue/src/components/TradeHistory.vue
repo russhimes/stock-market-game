@@ -7,8 +7,8 @@
       <p>{{trade.date.toString().substring(5)}}-{{trade.date.toString().substring(0, 4)}}</p>
     </div>
     <div>
-      <p class="shares"> {{trade.shares_traded }} Share{{ trade.shares_traded != 1 ? "s" : ""}}</p>
-      <p class="price">{{ trade.buy_or_sell == 'Buy' ? "-" : "+"}} ${{trade.price.toFixed(2) }} </p>
+      <p class="shares">{{ trade.buy_or_sell == 'Buy' ? "+" : "-"}}{{trade.shares_traded }} Share{{ trade.shares_traded != 1 ? "s" : ""}}</p>
+      <p class="price">{{ trade.buy_or_sell == 'Buy' ? "-" : "+"}}${{trade.price.toFixed(2) }} </p>
     </div>
    </div>  
   </div>
@@ -62,7 +62,7 @@ export default {
     }
 
     p {
-        font-size: 1rem;
+        font-size: 0.9rem;
         padding: 0;
     }
 

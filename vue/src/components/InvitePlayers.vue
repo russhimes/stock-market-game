@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="flex">
-        <router-link to="/" id="finishedButton" tag="button">Finished Inviting Players</router-link>
+        <router-link v-bind:to="{ name: 'game', params: {id: $route.params.id}}" id="finishedButton" tag="button">Finished Inviting Players</router-link>
       </div>
     </div>
   </div>

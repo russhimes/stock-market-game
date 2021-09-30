@@ -51,7 +51,8 @@ data() {
     createGame() {
       // call converision method
     // this.convertTimetoUTC()
-  
+      console.log(this.game.end_date);
+      console.log(this.game.end_time);
       gamesService.createGame(this.game)
       .then(response => {
         this.gameId = response.data;

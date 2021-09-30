@@ -67,7 +67,7 @@ export default {
     },
     beforeUpdate() {
       if (this.game.isFinished == true) {
-          if (this.player.game_status == "Accepted") {
+          if (this.player.game_status == "Accepted" || this.player.game_status == "Finished") {
             this.player.game_status = "Finished";
             this.$store.commit("UPDATE_PLAYER_STATUS", this.player);
           }

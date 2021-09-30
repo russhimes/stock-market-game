@@ -47,6 +47,8 @@ public class GameController {
 
     @RequestMapping(path="/games", method = RequestMethod.POST)
     public int createGame(@RequestBody Game game) {
+        System.out.println(game.getEnd_date());
+        System.out.println(game.getEnd_time());
         int gameId = gameDao.createGame(game);
         game.setId(gameId);
         LocalDateTime dateTime =  LocalDateTime.of(game.getEnd_date(), game.getEnd_time());

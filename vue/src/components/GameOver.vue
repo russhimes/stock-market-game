@@ -58,8 +58,9 @@ export default {
         checkWinner() {
             let result = playerService.getPlayersByGame(this.gameId).then(result => {
             for (let i = 0; i < result.data.length; i++) {
-                if (result.data[i].game_status != "Finished") {
+                if (result.data[i].game_status != "Finished" && result.data[i].game_status != "Rejected") {
                     this.winnerCalculated = false;
+                    console.log(result.data[i].game_status);
                     break;
                 }
                  if (i == result.data.length-1) this.winnerCalculated = true;

@@ -1,6 +1,6 @@
 <template>
-  <div id="gameOver">
-      <div v-if="winnerCalculated == true">
+  <div>
+      <div id="gameOver" v-if="winnerCalculated == true">
         <h2 class = "title"> Game Over </h2>
         <h3>{{winnerInfo[0].username}} WINS!</h3>
         <h3>Leaderboard</h3>
@@ -20,7 +20,7 @@
  
 
       </div>
-      <p v-else>loading</p>
+      <img src="../assets/chart.gif" id="chartGif" v-else />
   </div>
 </template>
 
@@ -41,13 +41,13 @@ export default {
         }
     },
     created() {
-        this.checkWinner().then(() => {
+        //this.checkWinner().then(() => {
         const timer = setInterval (() => {
             this.checkWinner();
             clearInterval(timer);
             return;
-        }, 100)
-        })
+        }, 1800)
+       // })
     },
     methods: {
         checkWinner() {
@@ -122,6 +122,13 @@ export default {
         /* background: purple; */
         width: 50%;
         float: left;
+    }
+
+    #chartGif {
+        display: block;
+        height: 30vh;
+        width: 30vw;
+        margin: auto;
     }
 
    

@@ -23,7 +23,10 @@
     </div>
     
     </div>
-    <router-link class="back" v-bind:to="{ name: 'home' }">Back to all games</router-link>
+    <div v-else>
+      <img src="../assets/chart.gif" id = "chartGif"/>
+      <router-link class="back" v-bind:to="{ name: 'home' }">Back to all games</router-link>
+    </div>
   </div>
 </template>
 
@@ -95,7 +98,7 @@ export default {
   mounted() {
     setTimeout(() => {
     this.isLoading = false;
-  }, 500)}
+  }, 1800)}
 }
   
 
@@ -198,5 +201,12 @@ export default {
 
 .back {
   margin: 1rem;
+}
+
+#chartGif {
+  display: block;
+  height: 30vh;
+  width: 30vw;
+  margin: auto;
 }
 </style>

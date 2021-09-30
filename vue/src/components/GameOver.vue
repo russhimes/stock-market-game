@@ -92,18 +92,37 @@ export default {
     align-items: center; 
 }
 
- /* #gameOver {
+ #gameOver {
     display: flex;
     flex-direction: column;
     margin: 0;
   }
 
+.finalContainer {
+    display: inline-block; 
+	width: 700px; 
+	height: auto; 
+    
+}
+
 .title {
     margin: 1.2rem;
+    margin-top: 1rem;
   }
     .rank {
+        margin-top: 1rem;
         word-spacing: 30%;
-    } */
+        /* background: pink; */
+        width: 50%;
+        float: left;
+    }
+
+    .history {
+        margin-top: 1rem;
+        /* background: purple; */
+        width: 50%;
+        float: left;
+    }
 
    
 </style>

@@ -1,8 +1,14 @@
 <template>
+
   <div id="gameOver">
+
+ <div id="App">
+       <winner-confetti></winner-confetti>
+       </div>
+
       <div v-if="winnerCalculated == true">
-        <h2 class = "title"> Game Over </h2>
-        <h3>{{winnerInfo[0].username}} WINS!</h3>
+        <!-- <h2 class = "title"> Game Over </h2> -->
+        <h1>{{winnerInfo[0].username}} WINS!</h1>
         <h3>Leaderboard</h3>
      
      <div class="finalContainer">
@@ -15,7 +21,8 @@
          <leader-chart class="leaderChart" v-bind:gameId="gameId"/>
     </div>
     </div>
- 
+    
+   
 
  
 
@@ -29,9 +36,15 @@ import playerService from '../services/PlayerService.js'
 import userService from '../services/UserService.js'
 import LeaderBoard from '../components/LeaderBoard.vue'
 import LeaderChart from '../components/LeaderChart.vue'
-// import LeaderBoard from '../views/Leader.vue'
+import Vue from 'vue'
+import Particles from "particles.vue";
+import Confetti from '../components/WinnerConfetti'
+
+
+Vue.use(Particles);
+
 export default {
-    components: {LeaderBoard, LeaderChart},
+    components: {LeaderBoard, LeaderChart, Confetti},
     props: ["gameId"],
     data() {
         return {
@@ -123,6 +136,14 @@ export default {
         width: 50%;
         float: left;
     }
-
-   
+    #App{
+        position: absolute;
+        z-index: 100;
+    }
+  
+  h1 {
+      text-transform: uppercase;
+      margin-top: 1.5rem;
+  }
+        
 </style>

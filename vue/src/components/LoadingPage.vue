@@ -35,7 +35,7 @@ export default {
   background-color: var(--color-green);
   width: 20px;
   margin-bottom: 0;
-  animation: width 2.3s infinite
+  animation: width 2.3s infinite;
 }
 .graph2{
   align-self: end;
@@ -44,7 +44,7 @@ export default {
   background-color: var(--color-green);
   width: 20px;
   margin-bottom: 0;
-  animation: width 2.4s infinite
+  animation: width 2.4s infinite;
 }
 .graph3{
   align-self: end;
@@ -53,12 +53,12 @@ export default {
   background-color: var(--color-green);
   width: 20px;
   margin-bottom: 0;
-  animation: width 2.5s infinite
+  animation: width 2.5s infinite;
 }
 
 .loading-container {
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
     display: flex;
     align-content: center;
     justify-content: center;

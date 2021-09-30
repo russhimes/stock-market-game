@@ -43,7 +43,7 @@ export default {
           (response) => {
             this.playerList = response.data;
             this.playerlist = this.playerList.sort((a,b) => {
-              return a.availableFunds - b.availableFunds
+              return b.availableFunds - a.availableFunds
             })
         }).then(() => {
           for(let i = 0; i < this.playerList.length; i++) {

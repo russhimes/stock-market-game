@@ -97,7 +97,7 @@ export default {
     align-items: center; 
     display: flex;
     flex-direction: column;
-    margin: 0;
+    margin: 2rem var(--padding);
   }
 
 .finalContainer {

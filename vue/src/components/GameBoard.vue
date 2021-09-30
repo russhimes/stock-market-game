@@ -20,13 +20,15 @@
         </div>
         <router-link class="back" v-bind:to="{ name: 'home' }">Back to all games</router-link>
     </div>
-    <div v-if="gameFinished== true">
+    <div v-if="gameFinished">
       <game-over v-bind:gameId="gameId"/>
     </div>
     
     </div>
   </div>
-    <loading-page v-else class="loading-page"/>
+  <div v-else>
+    <loading-page class="loading-page"/>
+  </div>
 </div>
 </template>
 
@@ -100,9 +102,8 @@ export default {
     setTimeout(() => {
     this.isLoading = false;
   }, 500)}
-}
-  
 
+}
 </script>
 
 <style scoped>
@@ -110,8 +111,8 @@ export default {
     color: var(--background-color);
   }
 
-  #main {
-    padding: 2rem var(--padding);
+  #game {
+    margin: 2rem var(--padding);
   }
 
   .flex {

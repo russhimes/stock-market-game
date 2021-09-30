@@ -1,23 +1,12 @@
 <template>
-<<<<<<< HEAD
-
   <div id="gameOver">
-
  <div id="App">
        <winner-confetti></winner-confetti>
        </div>
-
       <div v-if="winnerCalculated == true">
         <!-- <h2 class = "title"> Game Over </h2> -->
         <h1>{{winnerInfo[0].username}} WINS!</h1>
-=======
-  <div>
-      <div id="gameOver" v-if="winnerCalculated == true">
-        <h2 class = "title"> Game Over </h2>
-        <h3>{{winnerInfo[0].username}} WINS!</h3>
->>>>>>> 1b5a9409940d8d09128bce57ee86d0ac160b4c7d
         <h3>Leaderboard</h3>
-     
      <div class="finalContainer">
      <div class="rank">
          <h4>Final Ranking</h4>
@@ -28,16 +17,10 @@
          <leader-chart class="leaderChart" v-bind:gameId="gameId"/>
     </div>
     </div>
-    
-   
-
- 
-
       </div>
       <img src="../assets/chart.gif" id="chartGif" v-else />
   </div>
 </template>
-
 <script>
 import playerService from '../services/PlayerService.js'
 import userService from '../services/UserService.js'
@@ -45,13 +28,10 @@ import LeaderBoard from '../components/LeaderBoard.vue'
 import LeaderChart from '../components/LeaderChart.vue'
 import Vue from 'vue'
 import Particles from "particles.vue";
-import Confetti from '../components/WinnerConfetti'
-
-
+import WinnerConfetti from '../components/WinnerConfetti'
 Vue.use(Particles);
-
 export default {
-    components: {LeaderBoard, LeaderChart, Confetti},
+    components: {LeaderBoard, LeaderChart, WinnerConfetti},
     props: ["gameId"],
     data() {
         return {
@@ -96,10 +76,8 @@ export default {
             return result;
         }
     }   
-
 }
 </script>
-
 <style scoped>
 #gameOver{
     color: black;
@@ -111,20 +89,16 @@ export default {
     color: var(--background-color);
     align-items: center; 
 }
-
  #gameOver {
     display: flex;
     flex-direction: column;
     margin: 0;
   }
-
 .finalContainer {
     display: inline-block; 
-	width: 700px; 
-	height: auto; 
-    
+    width: 700px; 
+    height: auto; 
 }
-
 .title {
     margin: 1.2rem;
     margin-top: 1rem;
@@ -136,33 +110,18 @@ export default {
         width: 50%;
         float: left;
     }
-
     .history {
         margin-top: 1rem;
         /* background: purple; */
         width: 50%;
         float: left;
     }
-<<<<<<< HEAD
     #App{
         position: absolute;
         z-index: 100;
     }
-  
   h1 {
       text-transform: uppercase;
       margin-top: 1.5rem;
   }
-        
-=======
-
-    #chartGif {
-        display: block;
-        height: 30vh;
-        width: 30vw;
-        margin: auto;
-    }
-
-   
->>>>>>> 1b5a9409940d8d09128bce57ee86d0ac160b4c7d
 </style>

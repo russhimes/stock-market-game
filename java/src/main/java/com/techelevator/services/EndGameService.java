@@ -42,7 +42,7 @@ public class EndGameService implements Runnable  {
     public void run() {
         List<Player> players = playerDao.getPlayersByGame(game.getId());
         for (Player player : players) {
-            if(player.getGame_status().equals("Accepted")) {
+            if(player.getGame_status().equals("Accepted") || player.getGame_status().equals("Finished")) {
                 player.setGame_status("Finished");
 
                 List<Stock> stocks = stockDao.getStocksByPlayerId(player.getId());

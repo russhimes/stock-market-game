@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
 
   <div id="gameOver">
 
@@ -9,6 +10,12 @@
       <div v-if="winnerCalculated == true">
         <!-- <h2 class = "title"> Game Over </h2> -->
         <h1>{{winnerInfo[0].username}} WINS!</h1>
+=======
+  <div>
+      <div id="gameOver" v-if="winnerCalculated == true">
+        <h2 class = "title"> Game Over </h2>
+        <h3>{{winnerInfo[0].username}} WINS!</h3>
+>>>>>>> 1b5a9409940d8d09128bce57ee86d0ac160b4c7d
         <h3>Leaderboard</h3>
      
      <div class="finalContainer">
@@ -27,7 +34,7 @@
  
 
       </div>
-      <p v-else>loading</p>
+      <img src="../assets/chart.gif" id="chartGif" v-else />
   </div>
 </template>
 
@@ -54,13 +61,13 @@ export default {
         }
     },
     created() {
-        this.checkWinner().then(() => {
+        //this.checkWinner().then(() => {
         const timer = setInterval (() => {
             this.checkWinner();
             clearInterval(timer);
             return;
-        }, 100)
-        })
+        }, 1800)
+       // })
     },
     methods: {
         checkWinner() {
@@ -136,6 +143,7 @@ export default {
         width: 50%;
         float: left;
     }
+<<<<<<< HEAD
     #App{
         position: absolute;
         z-index: 100;
@@ -146,4 +154,15 @@ export default {
       margin-top: 1.5rem;
   }
         
+=======
+
+    #chartGif {
+        display: block;
+        height: 30vh;
+        width: 30vw;
+        margin: auto;
+    }
+
+   
+>>>>>>> 1b5a9409940d8d09128bce57ee86d0ac160b4c7d
 </style>

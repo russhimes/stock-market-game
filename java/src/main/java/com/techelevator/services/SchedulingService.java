@@ -58,7 +58,7 @@ public class SchedulingService  {
             List<Player> players = playerDao.getPlayersByGame(game.getId());
             boolean isFinished = true;
             for (Player player : players) {
-                if (!player.getGame_status().equals("Finished")) {
+                if (player.getGame_status().equals("Accepted")) {
                     isFinished = false;
                 }
             }

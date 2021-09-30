@@ -20,6 +20,5 @@ export default {
   .stock-scroll{
     max-height: 40vh;
     overflow-y: scroll;
-    padding: 1rem;
   }
 </style>

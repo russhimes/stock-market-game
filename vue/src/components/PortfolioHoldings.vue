@@ -9,20 +9,22 @@
       <div class="buyingPower">
         <h4>Buying Power: </h4>
         <p> ${{ availableFunds}} </p>
-        <!-- new -->
-      <div class="portfolioButton">
-        <button v-on:click="toggleHistory = !toggleHistory">{{ !toggleHistory ? "Trade History" : "Portfolio Holdings"}}</button>
       </div>
-      <div v-if="toggleHistory" class="flex">
+      <div class="toggle">
+          <input type="radio" id="portfolio-holdings" value="portfolio-holdings" v-model="toggle">
+          <label for="portfolio-holdings">Stocks</label>
+          <input type="radio" id="trade-history" value="trade-history" v-model="toggle">
+          <label for="trade-history">History</label>
+      </div>
+      <div v-if="toggle=='trade-history'" class="flex">
         <div class="tradeHistory">
-        <trade-history></trade-history>
+          <trade-history></trade-history>
         </div>
-        </div>
-            <!--end new -->
+      </div>
       <div v-else>
-      <stock-list v-bind:stocks="stocks"></stock-list>
+        <stock-list v-bind:stocks="stocks"></stock-list>
       </div>
-      </div>
+ 
       </div>
       </div>
 </template>
@@ -42,7 +44,7 @@ export default {
       player: {},
       stocks: [],
       portfolioValue: 0,
-      toggleHistory:  false
+      toggle: 'portfolio-holdings'
     }
   },
   computed: {
@@ -84,35 +86,55 @@ export default {
 }
 </script>
 <style scoped >
-.holdingsTitle{
-  margin: 1rem;
-}
-.holdings{
-  border-style: solid;
-  padding: 1rem;
-  width: 30%;
-}
-.portfolioValue, .buyingPower {
-  margin: 0.4rem 1rem;
-}
-button {
+  .holdingsTitle{
+    margin: 1rem;
+  }
+  .holdings{
+    border-style: solid;
+    padding: 1rem;
+    width: 30%;
+  }
+  .portfolioValue, .buyingPower {
+    margin: 0.4rem 1rem;
+  }
+
+  input[type=radio] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+  }
+
+  .toggle {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .toggle label {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    width: 6rem;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
     font-size: 0.8rem;
-    padding: 0.4rem 2rem;
-    color: var(--background-color);
     border: 2px solid var(--background-color);
-    background-color: transparent;
-    border-radius: 4rem;
+    border-radius: 8rem;
     cursor: pointer;
     transition: 0.4s;
-    text-transform: uppercase;
-    width: auto;  
-}
-    button:hover {
-        border: 2px solid var(--color-green);
-        background-color: var(--color-green);
-    }
-    .portfolioButton {
-      text-align: center;
-    }
+  }
+
+  .toggle label:hover {
+    background-color: var(--background-color);
+    color: var(--color-lighter);
+  }
+
+  .toggle input[type="radio"]:checked + label {
+    background-color: var(--background-color);
+    color: var(--color-lighter);
+    font-weight: bold;
+  }
+
+
 </style>
 

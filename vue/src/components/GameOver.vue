@@ -3,26 +3,21 @@
       <div v-if="winnerCalculated == true">
         <h2 class = "title"> Game Over </h2>
         <h3>{{winnerInfo[0].username}} WINS!</h3>
-        <!-- <div class="leader">
+        <h3>Leaderboard</h3>
+     
+     <div class="finalContainer">
+     <div class="rank">
+         <h4>Final Ranking</h4>
         <leader-board v-bind:gameId="gameId"/>
-        </div> -->
-
-    <!-- new -->
-        <div class="title">
-    <h3>Leaderboard</h3>
-    <div class="toggle">
-              <input type="radio" id="rankings" value="rankings" v-model="leaderView">
-              <label for="rankings">Rankings</label>
-              <input type="radio" id="history" value="history" v-model="leaderView">
-              <label for="history">History</label>
+        </div>
+    <div class="history">
+        <h4>Trading History</h4>
+         <leader-chart class="leaderChart" v-bind:gameId="gameId"/>
     </div>
-  </div>
+    </div>
+ 
 
-  <leader-board v-bind:gameId="gameId" v-if="leaderView=='rankings'" class="rankings"/>
-  <div v-else>
-    <leader-chart class="leaderChart" v-bind:gameId="gameId"/>
-  </div> 
-
+ 
 
       </div>
       <p v-else>loading</p>
@@ -94,61 +89,21 @@ export default {
     margin: 0.3rem;
     border-radius: var(--border-radius);
     color: var(--background-color);
-    
+    align-items: center; 
 }
 
-
- #gameOver {
+ /* #gameOver {
     display: flex;
     flex-direction: column;
-    /* margin: 0; */
+    margin: 0;
   }
 
 .title {
-    margin: 1rem;
+    margin: 1.2rem;
   }
+    .rank {
+        word-spacing: 30%;
+    } */
 
- input[type=radio] {
-        opacity: 0;
-        position: fixed;
-        width: 0;
-    }
-
-    .toggle {
-        display: flex;
-        justify-content: space-evenly;
-        margin-right: 37%;
-        margin-left: 37%;
-        padding-top: 1rem;
-    }
- .toggle label {
-        display: inline-block;
-        padding: 0.1rem 0.5rem;
-        width: 6rem;
-        text-align: center;
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.8rem;
-        border: 2px solid var(--background-color);
-        border-radius: 8rem;
-        cursor: pointer;
-        transition: 0.4s;
-    }
-.toggle label:hover {
-        background-color: var(--color-green);
-        border: 2px solid var(--color-green);
-       
-    }
-.toggle input[type="radio"]:checked + label {
-        border: 2px solid var(--color-green);
-        background-color: var(--color-green);
-        font-weight: bold;
-    }
-
-    .toggle {
-        text-align: center;
-    }
-
-    #rankings {
-        width: 50px;
-    }
+   
 </style>

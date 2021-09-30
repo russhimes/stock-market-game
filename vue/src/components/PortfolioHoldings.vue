@@ -13,7 +13,7 @@
       <div class="portfolioButton">
         <button v-on:click="toggleHistory = !toggleHistory">{{ !toggleHistory ? "Trade History" : "Portfolio Holdings"}}</button>
       </div>
-      <div v-if="toggleHistory" class="flex">
+      <div v-if="toggleHistory">
         <div class="tradeHistory">
         <trade-history></trade-history>
         </div>
@@ -29,7 +29,7 @@
 <script>
 import playerService from "../services/PlayerService";
 import stockService from "../services/StockService";
-import StockList from "../components/StockList"
+import StockList from "../components/StockList";
 import TradeHistory from './TradeHistory.vue';
 export default {
   components: {

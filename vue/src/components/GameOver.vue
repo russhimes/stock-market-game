@@ -1,25 +1,16 @@
 <template>
     <div>
-        <loading-page class="loading-page" v-if="!winnerCalculated"/>
+        <loading-page class="loading-page" v-if="!isLoaded"/>
         <div v-else>
             <div id="gameOver" >
-                <div id="App">
+                <div id="App" v-if="isWinner">
                     <winner-confetti></winner-confetti>
                 </div>
                 <div>
-                    <!-- <h2 class = "title"> Game Over </h2> -->
-                    <h1>{{winnerInfo[0].username}} WINS!</h1>
-                    <h3>Leaderboard</h3>
-                <div class="finalContainer">
-                <div class="rank">
-                    <h4>Final Ranking</h4>
-                    <leader-board v-bind:gameId="gameId"/>
-                    </div>
-                <div class="history">
-                    <h4>Trading History</h4>
+                    <h1>{{winnerInfo[0].user_id == $store.state.user.id? "You won!" : (winnerInfo[0].username + " WON!")}}</h1>
+                    <h2>Final Positions</h2>
+                    <leader-board v-bind:gameId="gameId" class="leader-board"/>
                     <leader-chart class="leaderChart" v-bind:gameId="gameId"/>
-                </div>
-                </div>
                 </div>
                 
             </div>
@@ -44,7 +35,9 @@ export default {
         return {
             winnerCalculated : false,
             winnerInfo : [],
-            leaderView: 'rankings'
+            leaderView: 'rankings',
+            isLoaded: false,
+            isWinner: false,
         }
     },
     created() {
@@ -56,27 +49,37 @@ export default {
         }, 1800)
        // })
     },
+    calculated: {
+        isWinner() {
+            return this.winnerInfo[0].user_id == this.$store.state.user.id;
+        }
+    },
     methods: {
         checkWinner() {
             let result = playerService.getPlayersByGame(this.gameId).then(result => {
             for (let i = 0; i < result.data.length; i++) {
                 if (result.data[i].game_status != "Finished" && result.data[i].game_status != "Rejected") {
                     this.winnerCalculated = false;
-                    console.log(result.data[i].game_status);
                     break;
                 }
                  if (i == result.data.length-1) this.winnerCalculated = true;
             }
             if (this.winnerCalculated) {
                 for (let i = 0; i < result.data.length; i++) {
-                    this.winnerInfo.push(result.data[i]);
+                    if(result.data[i].game_status != "Rejected") {
+                        this.winnerInfo.push(result.data[i]);
+                    }
                 }
-                this.winnerInfo.sort((a, b) => {return a.availableFunds - b.availableFunds});
+                this.winnerInfo.sort((a, b) => {return b.availableFunds - a.availableFunds});
                 for (let i = 0; i < this.winnerInfo.length; i++) {
                     userService.getUserById(this.winnerInfo[i].user_id).then(userResult => {
                         this.winnerInfo[i].username = userResult.data.username;
                     })
+                    if (this.winnerInfo[0].user_id == this.$store.state.user.id) {
+                        this.isWinner = true;
+                    }
                 }
+                this.isLoaded = true;
             }
             return result;
             });
@@ -91,13 +94,13 @@ export default {
     text-align: center;
     border: none;
     background-color: var(--color-lighter);
-    margin: 0.3rem;
     border-radius: var(--border-radius);
     color: var(--background-color);
     align-items: center; 
     display: flex;
     flex-direction: column;
-    margin: 2rem var(--padding);
+    margin: 2rem 10rem;
+    padding: 2rem;
   }
 
 .finalContainer {
@@ -128,13 +131,18 @@ export default {
         z-index: 100;
     }
   h1 {
-      text-transform: uppercase;
-      margin-top: 1.5rem;
+      margin: 2rem;
+      font-size: 3rem;
   }
+
 
   .loading-page{
       background-color: transparent;
       margin: 0;
       padding: 0;
+  }
+
+  .leader-board {
+      padding: 2rem;
   }
 </style>

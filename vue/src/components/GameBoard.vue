@@ -23,10 +23,7 @@
     </div>
     
     </div>
-    <!-- <div v-else>
-      <p>loading</p>
-    </div> -->
-    <router-link v-bind:to="{ name: 'home' }">Back to all games</router-link>
+    <router-link class="back" v-bind:to="{ name: 'home' }">Back to all games</router-link>
   </div>
 </template>
 
@@ -199,4 +196,7 @@ export default {
     font-size: 2rem;
   }
 
+.back {
+  margin: 1rem;
+}
 </style>

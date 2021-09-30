@@ -1,6 +1,7 @@
 <template>
   <div class="stock-scroll">
-      <stock-card v-for="stock in stocks" v-bind:stock="stock" v-bind:key="stock.id"></stock-card>
+      <p v-if="stocks.length == 0">You have no stocks in your portfolio.</p>
+      <stock-card v-else v-for="stock in stocks" v-bind:stock="stock" v-bind:key="stock.id"></stock-card>
   </div>
 </template>
 
@@ -20,5 +21,9 @@ export default {
   .stock-scroll{
     max-height: 40vh;
     overflow-y: scroll;
+  }
+
+  p {
+    text-align: center;
   }
 </style>

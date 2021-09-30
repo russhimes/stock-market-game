@@ -1,7 +1,7 @@
 <template>
 <div class="historyContainer">
-  
-  <div class= "history" v-for="trade in tradeHistory" v-bind:key="trade.id">
+  <p class="empty" v-if="tradeHistory.length == 0">You have no trade history to display.</p>
+  <div v-else class= "history" v-for="trade in tradeHistory" v-bind:key="trade.id">
     <div>
       <h3>{{trade.stock_name }} {{ trade.buy_or_sell }}</h3>
       <p>{{trade.date.toString().substring(5)}}-{{trade.date.toString().substring(0, 4)}}</p>
@@ -56,7 +56,7 @@ export default {
     }
 
 
-  h3 {
+    h3 {
         padding: 0.2rem 0 0 0;
         font-size: 1rem;
     }
@@ -66,15 +66,16 @@ export default {
         padding: 0;
     }
 
-.shares {
-    font-weight: bold;
-    text-align: right;
-}
+    .shares {
+        font-weight: bold;
+        text-align: right;
+    }
     .price {
         text-align: right;
     }
   
-   
-   
+   .empty {
+       text-align: center;
+   }
 
 </style>

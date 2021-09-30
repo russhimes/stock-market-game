@@ -55,7 +55,6 @@ export default {
         console.log("users"  + this.users);
         result.data.forEach(player => {
           for(let user of this.users) {
-            // 
             if(player.user_id == user.id) {
               user.invited = true;
               this.invitedUsers.push(user.username);

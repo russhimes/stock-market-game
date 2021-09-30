@@ -189,7 +189,7 @@ export default {
     .leaderboard h3, .countdown-timer h3 {
         font-size: 1rem;
         padding: 0.5rem;
-        margin-bottom: 0;
+        margin: 0;
     }
 
     .countdown-timer {
@@ -211,6 +211,10 @@ export default {
 
     .countdown-timer .countdownContainer p {
         font-size: 0.7rem;
+    }
+
+    .gameCard .countdownContainer {
+        margin: 0;
     }
 
     /* .countdown-timer .seconds {

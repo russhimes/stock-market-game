@@ -5,15 +5,15 @@
       <form @submit.prevent="createGame">
         <div>
           <label>Name:</label>
-          <input type="text" id="gameName" v-model="game.name"/>
+          <input type="text" id="gameName" v-model="game.name" required/>
         </div>
         <div>
         <label>End Date:</label>
-        <input type="date" min="currentDate" id="endDate" v-model="game.end_date"/>
+        <input type="date" min="currentDate" id="endDate" v-model="game.end_date" required/>
         </div>
         <div>
         <label>End Time (UTC):</label>
-          <input type="time" id="endTime"  v-model="game.end_time"/> 
+          <input type="time" name="endTime" id="endTime" v-model="game.end_time" required/> 
         </div>
         <div class="button-container">
           <button type="submit">Submit</button>

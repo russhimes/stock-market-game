@@ -2,25 +2,31 @@
 <div class="container">
   <div class="invite">
     <h1>Invite Users</h1>
-    <div class="invited">
-      <h2>Invited</h2>
-      <ul>
-        <li v-for="user in invitedUsers" v-bind:key="user.id"> {{ user }}</li>
-      </ul>
+    <div class="flex">
+      <table>
+        <!-- <th>
+          <td class="title">ID</td>
+          <td class="title">Username</td>
+          <td class="button"></td>
+        </th> -->
+        <tr v-for="user in users" v-bind:key="user.id">
+          <td>{{ user.id }}</td>
+          <td> {{ user.username }}</td>
+          <button v-if="!user.invited" v-on:click="inviteUser(user)">Invite</button>
+          <button v-else v-on:click="cancelInvite(user)" id="cancel">Cancel</button>
+        </tr>
+      </table>
+      <div class="invited">
+        <h3>Invited Players:</h3>
+        <p v-if="invitedUsers.length == 0">You have not invited any players yet.</p>
+        <div v-else>
+          <p v-for="user in invitedUsers" v-bind:key="user.id"> {{ user }}</p>
+        </div>
+      </div>
+      <div class="flex">
+        <router-link to="/" id="finishedButton" tag="button">Finished Inviting Players</router-link>
+      </div>
     </div>
-    <table>
-      <th>
-        <td class="title">ID</td>
-        <td class="title">Username</td>
-      </th>
-      <tr v-for="user in users" v-bind:key="user.id">
-        <td>{{ user.id }}</td>
-        <td> {{ user.username }}</td>
-        <button v-if="!user.invited" v-on:click="inviteUser(user)">Invite to Game</button>
-        <button v-else v-on:click="cancelInvite(user)">Cancel Invite</button>
-        <router-link tag="button" to="/">Finished Inviting Players</router-link>
-      </tr>
-    </table>
   </div>
   </div>
 </template>
@@ -54,14 +60,12 @@ export default {
       .then((response) => {
         if(response.status === 200) {
           user.invited = true;
-          console.log (response.data);
           user.player_id = response.data;
           this.invitedUsers.push(user.username);
         }
       })
     },
     cancelInvite(user) {
-      console.log(user.player_id);
       playerService.delete(user.player_id)
         .then(response => {
           if(response.status === 200) {
@@ -78,12 +82,16 @@ export default {
 
 <style scoped>
 
-.container {
+  h1 {
+    margin-bottom: 2rem;
+  }
+
+  .container {
     padding: var(--padding);
     display: flex;
     align-content: center;
     justify-content: center;
-    height: 90vh;
+    /* height: 90vh; */
   }
 
   .invite {
@@ -95,59 +103,76 @@ export default {
     width: 50vw;
   }
 
-table {
-  display: flex;
-  flex-direction: column;
-  border-collapse: collapse;
-  border-spacing: 2px;
-  text-align: center;
-  width: 113%;
-  margin-left: -10%; 
+  .invited {
+    margin: 2rem 0;
   }
 
-td {
-  font-size: 1.2rem;
-  text-align: center;
-  padding: 6px;
-}
+  h3 {
+    text-align: left;
+  }
 
-th {
-  width: 25%;
-}
+  table {
+    display: flex;
+    flex-direction: column;
+    border-collapse: collapse;
+    border-spacing: 2px;
+    text-align: center;
+    padding: 0;
+  }
 
-tr {
-  display: flex;
-  flex-direction: row;
-}
+  td {
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 6px;
+    flex-basis: 1;
+    flex-grow: 1;
+    width: 33.3%;
+    text-align: left;
+  }
 
-h1, h2 {
-  text-align: center;
-}
+  tr, th {
+    display: flex;
+    flex-direction: row;
+  }
 
-ul li {
-  font-size: 1.2rem;
-  margin: 0.5rem;
-}
+  h1, h2 {
+    text-align: center;
+  }
 
-button{
+  ul li {
+    font-size: 1.2rem;
+    margin: 0.5rem;
+  }
+
+  button{
     font-size: 1.2rem;
     padding: 0.4rem 2rem;
-    margin: 1.5rem;
+    margin: 1rem;
     color: var(--background-color);
     border: 2px solid var(--background-color);
     background-color: transparent;
     border-radius: 4rem;
     cursor: pointer;
     transition: 0.4s;
-    width: auto; 
-    border-color: var(--color-green);
+    width: 40%; 
+    border-color: var(--background-color);
     white-space:pre;
     margin-top: 0rem;
-}
+  }
 
-button:hover {
-        border: 2px solid var(--color-green);
-        background-color: var(--color-green);
-    }
+  #cancel:hover {
+    border: 2px solid var(--color-red);
+    background-color: var(--color-red);
+  }
 
+  button:hover {
+    border: 2px solid var(--color-green);
+    background-color: var(--color-green);
+  }
+
+  #finishedButton {
+    align-self: center;
+    width: 100%;
+    justify-self: center;
+  }
 </style>

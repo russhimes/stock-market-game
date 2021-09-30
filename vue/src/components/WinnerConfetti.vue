@@ -307,7 +307,7 @@
 #tsparticles {
   position: fixed;
   width: 100%;
-  height: 100%;
+  height: 1px;
   top: 6vh;
   left: 0;
   z-index: -1;

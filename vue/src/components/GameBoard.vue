@@ -41,15 +41,7 @@ import GameService from '../services/GamesService'
 import GameOver from './GameOver.vue'
 import PlayerService from '../services/PlayerService'
 import LoadingPage from './LoadingPage.vue'
-// import TradeHistory from './TradeHistory.vue'
 
-// timer
-// pass game id to timer comp via props 
-
-// grab game info from database using games services and gameId
-// store that in data section here
-// pass to countdown timer using v-bind (follow line 5)
-// inside of countdown have props to accept games to access information 
 export default {
   components: { LeaderBoard, PortfolioHoldings, TradeStocks, CountdownTimer, GameOver, LoadingPage},
   data() {
@@ -75,7 +67,6 @@ export default {
         this.game.organizer_id = result.data.organizer_id;
         this.game.end_date = result.data.end_date;
         this.game.end_time = result.data.end_time;
-        // console.log(this.game);
       }
     }).then(() => {
       PlayerService.getPlayerByGame(this.game.id).then(result => {
@@ -101,7 +92,7 @@ export default {
   mounted() {
     setTimeout(() => {
     this.isLoading = false;
-  }, 500)}
+  }, 1200)}
 
 }
 </script>

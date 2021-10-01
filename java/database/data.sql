@@ -27,7 +27,7 @@ VALUES ('Game Over Demo 2', 6, '2021-09-28', '08:59:59 PM');
 
 
 INSERT INTO game_players (user_id, game_id, available_funds, game_status)
-VALUES (4, 2, 930050.10, 'Accepted');
+VALUES (4, 2, 95497.82, 'Accepted');
 
 INSERT INTO game_players (user_id, game_id, available_funds, game_status)
 VALUES (2, 2, 70430.20, 'Accepted');

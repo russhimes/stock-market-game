@@ -14,13 +14,6 @@ export default {
     getPlayersByGame(game_id) {
       return axios.get(`players/game/${game_id}`);
     },
-    // get(id) {
-    //     return axios.get();
-    //   },
-
-    //   getBalance(id){
-    //     return axios.get();
-    //   },
     
     create(player) {
       return axios.post('/players', player);

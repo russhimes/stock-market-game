@@ -1,6 +1,7 @@
 <template>
-  <div id="main">
-    <div v-if="isLoading == false">
+<div>
+  <div id="main" v-if="isLoading == false">
+    <div>
     <div id = "game" v-if="gameFinished == false">
       <div class="flex header"> 
         <h1 class = "boardTitle">{{ game.name }} Dashboard</h1>
@@ -17,17 +18,18 @@
             <leader-board v-bind:gameId="gameId" class="container"></leader-board>
           </div>
         </div>
+        <router-link class="back" v-bind:to="{ name: 'home' }">Back to all games</router-link>
     </div>
-    <div v-if="gameFinished== true">
+    <div v-if="gameFinished">
       <game-over v-bind:gameId="gameId"/>
     </div>
     
     </div>
-    <div v-else>
-      <img src="../assets/chart.gif" id = "chartGif"/>
-      <router-link class="back" v-bind:to="{ name: 'home' }">Back to all games</router-link>
-    </div>
   </div>
+  <div v-else>
+    <loading-page class="loading-page"/>
+  </div>
+</div>
 </template>
 
 <script>
@@ -38,17 +40,10 @@ import CountdownTimer from '../components/CountdownTimer'
 import GameService from '../services/GamesService'
 import GameOver from './GameOver.vue'
 import PlayerService from '../services/PlayerService'
-// import TradeHistory from './TradeHistory.vue'
+import LoadingPage from './LoadingPage.vue'
 
-// timer
-// pass game id to timer comp via props 
-
-// grab game info from database using games services and gameId
-// store that in data section here
-// pass to countdown timer using v-bind (follow line 5)
-// inside of countdown have props to accept games to access information 
 export default {
-  components: { LeaderBoard, PortfolioHoldings, TradeStocks, CountdownTimer, GameOver},
+  components: { LeaderBoard, PortfolioHoldings, TradeStocks, CountdownTimer, GameOver, LoadingPage},
   data() {
     return {
       gameId: this.$route.params.id,
@@ -72,7 +67,6 @@ export default {
         this.game.organizer_id = result.data.organizer_id;
         this.game.end_date = result.data.end_date;
         this.game.end_time = result.data.end_time;
-        // console.log(this.game);
       }
     }).then(() => {
       PlayerService.getPlayerByGame(this.game.id).then(result => {
@@ -98,10 +92,9 @@ export default {
   mounted() {
     setTimeout(() => {
     this.isLoading = false;
-  }, 1800)}
-}
-  
+  }, 1200)}
 
+}
 </script>
 
 <style scoped>
@@ -109,8 +102,8 @@ export default {
     color: var(--background-color);
   }
 
-  #main {
-    padding: 2rem var(--padding);
+  #game {
+    margin: 2rem var(--padding);
   }
 
   .flex {
@@ -199,14 +192,12 @@ export default {
     font-size: 2rem;
   }
 
-.back {
-  margin: 1rem;
-}
+  .back {
+    margin: 1rem;
+  }
 
-#chartGif {
-  display: block;
-  height: 30vh;
-  width: 30vw;
-  margin: auto;
-}
+  .loading-page {
+    margin: 0;
+    padding: 0;
+  }
 </style>

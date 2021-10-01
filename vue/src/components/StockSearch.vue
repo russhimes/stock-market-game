@@ -28,23 +28,23 @@ export default {
     },
     methods: {
         retrieveSearch(searchTerm) {
-            this.searched = true;
             this.searchResult = {};
             stockService.getSearchInfo(searchTerm.toUpperCase()).then(response => {
-                console.log(response);
                 if(response.status >=200 && response.status < 300) {
                     this.searchResult = response.data;
                     this.searchTerm = "";
                 }
+                this.searched = true;
             }).catch(error => {
+                this.searched = true;
                 console.log(error.data);
+
             });
         },
 
         closeResults() {
             this.searched = false;
             this.searchResult = {};
-
         }
     }
 

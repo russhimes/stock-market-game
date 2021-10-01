@@ -17,7 +17,7 @@ INSERT INTO games (name, organizer_id, end_date, end_time)
 VALUES ('Demo', 5, '2021-10-02', '11:59:59 PM');
 
 INSERT INTO games (name, organizer_id, end_date, end_time)
-VALUES ("Alison's Game", 3, '2021-10-05', '07:59:59 PM');
+VALUES ('Alison Game', 3, '2021-10-05', '07:59:59 PM');
 
 INSERT INTO games (name, organizer_id, end_date, end_time)
 VALUES ('Game Over Demo', 6, '2021-09-28', '08:59:59 PM');
@@ -60,10 +60,10 @@ INSERT INTO game_players (user_id, game_id, available_funds, game_status)
 VALUES (5, 5, 110437.36, 'Finished'); 
 
 INSERT INTO game_players (user_id, game_id, available_funds, game_status)
-VALUES (6, 4, 950497.82, 'Finished');
+VALUES (6, 4, 95497.82, 'Finished');
 
 INSERT INTO game_players (user_id, game_id, available_funds, game_status)
-VALUES (6, 5, 950497.82, 'Finished');  
+VALUES (6, 5, 95497.82, 'Finished');  
 
 
 INSERT INTO stocks (player_id, stock_name, stock_ticker, total_shares)
@@ -82,25 +82,25 @@ INSERT INTO stocks (player_id, stock_name, stock_ticker, total_shares)
 VALUES (3, 'Facebook Inc', 'FB', 50);
 
 INSERT INTO trades (stock_id, shares_traded, buy_or_sell, price, entered_in, date, time)
-VALUES (1, 50, 'Buy', 145.36, 'Shares', '2021-9-30', '11:59:59');
+VALUES (1, 50, 'Buy', 7268, 'Shares', '2021-9-30', '11:59:59');
 
 INSERT INTO trades (stock_id, shares_traded, buy_or_sell, price, entered_in, date, time)
-VALUES (2, 50, 'Buy', 145.36, 'Shares', '2021-9-30', '11:59:59');
+VALUES (2, 50, 'Buy', 7268, 'Shares', '2021-9-30', '11:59:59');
 
 INSERT INTO trades (stock_id, shares_traded, buy_or_sell, price, entered_in, date, time)
-VALUES (2, 50, 'Buy', 145.36, 'Shares', '2021-9-30', '12:01:19');
+VALUES (2, 50, 'Buy', 7268, 'Shares', '2021-9-30', '12:01:19');
 
 INSERT INTO trades (stock_id, shares_traded, buy_or_sell, price, entered_in, date, time)
-VALUES (3, 100, 'Buy', 776.40, 'Shares', '2021-9-30', '02:03:44');
+VALUES (3, 100, 'Buy', 77640, 'Shares', '2021-9-30', '02:03:44');
 
 INSERT INTO trades (stock_id, shares_traded, buy_or_sell, price, entered_in, date, time)
-VALUES (3, 50, 'Sell', 776.40, 'Shares', '2021-9-30', '02:04:27');
+VALUES (3, 50, 'Sell', 38820, 'Shares', '2021-9-30', '02:04:27');
 
 INSERT INTO trades (stock_id, shares_traded, buy_or_sell, price, entered_in, date, time)
-VALUES (4, 50, 'Buy', 340.36, 'Shares', '2021-9-30', '11:59:59');
+VALUES (4, 50, 'Buy', 17018, 'Shares', '2021-9-30', '11:59:59');
 
 INSERT INTO trades (stock_id, shares_traded, buy_or_sell, price, entered_in, date, time)
-VALUES (5, 50, 'Buy', 340.36, 'Shares', '2021-9-30', '01:24:51');
+VALUES (5, 50, 'Buy', 17018, 'Shares', '2021-9-30', '01:24:51');
 
 INSERT INTO player_history (player_id, date, time, portfolio_value)
 VALUES (1, '2021-09-30', '14:00:00', 101497.36);
@@ -178,7 +178,7 @@ INSERT INTO player_history (player_id, date, time, portfolio_value)
 VALUES (2, '2021-09-30', '15:50:00', 97033.36);
 
 INSERT INTO player_history (player_id, date, time, portfolio_value)
-VALUES (2, '2021-09-30', '16:00:00', 950497.36);
+VALUES (2, '2021-09-30', '16:00:00', 95497.36);
 
 INSERT INTO player_history (player_id, date, time, portfolio_value)
 VALUES (3, '2021-09-30', '14:00:00', 111497.36);
@@ -208,7 +208,7 @@ INSERT INTO player_history (player_id, date, time, portfolio_value)
 VALUES (3, '2021-09-30', '15:20:00', 113111.11);
 
 INSERT INTO player_history (player_id, date, time, portfolio_value)
-VALUES (3, '2021-09-30', 1'5:30:00', 112877.36);
+VALUES (3, '2021-09-30', '15:30:00', 112877.36);
 
 INSERT INTO player_history (player_id, date, time, portfolio_value)
 VALUES (3, '2021-09-30', '15:40:00', 112388.17);
@@ -253,10 +253,10 @@ INSERT INTO player_history (player_id, date, time, portfolio_value)
 VALUES (12, '2021-09-30', '15:40:00', 98111.17);
 
 INSERT INTO player_history (player_id, date, time, portfolio_value)
-VALUES (12, '2021-09-30', '15:50:00,' 97033.36);
+VALUES (12, '2021-09-30', '15:50:00', 97033.36);
 
 INSERT INTO player_history (player_id, date, time, portfolio_value)
-VALUES (12, '2021-09-30', '16:00:00', 950497.82);
+VALUES (12, '2021-09-30', '16:00:00', 95497.82);
 
 INSERT INTO player_history (player_id, date, time, portfolio_value)
 VALUES (10, '2021-09-30', '14:00:00', 111497.36);
@@ -334,7 +334,7 @@ INSERT INTO player_history (player_id, date, time, portfolio_value)
 VALUES (13, '2021-09-30', '15:50:00', 97033.36);
 
 INSERT INTO player_history (player_id, date, time, portfolio_value)
-VALUES (13, '2021-09-30', '16:00:00', 950497.82);
+VALUES (13, '2021-09-30', '16:00:00', 95497.82);
 
 INSERT INTO player_history (player_id, date, time, portfolio_value)
 VALUES (11, '2021-09-30', '14:00:00', 111497.36);

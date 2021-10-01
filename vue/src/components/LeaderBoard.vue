@@ -65,10 +65,10 @@ export default {
         });
     },
     props:  ["gameId"],
+
     computed: {
       leaderBoardInfo() {
         let leaderBoard = [];
-        let counter = 1;
 
 
         for (let i = 0; i < this.playerList.length; i++) {
@@ -77,12 +77,17 @@ export default {
               leaderBoard.push({
                 username: this.playerList[i].username,
                 portfolioValue: this.portfolioValue[j].value.toFixed(2),
-                rank: counter
               });
-              counter++;
             }
           }
-
+        }
+        leaderBoard.sort((a, b) => {
+          return b.portfolioValue - a.portfolioValue;
+        })
+        let counter = 1;
+        for (let i = 0; i < leaderBoard.length; i++) {
+            leaderBoard[i].rank = counter;
+            counter++;
         }
         return leaderBoard;
       }

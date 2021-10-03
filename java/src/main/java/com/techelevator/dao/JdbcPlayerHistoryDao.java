@@ -51,7 +51,7 @@ public class JdbcPlayerHistoryDao implements PlayerHistoryDao{
     public void createAllPlayerHistories() {
         List<Player> players = playerDao.getAllPlayers();
         for (Player player : players) {
-            createPlayerHistory(player.getId());
+                createPlayerHistory(player.getId());
         }
     }
 

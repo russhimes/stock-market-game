@@ -1,7 +1,7 @@
 <template>
   <div id="header">
       <router-link v-bind:to="{name: 'home'}" class="title">
-          <h1>Virtual Stock Market</h1>
+          <h1>Gold Digger</h1>
         </router-link>
       <div class="links">
         <router-link v-bind:to="{ name: 'home' }">Home</router-link>
